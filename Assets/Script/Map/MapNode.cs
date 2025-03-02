@@ -4,7 +4,6 @@ using UnityEngine;
 public class MapNode : MonoBehaviour
 {
     public bool CanGet = true;
-
     public List<MapNode> adjancentNode = new List<MapNode>();
     private LineRenderer lineRenderer;
     [SerializeField] private Material material;
@@ -25,15 +24,7 @@ public class MapNode : MonoBehaviour
             return;
         MapManager.Instance.currentNode = this;
         StaticResource.day += 1;
-        EventManager.UpdateUi();
-    }
-    private void InitNodeTree()
-    {
-        // 清空相邻节点列表
-
-        DrawLine();
-
-
+        EventManager.UpdateMapUi();
     }
     private void DrawLine()
     {
@@ -60,7 +51,6 @@ public class MapNode : MonoBehaviour
     private void OnMouseDown()
     {
         TransPlace();
-        Debug.Log("10");
     }
 
     private void Enter()

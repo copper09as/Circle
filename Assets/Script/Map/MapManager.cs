@@ -14,11 +14,11 @@ public class MapManager : SingleTon<MapManager>
     }
     private void OnEnable()
     {
-        EventManager.updateUi += TransColor;
+        EventManager.updateMapUi += TransColor;
     }
     private void OnDisable()
     {
-        EventManager.updateUi -= TransColor;
+        EventManager.updateMapUi -= TransColor;
     }
     void Update()
     {

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public static class EventManager
 {
-    public static event Action updateUi;//Ë¢ÐÂui
-    public static void UpdateUi()
-    {
-        updateUi?.Invoke();
-    }
+    public static event Action updateMapUi;//Ë¢ÐÂui
+    public static void UpdateMapUi() => updateMapUi?.Invoke();
+
+    public static event Action updateSlotUi;
+
+    public static void UpdateSlotUi() => updateSlotUi?.Invoke();
 
 }

@@ -8,11 +8,11 @@ public class UiManager : SingleTon<UiManager>
     [SerializeField] private TextMeshProUGUI dayText;
     private void OnEnable()
     {
-        EventManager.updateUi += UpdateText;
+        EventManager.updateMapUi += UpdateText;
     }
     private void OnDisable()
     {
-        EventManager.updateUi -= UpdateText;
+        EventManager.updateMapUi -= UpdateText;
     }
     private void UpdateText()
     {
