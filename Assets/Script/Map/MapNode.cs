@@ -1,24 +1,21 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MapNode : MonoBehaviour
 {
-    private Button placeButton;
     public bool CanGet = true;
-    public MapNode Left;
-    public MapNode Right;
-    public MapNode Mid;
-    public MapNode Top;
+
     public List<MapNode> adjancentNode = new List<MapNode>();
+    private LineRenderer lineRenderer;
+    [SerializeField] private Material material;
     private void Awake()
     {
         float ran = Random.Range(0f, 1f);
         Debug.Log(ran.ToString());
-        placeButton = GetComponent<Button>();
-        placeButton.onClick.AddListener(TransPlace);
-        InitNodeTree();
+        lineRenderer = GetComponent<LineRenderer>();
+        DrawLine();
+
+
     }
     private void TransPlace()
     {
@@ -33,11 +30,38 @@ public class MapNode : MonoBehaviour
     }
     private void InitNodeTree()
     {
-        adjancentNode.Clear();
-        if (Left != null) adjancentNode.Add(Left);
-        if (Right != null) adjancentNode.Add(Right);
-        if (Mid != null) adjancentNode.Add(Mid);
-        if (Top != null) adjancentNode.Add(Top);
+        // 清空相邻节点列表
+
+        DrawLine();
+
+
+    }
+    private void DrawLine()
+    {
+        lineRenderer.material = material;
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.2f;
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+
+        // 设置 LineRenderer 的点数
+        lineRenderer.positionCount = adjancentNode.Count * 2;
+
+        // 初始化索引
+        int index = 0;
+
+        // 遍历相邻节点并绘制连线
+        foreach (var node in adjancentNode)
+        {
+            lineRenderer.SetPosition(index, new Vector3(transform.position.x, transform.position.y, 0));
+            lineRenderer.SetPosition(index + 1, new Vector3(node.gameObject.transform.position.x, node.gameObject.transform.position.y, 0));
+            index += 2;
+        }
+    }
+    private void OnMouseDown()
+    {
+        TransPlace();
+        Debug.Log("10");
     }
     private void Enter()
     {
@@ -45,7 +69,7 @@ public class MapNode : MonoBehaviour
     }
     private void Exit()
     {
-        
+
     }
 }
 
