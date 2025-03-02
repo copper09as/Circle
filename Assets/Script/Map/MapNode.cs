@@ -14,9 +14,8 @@ public class MapNode : MonoBehaviour
         Debug.Log(ran.ToString());
         lineRenderer = GetComponent<LineRenderer>();
         DrawLine();
-
-
     }
+
     private void TransPlace()
     {
         MapNode currentNode = MapManager.Instance.currentNode;
@@ -63,6 +62,7 @@ public class MapNode : MonoBehaviour
         TransPlace();
         Debug.Log("10");
     }
+
     private void Enter()
     {
 
