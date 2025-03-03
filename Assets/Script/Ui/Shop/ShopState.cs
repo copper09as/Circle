@@ -17,5 +17,6 @@ public abstract class ShopState
 public enum ShopUiState
 {
     Buy,
+    Sold,
     Main
 }

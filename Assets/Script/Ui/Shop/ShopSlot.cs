@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ShopSlot : MonoBehaviour,IPointerDownHandler
+public class ShopSlot : MonoBehaviour, IPointerDownHandler
 {
     public ItemData itemData;
     public int Mount;
@@ -15,10 +12,13 @@ public class ShopSlot : MonoBehaviour,IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         var shop = Shop.Instance;
+
         if (itemData.id == 0) return;
         if (shop.currentState.state != ShopUiState.Main) return;
         shop.selectItem = itemData;
         shop.TransShopState(new BuyState());
+
+
         /*Addressables.InstantiateAsync("Buy").Completed += handle =>
         {
             handle.Result.transform.SetParent(Shop.Instance.canvas.transform, false);
@@ -33,5 +33,5 @@ public class ShopSlot : MonoBehaviour,IPointerDownHandler
         GetComponent<Image>().sprite = null;
         mountText.text = Mount.ToString();
     }
-    
+
 }

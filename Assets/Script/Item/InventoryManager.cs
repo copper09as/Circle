@@ -34,11 +34,14 @@ public class InventoryManager : SingleTon<InventoryManager>
             {
                 items.Find(i => i.id == id).mount -= itemMount;
             }
-            else
+            else if (items.Find(i => i.id == id).mount - itemMount == 0)
             {
                 items.Remove(items.Find(i => i.id == id));
                 //slots[items.Count].ClearData();
             }
+            else
+                return;
+            
 
             EventManager.UpdateSlotUi();
         }

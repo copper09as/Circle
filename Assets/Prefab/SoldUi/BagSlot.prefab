@@ -93,6 +93,7 @@ MonoBehaviour:
     id: 0
     Name: 
     sprite: {fileID: 0}
+    price: 0
   Mount: 0
   mountText: {fileID: 1241721052730881782}
 --- !u!1 &6160093934655431741
@@ -129,8 +130,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -49.25, y: -32.25}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 31.3855, y: -32.25}
+  m_SizeDelta: {x: 38.7292, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8107478986414588431
 CanvasRenderer:
@@ -223,7 +224,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 110.28076, y: 0, z: 0, w: 7.948181}
+  m_margin: {x: -0.36456108, y: 0, z: 0, w: 7.948181}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

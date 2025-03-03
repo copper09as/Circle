@@ -57,4 +57,17 @@ public class Shop : SingleTon<Shop>
     {
         return (StaticResource.Gold - InventoryManager.Instance.FindItem(id).price * itemMount >= 0);
     }
+    public void SoldItem(int mount)
+    {
+        int id = selectItem.id;
+        var item = Bag.Instance.items.Find(i => i.id == id);
+        if (!CanSold(item.mount, mount)) return;
+        StaticResource.Gold += InventoryManager.Instance.FindItem(id).price * mount;
+        Bag.Instance.RemoveItem(id, mount);
+        EventManager.UpdateSlotUi();
+    }
+    private bool CanSold(int mount, int soldMount)
+    {
+        return mount - soldMount >= 0;
+    }
 }

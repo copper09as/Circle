@@ -17,6 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 67bcb9fd94b34a841b3aa080117cd9b1
   m_SerializeEntries:
+  - m_GUID: 218017b8a96b6c5488a4146ad997584d
+    m_Address: Sold
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6958dc1ec8acabd44862d2f878a96090
     m_Address: Buy
     m_ReadOnly: 0
