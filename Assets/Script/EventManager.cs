@@ -17,7 +17,6 @@ public static class EventManager
     public static void AddItem(int id, int mount) => addItem?.Invoke(id, mount);
 
     public static event Action<int, int> removeItem;
-
     public static void RemoveItem(int id, int mount) => removeItem?.Invoke(id, mount);
 
 }

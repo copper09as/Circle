@@ -1,15 +1,24 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour
+public class Shop : SingleTon<Shop>
 {
     public List<ShopSlot> slots;
     public List<itemId> items;
+    public ItemData selectItem;
+    public Canvas canvas;
+    public ShopState currentState;
     private void Start()
     {
         UpdateShopSlotUi();
+        currentState = new ShopNormalState();
+    }
+    public void TransShopState(ShopState EnterState)
+    {
+        if (currentState != null)
+            currentState.Exit();
+        EnterState.Enter();
     }
     private void UpdateShopSlotUi()
     {
@@ -22,32 +31,30 @@ public class Shop : MonoBehaviour
             slots[i].mountText.text = slots[i].Mount.ToString();
         }
     }
-    public void RemoveItem(int id, int itemMount)
+    public bool BuyItem(int itemMount)
     {
-        bool isBeyond = false;
-        foreach (var i in items)
+        int id = selectItem.id;
+        var item = items.Find(i => i.id == id);
+        int remainingItem = item.mount - itemMount;
+        if (remainingItem >= 0)
         {
-            if (id == i.id)
-                isBeyond = true;
-        }
-        if (isBeyond)
-        {
-            if (items.Find(i => i.id == id).mount - itemMount > 0)
-            {
-                items.Find(i => i.id == id).mount -= itemMount;
-            }
+            if (!CanBuy(id, itemMount)) return false;
+            InventoryManager.Instance.Gold -= InventoryManager.Instance.FindItem(id).price * itemMount;
+            EventManager.AddItem(id, itemMount);
+            if(item.mount - itemMount>0)
+                item.mount -= itemMount;
             else
             {
-                items.Remove(items.Find(i => i.id == id));
+                items.Remove(item);
                 slots[items.Count].ClearData();
             }
+            UpdateShopSlotUi();
+            return true;
         }
-
-        else
-        {
-            return;
-        }
-        UpdateShopSlotUi();
-
+        return false;
+    }
+    private bool CanBuy(int id, int itemMount)
+    {
+        return (InventoryManager.Instance.Gold - InventoryManager.Instance.FindItem(id).price * itemMount >= 0);
     }
 }

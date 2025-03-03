@@ -25,7 +25,7 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     }
     private void Start()
     {
-        EventManager.UpdateSlotUi();
+        transform.parent.GetComponent<Bag>().slots.Add(this);
     }
 
     internal void ClearData()

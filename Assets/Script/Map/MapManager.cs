@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapManager : SingleTon<MapManager>
@@ -10,19 +11,32 @@ public class MapManager : SingleTon<MapManager>
     {
         Random.InitState(StaticResource.seed);
         float ran = Random.Range(0f, 1f);
+        currentNode.Enter();
         Debug.Log(ran.ToString());
     }
     private void OnEnable()
     {
-        EventManager.updateMapUi += TransColor;
+        
     }
     private void OnDisable()
     {
-        EventManager.updateMapUi -= TransColor;
+       
     }
     void Update()
     {
         
+    }
+    
+    public void TransPlace(MapNode enterNode)
+    {
+        if (currentNode == null || currentNode == enterNode)
+            return;
+        if (!CanReach(enterNode))
+            return;
+        currentNode.Exit();
+        enterNode.Enter();
+        StaticResource.day += 1;
+        EventManager.UpdateMapUi();
     }
     public bool CanReach(MapNode EnterNode)
     {
@@ -36,11 +50,5 @@ public class MapManager : SingleTon<MapManager>
     {
         return (currentNode.adjancentNode.Contains(EnterNode) && EnterNode.CanGet);
     }
-    private void TransColor()
-    {
-        foreach (var node in currentNode.adjancentNode)
-        {
-            node.GetComponent<SpriteRenderer>().color = Color.red;
-        }
-    }
+
 }

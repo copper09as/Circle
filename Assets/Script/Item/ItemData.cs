@@ -7,6 +7,7 @@ public class ItemData
     public int id;
     public string Name;
     public Sprite sprite;
+    public int price;
 }
 [System.Serializable]
 public class itemId

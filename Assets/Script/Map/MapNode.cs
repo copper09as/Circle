@@ -15,17 +15,6 @@ public class MapNode : MonoBehaviour
         DrawLine();
     }
 
-    private void TransPlace()
-    {
-        MapNode currentNode = MapManager.Instance.currentNode;
-        if (currentNode == null || currentNode == this)
-            return;
-        if (!MapManager.Instance.CanReach(this))
-            return;
-        MapManager.Instance.currentNode = this;
-        StaticResource.day += 1;
-        EventManager.UpdateMapUi();
-    }
     private void DrawLine()
     {
         lineRenderer.material = material;
@@ -50,16 +39,24 @@ public class MapNode : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        TransPlace();
-    }
-
-    private void Enter()
-    {
+        MapManager.Instance.TransPlace(this);
 
     }
-    private void Exit()
-    {
 
+    public void Enter()
+    {
+        MapManager.Instance.currentNode = this;
+        foreach (var node in adjancentNode)
+        {
+            node.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+    }
+    public void Exit()
+    {
+        foreach (var node in adjancentNode)
+        {
+            node.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 }
 

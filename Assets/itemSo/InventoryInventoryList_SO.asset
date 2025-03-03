@@ -16,15 +16,20 @@ MonoBehaviour:
   - id: 1
     Name: "\u53161"
     sprite: {fileID: 927246019, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    price: 25
   - id: 2
     Name: "\u8BF7\u95EE"
     sprite: {fileID: 1740279189, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    price: 55
   - id: 3
     Name: "\u963F\u8FEA\u65AF"
     sprite: {fileID: 613945193, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    price: 30
   - id: 4
     Name: "\u6C14\u5473\u513F"
     sprite: {fileID: 460425215, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    price: 20
   - id: 5
     Name: 555
     sprite: {fileID: 460425215, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    price: 10

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class Bag : MonoBehaviour
     public List<Slot> slots;
     public List<itemId> items;
     public itemId il;
+    [SerializeField] private int SlotCount;
     private void OnEnable()
     {
         EventManager.updateSlotUi += UpdateSlotUi;
@@ -18,7 +20,20 @@ public class Bag : MonoBehaviour
     void Start()
     {
         items = InventoryManager.Instance.items;
+        InitBag();
+        StartCoroutine(UpdateBagUi());
 
+    }
+    void InitBag()
+    {
+        for(int i = 0;i<SlotCount;i++)
+        {
+            CreatePrefab.Creat("BagSlot", transform);
+        }
+    }
+    IEnumerator UpdateBagUi()
+    {
+        yield return null;
         EventManager.UpdateSlotUi();
     }
     public void RemoveItem(int id, int itemMount)
@@ -41,18 +56,8 @@ public class Bag : MonoBehaviour
             slots[i].Mount = items[i].mount;
             slots[i].itemData = item;
             slots[i].GetComponent<Image>().sprite = item.sprite;
-            slots[i].mountText.text = slots[i].Mount.ToString();        
+            slots[i].mountText.text = slots[i].Mount.ToString();
         }
     }
-    private void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            AddItem(il.id,1);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            RemoveItem(il.id, 1);
-        }
-    }
+
 }
