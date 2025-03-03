@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 2d3577b1821e1164ca166abee008f16b
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 155646e62d09a214c9439eeacb1306a9
+    m_Address: Assets/itemSo/InventoryInventoryList_SO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 72b193ffde5eabb4a90ea25cc3cce8e1, type: 2}
   m_SchemaSet:
