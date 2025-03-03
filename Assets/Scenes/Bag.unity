@@ -1296,6 +1296,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 1207032011}
+  shop: {fileID: 0}
 --- !u!114 &411991741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,6 +2182,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 7148205}
+  shop: {fileID: 0}
 --- !u!114 &1200794497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2637,6 +2639,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 1709155462}
+  shop: {fileID: 0}
 --- !u!114 &1374869836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3056,6 +3059,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 233602644}
+  shop: {fileID: 321252689}
 --- !u!114 &1610087885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3285,6 +3289,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 241960151}
+  shop: {fileID: 0}
 --- !u!114 &1711063055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3796,6 +3801,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
   Mount: 0
   mountText: {fileID: 383786658}
+  shop: {fileID: 0}
 --- !u!114 &2132022918
 MonoBehaviour:
   m_ObjectHideFlags: 0
