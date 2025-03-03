@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bag : MonoBehaviour
 {
@@ -16,22 +17,20 @@ public class Bag : MonoBehaviour
     }
     void Start()
     {
+        items = InventoryManager.Instance.items;
+
         EventManager.UpdateSlotUi();
     }
-    public void AddItem(itemId item)
+    public void RemoveItem(int id, int itemMount)
     {
+        EventManager.RemoveItem(id, itemMount);
+        slots[items.Count].ClearData();
+        EventManager.UpdateSlotUi();
 
-        try
-        {
-            items.Find(i => i.id == item.id).mount += item.mount;
-        }
-            
-        catch
-        {
-            var _item = items.Find(i => i.id == item.id);
-            items.Add(_item);
-            
-        }
+    }
+    public void AddItem(int id, int itemMount)
+    {
+        EventManager.AddItem(id, itemMount);
         EventManager.UpdateSlotUi();
     }
     private void UpdateSlotUi()
@@ -41,15 +40,19 @@ public class Bag : MonoBehaviour
             var item = InventoryManager.Instance.FindItem(items[i].id);
             slots[i].Mount = items[i].mount;
             slots[i].itemData = item;
+            slots[i].GetComponent<Image>().sprite = item.sprite;
+            slots[i].mountText.text = slots[i].Mount.ToString();        
         }
     }
     private void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            AddItem(il);
+            AddItem(il.id,1);
         }
-        
+        if (Input.GetMouseButtonDown(1))
+        {
+            RemoveItem(il.id, 1);
+        }
     }
-
 }
