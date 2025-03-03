@@ -6,7 +6,6 @@ public class InventoryManager : SingleTon<InventoryManager>
 {
     public List<itemId> items;
     public ItemListSo itemListSo;
-    public int Gold;
     private void OnEnable()
     {
         EventManager.addItem += AddItem;

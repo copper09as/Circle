@@ -39,7 +39,7 @@ public class Shop : SingleTon<Shop>
         if (remainingItem >= 0)
         {
             if (!CanBuy(id, itemMount)) return false;
-            InventoryManager.Instance.Gold -= InventoryManager.Instance.FindItem(id).price * itemMount;
+            StaticResource.Gold -= InventoryManager.Instance.FindItem(id).price * itemMount;
             EventManager.AddItem(id, itemMount);
             if(item.mount - itemMount>0)
                 item.mount -= itemMount;
@@ -55,6 +55,6 @@ public class Shop : SingleTon<Shop>
     }
     private bool CanBuy(int id, int itemMount)
     {
-        return (InventoryManager.Instance.Gold - InventoryManager.Instance.FindItem(id).price * itemMount >= 0);
+        return (StaticResource.Gold - InventoryManager.Instance.FindItem(id).price * itemMount >= 0);
     }
 }
