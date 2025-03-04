@@ -325,11 +325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09104d46e08c8947ad08bc92ac6ed0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NodeWidth: 10
-  NodeHeight: 5
   nodes: []
   collapsedNodes: []
   DeleteCount: 20
+  MapSeed: 23
+  NodeWidth: 10
+  NodeHeight: 5
   NodesOffestX: -11.1
   NodesOffestY: 5
   NodeX: 1.5

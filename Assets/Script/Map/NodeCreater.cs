@@ -9,11 +9,14 @@ using UnityEngine.U2D;
 
 public class NodeCreater : MonoBehaviour
 {
-    [SerializeField] private int NodeWidth;
-    [SerializeField] private int NodeHeight;
-    [SerializeField] private List<MapNode> nodes; 
+    [SerializeField] private List<MapNode> nodes;
     [SerializeField] private List<MapNode> collapsedNodes;
     [SerializeField] private int DeleteCount;
+    [Header("地图种子")]
+    [SerializeField] private int MapSeed;
+    [Header("节点长宽数量")]
+    [SerializeField] private int NodeWidth;
+    [SerializeField] private int NodeHeight;
     [Header("节点初始生成地偏移度")]
     [SerializeField] private float NodesOffestX;
     [SerializeField] private float NodesOffestY;
@@ -28,7 +31,7 @@ public class NodeCreater : MonoBehaviour
     private int collapsedYnodeCount;
     void Start()
     {
-        //Random.InitState(StaticResource.seed);
+        Random.InitState(MapSeed);
         CreateNodeFirst();
         StartCoroutine(RandomNodeFirst(DeleteCount));
         
@@ -65,6 +68,7 @@ public class NodeCreater : MonoBehaviour
                     handle.Result.transform.position = position;
                     node.transPos = new Vector2Int(x, y);
                     node.collapsed = false;
+                    node.gameObject.name = node.transPos.ToString();
                     nodes.Add(node);
                 };
             }
@@ -97,6 +101,7 @@ public class NodeCreater : MonoBehaviour
     private IEnumerator RandomNodeFirst(int times)
     {
         int RandomTimes = 0;
+        int initTimes = times;
         while(times>0)
         {
             yield return null;
@@ -151,12 +156,12 @@ public class NodeCreater : MonoBehaviour
             {
                 RandomTimes += 1;
             }
-            if (RandomTimes > 60)
+            if (RandomTimes > initTimes*3)
             {
                 Debug.LogError("循环次数过多");
             }
-            Debug.LogWarning(canRemove.ToString());
-            Debug.Log(times);
+            Debug.Log(index);
+
         }
         CreateNodeSecond();
         RandomNodeSecond();
