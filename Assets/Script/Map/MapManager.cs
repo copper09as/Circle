@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapManager : SingleTon<MapManager>
@@ -9,31 +7,34 @@ public class MapManager : SingleTon<MapManager>
     public List<MapNode> nodes;
     void Start()
     {
-        Random.InitState(StaticResource.seed);
+
         float ran = Random.Range(0f, 1f);
-        currentNode.Enter();
+        //currentNode.Enter();
         Debug.Log(ran.ToString());
     }
     private void OnEnable()
     {
-        
+
     }
     private void OnDisable()
     {
-       
+
     }
     void Update()
     {
-        
+
     }
-    
+
     public void TransPlace(MapNode enterNode)
     {
-        if (currentNode == null || currentNode == enterNode)
+        if (currentNode == enterNode)
             return;
-        if (!CanReach(enterNode))
-            return;
-        currentNode.Exit();
+        if (currentNode != null)
+        {
+            if (!CanReach(enterNode))
+                return;
+            currentNode.Exit();
+        }
         enterNode.Enter();
         StaticResource.day += 1;
         EventManager.UpdateMapUi();

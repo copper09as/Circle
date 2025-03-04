@@ -6,22 +6,22 @@ public class MapNode : MonoBehaviour
     public bool CanGet = true;
     public List<MapNode> adjancentNode = new List<MapNode>();
     private LineRenderer lineRenderer;
+    public Vector2Int transPos;
+    public bool collapsed;
     [SerializeField] private Material material;
     private void Awake()
     {
-        float ran = Random.Range(0f, 1f);
-        Debug.Log(ran.ToString());
         lineRenderer = GetComponent<LineRenderer>();
         DrawLine();
     }
 
-    private void DrawLine()
+    public void DrawLine()
     {
         lineRenderer.material = material;
-        lineRenderer.startWidth = 0.2f;
-        lineRenderer.endWidth = 0.2f;
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startColor = Color.yellow;
+        lineRenderer.endColor = Color.yellow;
 
         // 设置 LineRenderer 的点数
         lineRenderer.positionCount = adjancentNode.Count * 2;
