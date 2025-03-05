@@ -331,17 +331,17 @@ MonoBehaviour:
   isMagicCity: 0
   isLonely: 0
   maxAdjNode: 6
-  minAdjNode: -1
+  minAdjNode: -4
   maxAdj: 6
   minAdj: -1
-  MapSeed: 323
-  NodeWidth: 10
-  NodeHeight: 5
+  MapSeed: 497
+  NodeWidth: 8
+  NodeHeight: 6
   NodesOffestX: -11.1
   NodesOffestY: 5
-  NodeX: 1.5
-  NodeY: 1.5
-  nodeRange: 2.5
+  NodeX: 2.34
+  NodeY: 2.29
+  nodeRange: 3.02
 --- !u!1 &1585364774
 GameObject:
   m_ObjectHideFlags: 0

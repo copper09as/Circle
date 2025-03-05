@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MeditationMap
+  - PathSlot
   layers:
   - Default
   - TransparentFX
