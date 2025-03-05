@@ -49,9 +49,8 @@ public class NodeBuilder
             node.AddAdj(adjNode);
         }
     }
-    public void RandomRemove(ref int RandomTimes,ref int times,List<MapNode> collapsedNodes)
+    public void RandomRemove(ref int RandomTimes,ref int times,List<MapNode> collapsedNodes,int index)
     {
-        int index = Random.Range(0, nodes.Count);
         var node = nodes[index];
 
         bool canRemove = true;

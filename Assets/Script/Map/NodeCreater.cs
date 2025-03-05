@@ -1,12 +1,13 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class NodeCreater : MonoBehaviour
 {
     [SerializeField] private int DeleteCount;
+    [Header("孤立节点判断条件")]
+    [SerializeField] private float lonelyDec;
     [Header("是否开启环形修正")]
     [SerializeField] private bool isRound;
     [Header("当前存在的节点")]
@@ -45,7 +46,7 @@ public class NodeCreater : MonoBehaviour
     private NodeBuilder nodeBuilder;
     IEnumerator Start()
     {
-        nodeBuilder = new NodeBuilder(false, transform, nodeRange, new Vector2(NodesOffestX, NodesOffestY),nodes);
+        nodeBuilder = new NodeBuilder(false, transform, nodeRange, new Vector2(NodesOffestX, NodesOffestY), nodes);
         Random.InitState(MapSeed);
         yield return CreateNodeFirst(); // 等待节点初始化完成
         StartCoroutine(RandomNodeFirst(DeleteCount));
@@ -65,7 +66,7 @@ public class NodeCreater : MonoBehaviour
     {
 
 
-        foreach(var node in nodes)
+        foreach (var node in nodes)
         {
             nodeBuilder.AddAdj(nodes, node);
         }
@@ -83,19 +84,19 @@ public class NodeCreater : MonoBehaviour
         yield return null;
         while (times > 0)
         {
-            
+
             int index = Random.Range(0, nodes.Count);
             var node = nodes[index];
             int keyX = node.transPos.x;
             int keyY = node.transPos.y;
             bool canRemove = true;
-            if(isRound)
+            if (isRound)
             {
                 DetectDic(collapsedXnode, NodeWidth, ref canRemove, keyX);
                 DetectDic(collapsedYnode, NodeHeight, ref canRemove, keyY);
             }
-            //nodeBuilder.RandomRemove(RandomTimes);
-            if (canRemove)
+            nodeBuilder.RandomRemove(ref RandomTimes, ref times, collapsedNodes, index);
+            /*if (canRemove)
             {
                 node.collapsed = true;
                 node.gameObject.SetActive(false);
@@ -106,7 +107,7 @@ public class NodeCreater : MonoBehaviour
             else
             {
                 RandomTimes += 1;
-            }
+            }*/
             if (RandomTimes > initTimes * 3)
             {
                 Debug.LogWarning("循环次数过多");
@@ -115,10 +116,10 @@ public class NodeCreater : MonoBehaviour
 
         }
         AddAdjNode();
-        RandomNodeSecond();
+        ControlNodeAdj();
         RandomNodeThird();
     }
-    private void RandomNodeSecond()
+    private void ControlNodeAdj()
     {
         List<MapNode> nodesToRemove = new List<MapNode>();
 
@@ -167,7 +168,7 @@ public class NodeCreater : MonoBehaviour
 
             if (nodes[i].adjancentNode.Count <= minAdjNode)
             {
-                var connectNode = nodes.Find(n => (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) > 2) && !nodes[i].adjancentNode.Contains(n) && (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) < NodeHeight + NodeWidth / 2));
+                var connectNode = nodes.Find(n => GetSqrDistance(nodes[i],n) < ((NodeHeight * NodeHeight + NodeWidth * NodeWidth) / lonelyDec));
                 if (connectNode != null)
                 {
                     connectNode.adjancentNode.Add(nodes[i]);
@@ -201,7 +202,10 @@ public class NodeCreater : MonoBehaviour
         {
             node.DrawLine();
         }
-        MapManager.Instance.TransPlace(nodes[0]);
+        if (nodes.Count > 0)
+            MapManager.Instance.TransPlace(nodes[0]);
+        else
+            Debug.LogError("所有节点已坍缩，无法指定初始节点");
     }
     private void LonelyCityDec()
     {
@@ -213,7 +217,7 @@ public class NodeCreater : MonoBehaviour
             while (!IsRemovalSafe(node.transPos) && addIndext > 0)
             {
                 addIndext--;
-                if (isMagicCity || (nodeRange <= (NodeHeight*NodeHeight+NodeWidth*NodeWidth)/magicCityDis))
+                if (isMagicCity || (nodeRange <= (NodeHeight * NodeHeight + NodeWidth * NodeWidth) / magicCityDis))
                 {
                     node.AddAdj(nodes[addIndext]);
                     continue;
@@ -244,8 +248,6 @@ public class NodeCreater : MonoBehaviour
     {
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
         Queue<Vector2Int> queue = new Queue<Vector2Int>();
-
-        // 选择第一个未被删除的节点作为起点
         var startNode = nodes.Find(n => n.transPos == position);
         if (startNode == null) return false;
 

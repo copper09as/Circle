@@ -8,6 +8,7 @@ public class InventoryManager : SingleTon<InventoryManager>
     public ItemListSo itemListSo;
     private void OnEnable()
     {
+        DontDestroyOnLoad(gameObject);
         EventManager.addItem += AddItem;
         EventManager.removeItem += RemoveItem;
     }

@@ -325,17 +325,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09104d46e08c8947ad08bc92ac6ed0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeleteCount: 20
+  DeleteCount: 30
+  lonelyDec: 2
   isRound: 1
   nodes: []
   collapsedNodes: []
-  isMagicCity: 0
-  magicCityDis: 2
+  isMagicCity: 1
+  magicCityDis: 3
   isLonely: 0
-  maxAdjNode: 6
+  maxAdjNode: 5
   minAdjNode: 0
-  maxAdj: 4
-  minAdj: -1
+  maxAdj: 5
+  minAdj: 0
   MapSeed: 0
   NodeWidth: 10
   NodeHeight: 5
