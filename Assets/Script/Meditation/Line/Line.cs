@@ -31,28 +31,24 @@ public class Line : MonoBehaviour
     public int maxTrailPoints =1000;
     private void Awake()
     {
-        //HeadPos = new Vector3_(FirstheadPos);
-        //EndPos = new Vector3_(FirstendPos);
         lineRenderer = GetComponent<LineRenderer>();
         trailPositions = new List<Vector3>();
         GetP();
-        //endPos = headPos+new Vector3(1f,1f,0);
+
     }
-    void Update()
+    private void FixedUpdate()
     {
-        //var screenPos = Input.mousePosition;
-        //lineRenderer.SetPosition(1, Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10)));
         Turning();
         UpdateTrail();
     }
-    //public void SetHeadPos(Vector3_ pos)=> HeadPos = pos; 
+    
 
     public void Turning()
-    {       
-        lineRenderer.SetPosition(0,headPos);
-        endPos = Calculation();
+    {
         if (Last != null)
             headPos = Last.endPos;
+        lineRenderer.SetPosition(0,headPos);
+        endPos = Calculation();
         lineRenderer.SetPosition(1, endPos);
     }
     private void UpdateTrail()
@@ -73,8 +69,8 @@ public class Line : MonoBehaviour
         Vector3 V  = new();
         Vector3 Pos = endPos - headPos;
         double tanValue = Math.Atan2(Pos.y,Pos.x);
-        V.y = (float)(P * Math.Sin(speed * Time.deltaTime+tanValue));
-        V.x = (float)(P * Math.Cos(speed * Time.deltaTime+tanValue));
+        V.y = (float)(P * Math.Sin(speed * 0.01+tanValue));
+        V.x = (float)(P * Math.Cos(speed * 0.01 + tanValue));
         return V + headPos;
     }
 
