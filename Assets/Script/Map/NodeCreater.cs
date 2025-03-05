@@ -1,17 +1,24 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
-using UnityEngine.U2D;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class NodeCreater : MonoBehaviour
 {
+
     [SerializeField] private List<MapNode> nodes;
     [SerializeField] private List<MapNode> collapsedNodes;
     [SerializeField] private int DeleteCount;
+    [Header("节点最大连线数")]
+    [SerializeField] private int maxAdjNode;
+    [Header("节点最小连线数")]
+    [SerializeField] private int minAdjNode;
+    [Header("节点最大连接数")]
+    [SerializeField] private int maxAdj;
+    [Header("节点最小连接数")]
+    [SerializeField] private int minAdj;
     [Header("地图种子")]
     [SerializeField] private int MapSeed;
     [Header("节点长宽数量")]
@@ -29,28 +36,16 @@ public class NodeCreater : MonoBehaviour
     private Dictionary<int, int> collapsedYnode = new Dictionary<int, int>();
     private int collapsedXnodeCount;
     private int collapsedYnodeCount;
-    void Start()
+
+    IEnumerator Start()
     {
         Random.InitState(MapSeed);
-        CreateNodeFirst();
+        yield return CreateNodeFirst(); // 等待节点初始化完成
         StartCoroutine(RandomNodeFirst(DeleteCount));
-        
     }
-
-    private bool IsOverStep(MapNode Node, MapNode AdjNode)
+    private IEnumerator CreateNodeFirst()
     {
-        return ((Node.transPos.x - AdjNode.transPos.x) > 0 && (Node.transPos.y - AdjNode.transPos.y > 0));
-    }
-    private bool IsAdj(MapNode Node, MapNode AdjNode)
-    {
-        return (Mathf.Abs((Node.transPos.x - AdjNode.transPos.x)) <= 1 && Mathf.Abs(Node.transPos.y - AdjNode.transPos.y) <= 1);
-    }
-    private bool AddNodeAdj(MapNode Node,MapNode AdjNode)
-    {
-        return IsAdj(Node,AdjNode)&&IsOverStep(Node,AdjNode);
-    }
-    private void CreateNodeFirst()
-    {
+        List<AsyncOperationHandle<GameObject>> handles = new List<AsyncOperationHandle<GameObject>>();
         for (int i = 0; i < NodeWidth; i++)
         {
             for (int j = 0; j < NodeHeight; j++)
@@ -64,22 +59,24 @@ public class NodeCreater : MonoBehaviour
                     SpriteRenderer spriteRenderer = handle.Result.GetComponent<SpriteRenderer>();
                     MapNode node = handle.Result.GetComponent<MapNode>();
                     Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
-                    Vector2 position = new Vector2(x * spriteSize.x* nodeRange + NodesOffestX, -y * spriteSize.y* nodeRange + NodesOffestY);
+                    Vector2 position = new Vector2(x * spriteSize.x * nodeRange + NodesOffestX, -y * spriteSize.y * nodeRange + NodesOffestY);
                     handle.Result.transform.position = position;
                     node.transPos = new Vector2Int(x, y);
                     node.collapsed = false;
                     node.gameObject.name = node.transPos.ToString();
+                    handles.Add(handle);
                     nodes.Add(node);
                 };
             }
         }
+        yield return new WaitUntil(() => nodes.Count == NodeWidth * NodeHeight);
     }
     private void CreateNodeSecond()
     {
         for (int i = 0; i < nodes.Count; i++)
         {
             var node = nodes[i];
-            for (int j = i+1; j < nodes.Count; j++)
+            for (int j = i + 1; j < nodes.Count; j++)
             {
                 var node2 = nodes[j];
 
@@ -89,12 +86,12 @@ public class NodeCreater : MonoBehaviour
                 float sqrDistance = dx * dx + dy * dy;
 
                 // 检查是否相邻
-                if (sqrDistance <= 2&&i!=j)
+                if (sqrDistance <= 2 && i != j)
                 {
                     node.adjancentNode.Add(node2);
                     node2.adjancentNode.Add(node);
                 }
-                
+
             }
         }
     }
@@ -102,7 +99,7 @@ public class NodeCreater : MonoBehaviour
     {
         int RandomTimes = 0;
         int initTimes = times;
-        while(times>0)
+        while (times > 0)
         {
             yield return null;
             int index = Random.Range(0, nodes.Count);
@@ -156,7 +153,7 @@ public class NodeCreater : MonoBehaviour
             {
                 RandomTimes += 1;
             }
-            if (RandomTimes > initTimes*3)
+            if (RandomTimes > initTimes * 3)
             {
                 Debug.LogError("循环次数过多");
             }
@@ -177,9 +174,9 @@ public class NodeCreater : MonoBehaviour
             var node = nodes[i];
 
             // 检查相邻节点数量
-            if (node.adjancentNode.Count >= 7 || node.adjancentNode.Count == 0)
+            if (node.adjancentNode.Count >= maxAdj || node.adjancentNode.Count <= minAdj)
             {
-                foreach(var adjNode in node.adjancentNode)
+                foreach (var adjNode in node.adjancentNode)
                 {
                     adjNode.adjancentNode.Remove(node);
                 }
@@ -195,11 +192,11 @@ public class NodeCreater : MonoBehaviour
         {
             nodes.Remove(node);
         }
-        foreach(var node in collapsedNodes)
+        /*foreach(var node in collapsedNodes)
         {
             Destroy(node.gameObject);
-        }
-        
+        }*/
+
     }
     private void RandomNodeThird()
     {
@@ -211,24 +208,52 @@ public class NodeCreater : MonoBehaviour
             float randomOffsetY = Random.Range(-NodeY, NodeY); // y 方向随机偏移
 
             // 设置节点的位置，并添加随机偏移
-                node.transform.position = new Vector2(
-                node.transform.position.x + randomOffsetX,
-                node.transform.position.y + randomOffsetY
-            );
+            node.transform.position = new Vector2(
+            node.transform.position.x + randomOffsetX,
+            node.transform.position.y + randomOffsetY
+        );
         }
-        for(int i = 0;i<nodes.Count;i++)
+        for (int i = 0; i < nodes.Count; i++)
         {
+
+            if (nodes[i].adjancentNode.Count <= minAdjNode)
+            {
+                var connectNode = nodes.Find(n => (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) > 2) && !nodes[i].adjancentNode.Contains(n));
+                if (connectNode != null)
+                {
+                    connectNode.adjancentNode.Add(nodes[i]);
+                    nodes[i].adjancentNode.Add(connectNode);
+                }
+
+            }
+        }
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            if (nodes[i].adjancentNode.Count >= maxAdjNode)
+            {
+                while (nodes[i].adjancentNode.Count >= maxAdjNode)
+                {
+                    int randomRemoveAdj = Random.Range(0, nodes[i].adjancentNode.Count);
+                    nodes[i].adjancentNode[randomRemoveAdj].adjancentNode.Remove(nodes[i]);
+                    nodes[i].adjancentNode.RemoveAt(randomRemoveAdj);
+                }
+
+            }
             nodes[i].DrawLine();
             if (nodes[i].adjancentNode.Count >= 3)
             {
                 index = i;
             }
-
         }
-
+        foreach (var node in nodes)
+        {
+            IsRemovalSafe(node.transPos);
+        }
         MapManager.Instance.TransPlace(nodes[index]);
+
+
     }
-    private void DetectDic(Dictionary<int,int>posDic,int range,ref bool canRemove,int key)
+    private void DetectDic(Dictionary<int, int> posDic, int range, ref bool canRemove, int key)
     {
         if (posDic.ContainsKey(key))
         {
@@ -246,5 +271,43 @@ public class NodeCreater : MonoBehaviour
         {
             posDic.Add(key, 1);
         }
+    }
+    private bool IsRemovalSafe(Vector2Int position)
+    {
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+
+        // 选择第一个未被删除的节点作为起点
+        var startNode = nodes.Find(n => n.transPos == position);
+        if (startNode == null) return false;
+
+        queue.Enqueue(startNode.transPos);
+        visited.Add(startNode.transPos);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            foreach (var neighbor in GetNeighbors(current))
+            {
+                if (!visited.Contains(neighbor) && nodes.Exists(n => n.transPos == neighbor && !n.collapsed))
+                {
+                    visited.Add(neighbor);
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+        Debug.LogWarning((visited.Count >= (nodes.Count)/2) + position.ToString());
+
+        return visited.Count >= (nodes.Count) / 2;
+    }
+    private List<Vector2Int> GetNeighbors(Vector2Int position)
+    {
+        List<Vector2Int> tempNodes = new List<Vector2Int>();
+        var obNode = nodes.Find(i => i.transPos == position);
+        foreach (var node in obNode.adjancentNode)
+        {
+            tempNodes.Add(node.transPos);
+        }
+        return tempNodes;
     }
 }
