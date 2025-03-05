@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,13 +12,15 @@ public class NodeCreater : MonoBehaviour
     [SerializeField] private List<MapNode> nodes;
     [SerializeField] private List<MapNode> collapsedNodes;
     [SerializeField] private int DeleteCount;
+    [Header("是否可出现孤岛")]
+    [SerializeField] private bool isLonely;
     [Header("节点最大连线数")]
     [SerializeField] private int maxAdjNode;
     [Header("节点最小连线数")]
     [SerializeField] private int minAdjNode;
-    [Header("节点最大连接数")]
+    [Header("节点最大邻接数")]
     [SerializeField] private int maxAdj;
-    [Header("节点最小连接数")]
+    [Header("节点最小邻接数")]
     [SerializeField] private int minAdj;
     [Header("地图种子")]
     [SerializeField] private int MapSeed;
@@ -239,7 +242,7 @@ public class NodeCreater : MonoBehaviour
                 }
 
             }
-            nodes[i].DrawLine();
+            
             if (nodes[i].adjancentNode.Count >= 3)
             {
                 index = i;
@@ -247,8 +250,24 @@ public class NodeCreater : MonoBehaviour
         }
         foreach (var node in nodes)
         {
-            IsRemovalSafe(node.transPos);
+            if(!isLonely)
+            {
+                while(!IsRemovalSafe(node.transPos))
+                {
+                   int addIndext = Random.Range(0, node.adjancentNode.Count);
+                    if (node.adjancentNode.Contains(nodes[addIndext]) || node == nodes[addIndext])
+                    {
+                        continue;
+                    }
+                    node.adjancentNode.Add(nodes[addIndext]);
+                }
+            }
         }
+        foreach (var node in nodes)
+        {
+            node.DrawLine();
+        }
+       
         MapManager.Instance.TransPlace(nodes[index]);
 
 

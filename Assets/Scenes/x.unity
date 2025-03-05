@@ -328,11 +328,12 @@ MonoBehaviour:
   nodes: []
   collapsedNodes: []
   DeleteCount: 20
-  maxAdjNode: 4
-  minAdjNode: 1
+  isLonely: 1
+  maxAdjNode: 6
+  minAdjNode: -1
   maxAdj: 6
-  minAdj: 1
-  MapSeed: 323
+  minAdj: -1
+  MapSeed: 0
   NodeWidth: 10
   NodeHeight: 5
   NodesOffestX: -11.1
