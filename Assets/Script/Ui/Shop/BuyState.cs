@@ -15,7 +15,7 @@ public class BuyState : ShopState
         {
             handle.Result.transform.SetParent(shop.canvas.transform, false);
             handle.Result.GetComponent<BuyUi>().priceText.text = shop.selectItem.price.ToString();
-            handle.Result.GetComponent<BuyUi>().itemImage.sprite = shop.selectItem.sprite;
+            //handle.Result.GetComponent<BuyUi>().itemImage.sprite = shop.selectItem.sprite;
         };
         
     }

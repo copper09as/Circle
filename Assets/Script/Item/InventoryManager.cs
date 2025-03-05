@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryManager : SingleTon<InventoryManager>
 {
     public List<itemId> items;
-    public ItemListSo itemListSo;
+    public Items itemData;
     private void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
@@ -19,7 +19,7 @@ public class InventoryManager : SingleTon<InventoryManager>
     }
     public ItemData FindItem(int id)
     {
-        return itemListSo.itemData.Find(i => i.id == id);
+        return itemData.Sheet1.Find(i => i.id == id);
     }
     public void RemoveItem(int id, int itemMount)
     {
