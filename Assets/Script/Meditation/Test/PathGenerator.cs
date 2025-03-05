@@ -3,15 +3,25 @@ using UnityEngine;
 
 public class PathGenerator : MonoBehaviour
 {
+    public static PathGenerator Instance;
+
+    [Header("路径生成参数")]
     public int pathCount = 5; // 生成的路径数量
-    public int segmentCount = 6; // 每条路径有多少个点（线段数 + 1）
-    public float segmentLength = 1.0f; // 每段线段的长度
-    public float turnChance = 0.2f; // 设定转弯的概率（0~1）
-    public float rotationSpeed = 1.0f; // 旋转速度，调节每条线段旋转的快慢
+    public int segmentCount = 6; // 每条路径的线段数
+    public float minSegmentLength = 0.5f; // 最小线段长度
+    public float maxSegmentLength = 2.0f; // 最大线段长度
+    public float turnChance = 0.2f; // 转弯概率
+
+    [Header("齿轮参数")]
+    public float baseRotationSpeed = 5f; // 基础转速（度/秒）
+    public float sizeSpeedRatio = 0.3f; // 尺寸转速比
+
+    [Header("线段预制体")]
+    public GameObject lineSegmentPrefab; // 线段预制体（需配置LineRenderer）
 
     private Vector2 origin = Vector2.zero; // 起点
     private List<List<Vector2>> paths = new List<List<Vector2>>(); // 记录所有路径
-    private HashSet<Vector2> usedPositions = new HashSet<Vector2>(); // 记录已经使用的位置，防止交叉
+    private HashSet<Vector2> usedPositions = new HashSet<Vector2>(); // 记录已使用的位置
 
     private Vector2[] directions = new Vector2[]
     {
@@ -19,10 +29,22 @@ public class PathGenerator : MonoBehaviour
         new Vector2(-1, 0), new Vector2(-1, -1), new Vector2(0, -1), new Vector2(1, -1)
     };
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         GeneratePaths();
-        DrawPaths(); // 画出路径，方便调试
+        DrawPaths();
     }
 
     void GeneratePaths()
@@ -34,12 +56,13 @@ public class PathGenerator : MonoBehaviour
             path.Add(currentPos);
             usedPositions.Add(currentPos);
 
-            Vector2 currentDirection = directions[Random.Range(0, directions.Length)]; // 随机初始方向
+            Vector2 currentDirection = directions[Random.Range(0, directions.Length)];
+            float currentLength = Random.Range(minSegmentLength, maxSegmentLength);
 
             for (int j = 0; j < segmentCount; j++)
             {
                 Vector2 newDirection = GetNextDirection(currentDirection);
-                Vector2 nextPos = currentPos + newDirection * segmentLength;
+                Vector2 nextPos = currentPos + newDirection * currentLength;
 
                 if (!usedPositions.Contains(nextPos))
                 {
@@ -47,18 +70,19 @@ public class PathGenerator : MonoBehaviour
                     usedPositions.Add(nextPos);
                     currentPos = nextPos;
                     currentDirection = newDirection;
+                    currentLength = Random.Range(minSegmentLength, maxSegmentLength);
                 }
                 else
                 {
-                    // 如果碰到了已有路径，换个方向
                     newDirection = GetNextDirection(currentDirection, true);
-                    nextPos = currentPos + newDirection * segmentLength;
+                    nextPos = currentPos + newDirection * currentLength;
                     if (!usedPositions.Contains(nextPos))
                     {
                         path.Add(nextPos);
                         usedPositions.Add(nextPos);
                         currentPos = nextPos;
                         currentDirection = newDirection;
+                        currentLength = Random.Range(minSegmentLength, maxSegmentLength);
                     }
                 }
             }
@@ -87,29 +111,27 @@ public class PathGenerator : MonoBehaviour
     {
         for (int i = 0; i < paths.Count; i++)
         {
-            // 创建一个新的 GameObject 用于表示这条路径
-            GameObject pathObject = new GameObject("Path_" + i);
+            GameObject pathObject = new GameObject($"GearPath_{i}");
+            SegmentRotation prevSegment = null;
 
-            // 遍历每一条路径中的点，将每两个相邻的点连成一个独立的LineRenderer
             for (int j = 0; j < paths[i].Count - 1; j++)
             {
-                GameObject segmentObject = new GameObject("Segment_" + j);
-                segmentObject.transform.SetParent(pathObject.transform);
+                // 实例化线段预制体
+                GameObject segment = Instantiate(lineSegmentPrefab, pathObject.transform);
+                segment.name = $"Gear_{j}";
 
-                LineRenderer lineRenderer = segmentObject.AddComponent<LineRenderer>();
+                // 获取LineRenderer组件
+                LineRenderer lr = segment.GetComponent<LineRenderer>();
+                lr.SetPosition(0, paths[i][j]);
+                lr.SetPosition(1, paths[i][j + 1]);
 
-                lineRenderer.positionCount = 2;
-                lineRenderer.startWidth = 0.1f;
-                lineRenderer.endWidth = 0.1f;
-                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-                lineRenderer.startColor = Color.green;
-                lineRenderer.endColor = Color.green;
+                // 添加旋转控制器
+                SegmentRotation rot = segment.AddComponent<SegmentRotation>();
+                rot.Initialize(lr, null);
 
-                lineRenderer.SetPosition(0, new Vector3(paths[i][j].x, paths[i][j].y, 0f));
-                lineRenderer.SetPosition(1, new Vector3(paths[i][j + 1].x, paths[i][j + 1].y, 0f));
-
-                // 傅里叶变换的旋转
-                segmentObject.AddComponent<SegmentRotation>().Initialize(lineRenderer, rotationSpeed);
+                // 连接齿轮
+                if (prevSegment != null) prevSegment.nextGear = rot;
+                prevSegment = rot;
             }
         }
     }
