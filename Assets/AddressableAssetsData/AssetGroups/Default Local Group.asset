@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 2d3577b1821e1164ca166abee008f16b
   m_SerializeEntries:
   - m_GUID: 155646e62d09a214c9439eeacb1306a9
-    m_Address: Assets/itemSo/InventoryInventoryList_SO.asset
+    m_Address: InventoryInventoryList_SO
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

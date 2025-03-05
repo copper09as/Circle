@@ -35,6 +35,18 @@ public class MapDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         candrag = false;
     }
 
+    
+    void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = Vector3.zero;
+    }
+    
+
+    public void OnScroll(PointerEventData eventData)
+    {
+        Zooming();
+    }
     void Zooming()
     {
         if (!candrag) return;
@@ -47,15 +59,4 @@ public class MapDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
             Gameobject.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
     }
 
-    void Start()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = Vector3.zero;
-    }
-    
-
-    public void OnScroll(PointerEventData eventData)
-    {
-        Zooming();
-    }
 }
