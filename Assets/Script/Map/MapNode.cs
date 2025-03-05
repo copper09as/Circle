@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MapNode : MonoBehaviour
@@ -8,13 +9,17 @@ public class MapNode : MonoBehaviour
     private LineRenderer lineRenderer;
     public Vector2Int transPos;
     public bool collapsed;
+    public NodeCreater creater;
     [SerializeField] private Material material;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         DrawLine();
     }
-
+    public void Init()
+    {
+        creater.nodes.Add(this);
+    }
     public void DrawLine()
     {
         lineRenderer.material = material;
@@ -42,13 +47,29 @@ public class MapNode : MonoBehaviour
         MapManager.Instance.TransPlace(this);
 
     }
-
+    public void AddAdj(MapNode node)
+    {
+        if (adjancentNode.Contains(node))
+            return;
+        if (node == this) return;
+        adjancentNode.Add(node);
+        node.adjancentNode.Add(this);
+    }
+    public void RemoveAdj(MapNode node)
+    {
+        if (!adjancentNode.Contains(node))
+            return;
+        if (node == this) return;
+        adjancentNode.Remove(node);
+        node.adjancentNode.Remove(this);
+    }
     public void Enter()
     {
         MapManager.Instance.currentNode = this;
+        GetComponent<SpriteRenderer>().color = Color.blue;
         foreach (var node in adjancentNode)
         {
-            node.GetComponent<SpriteRenderer>().color = Color.red;
+            node.GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
     public void Exit()
