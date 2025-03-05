@@ -328,12 +328,13 @@ MonoBehaviour:
   nodes: []
   collapsedNodes: []
   DeleteCount: 20
-  isLonely: 1
+  isMagicCity: 0
+  isLonely: 0
   maxAdjNode: 6
   minAdjNode: -1
   maxAdj: 6
   minAdj: -1
-  MapSeed: 0
+  MapSeed: 323
   NodeWidth: 10
   NodeHeight: 5
   NodesOffestX: -11.1

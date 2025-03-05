@@ -1,7 +1,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -12,6 +11,8 @@ public class NodeCreater : MonoBehaviour
     [SerializeField] private List<MapNode> nodes;
     [SerializeField] private List<MapNode> collapsedNodes;
     [SerializeField] private int DeleteCount;
+    [Header("是否可出现传送城")]
+    [SerializeField] private bool isMagicCity;
     [Header("是否可出现孤岛")]
     [SerializeField] private bool isLonely;
     [Header("节点最大连线数")]
@@ -221,7 +222,7 @@ public class NodeCreater : MonoBehaviour
 
             if (nodes[i].adjancentNode.Count <= minAdjNode)
             {
-                var connectNode = nodes.Find(n => (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) > 2) && !nodes[i].adjancentNode.Contains(n));
+                var connectNode = nodes.Find(n => (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) > 2) && !nodes[i].adjancentNode.Contains(n) && (Mathf.Abs(nodes[i].transPos.x - n.transPos.x) + Mathf.Abs(nodes[i].transPos.y - n.transPos.y) < NodeHeight + NodeWidth / 2));
                 if (connectNode != null)
                 {
                     connectNode.adjancentNode.Add(nodes[i]);
@@ -242,7 +243,7 @@ public class NodeCreater : MonoBehaviour
                 }
 
             }
-            
+
             if (nodes[i].adjancentNode.Count >= 3)
             {
                 index = i;
@@ -250,16 +251,31 @@ public class NodeCreater : MonoBehaviour
         }
         foreach (var node in nodes)
         {
-            if(!isLonely)
+            if (!isLonely)
             {
-                while(!IsRemovalSafe(node.transPos))
+                
+                int addIndext = nodes.Count - 1;
+                while (!IsRemovalSafe(node.transPos) &&addIndext>0)
                 {
-                   int addIndext = Random.Range(0, node.adjancentNode.Count);
-                    if (node.adjancentNode.Contains(nodes[addIndext]) || node == nodes[addIndext])
+                    addIndext--;
+                    Debug.Log(addIndext+"addIndex");
+                    if (!node.adjancentNode.Contains(nodes[addIndext]) && node != nodes[addIndext])
                     {
-                        continue;
-                    }
-                    node.adjancentNode.Add(nodes[addIndext]);
+                        if(isMagicCity)
+                        {
+                            node.adjancentNode.Add(nodes[addIndext]);
+                            nodes[addIndext].adjancentNode.Add(node);
+                            continue;
+                        }
+                            
+                        if (!(Mathf.Abs(node.transPos.x - nodes[addIndext].transPos.x) + Mathf.Abs(node.transPos.y - nodes[addIndext].transPos.y) > Mathf.Max(NodeHeight,NodeWidth)/2))
+                        {
+                            node.adjancentNode.Add(nodes[addIndext]);
+                            nodes[addIndext].adjancentNode.Add(node);
+                            continue;
+                        }
+                        
+                    }  
                 }
             }
         }
@@ -267,7 +283,7 @@ public class NodeCreater : MonoBehaviour
         {
             node.DrawLine();
         }
-       
+
         MapManager.Instance.TransPlace(nodes[index]);
 
 
@@ -315,7 +331,7 @@ public class NodeCreater : MonoBehaviour
                 }
             }
         }
-        Debug.LogWarning((visited.Count >= (nodes.Count)/2) + position.ToString());
+        Debug.LogWarning((visited.Count >= (nodes.Count) / 2) + position.ToString());
 
         return visited.Count >= (nodes.Count) / 2;
     }
