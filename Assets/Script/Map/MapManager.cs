@@ -38,7 +38,7 @@ public class MapManager : SingleTon<MapManager>
             currentNode.Exit();
         }
         enterNode.Enter();
-        
+        EventManager.UpdateMapUi();
     }
     private bool DecMove()
     {

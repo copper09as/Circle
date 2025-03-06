@@ -76,7 +76,7 @@ public class MapNode : MonoBehaviour
         {
             node.GetComponent<SpriteRenderer>().color = Color.white;
         }
-        EventManager.NextDay();
+        //EventManager.NextDay();
     }
 }
 
