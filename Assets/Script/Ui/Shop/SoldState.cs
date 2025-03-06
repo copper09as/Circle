@@ -9,7 +9,6 @@ public class SoldState : ShopState
     {
         get { return ShopUiState.Sold; }
     }
-
     public override void Enter()
     {
         base.Enter();

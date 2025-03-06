@@ -44,6 +44,8 @@ public class NodeCreater : MonoBehaviour
     [SerializeField] private float NodeY;
     [Header("节点间距")]
     [SerializeField] private float nodeRange;
+
+
     private Dictionary<int, int> collapsedXnode = new Dictionary<int, int>();
     private Dictionary<int, int> collapsedYnode = new Dictionary<int, int>();
     private NodeBuilder nodeBuilder;
@@ -56,10 +58,10 @@ public class NodeCreater : MonoBehaviour
         MapManager.Instance.nodes = this.nodes;
         foreach(var node in nodes)
         {
-            node.events.Add(3001);
             int ranstyle = Random.Range(0, 4);
             node.style = (NodeStyle)ranstyle;
         }
+        nodeBuilder.AddEvent();
     }
     private IEnumerator CreateNodeFirst()
     {
@@ -171,7 +173,7 @@ public class NodeCreater : MonoBehaviour
         );
         }
     }
-    private void HelpLonelyNode()
+    private void HelpLonelyNode()//控制邻接较少的节点
     {
         for (int i = 0; i < nodes.Count; i++)
         {
@@ -187,7 +189,7 @@ public class NodeCreater : MonoBehaviour
             }
         }
     }
-    private void DeleteFriendNode()
+    private void DeleteFriendNode()//删除邻接较多的节点
     {
         for (int i = 0; i < nodes.Count; i++)
         {

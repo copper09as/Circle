@@ -11,7 +11,7 @@ public static class EventManager
 
     public static event Action nextDay;
 
-    public static void NextDay()
+    public static void NextDay()//刷新下一日数据
     {
         
         nextDay?.Invoke();

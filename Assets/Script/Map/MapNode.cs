@@ -10,7 +10,6 @@ public class MapNode : MonoBehaviour
     public Vector2Int transPos;
     public bool collapsed;
     public NodeCreater creater;
-    public List<int> events;
     [SerializeField] private Material material;
     public NodeStyle style;
     private void Awake()
@@ -44,14 +43,6 @@ public class MapNode : MonoBehaviour
     {
         MapManager.Instance.TransPlace(this);
     }
-    public void EventTrig()
-    {
-        MapEventManager.Instance.EffectTrid(GetRandomEventId());
-    }
-    public int GetRandomEventId()
-    {
-        return events[Random.Range(0, events.Count)];
-    }
     public void AddAdj(MapNode node)//加入节点
     {
         if (adjancentNode.Contains(node))
@@ -70,13 +61,14 @@ public class MapNode : MonoBehaviour
     }
     public void Enter()
     {
+        if (GetComponent<NodeEvent>() != null) 
+            GetComponent<NodeEvent>().EventTrig();
         MapManager.Instance.currentNode = this;
         GetComponent<SpriteRenderer>().color = Color.blue;
         foreach (var node in adjancentNode)
         {
             node.GetComponent<SpriteRenderer>().color = Color.green;
         }
-        //EventTrig();触发事件
     }
     public void Exit()
     {
@@ -84,6 +76,7 @@ public class MapNode : MonoBehaviour
         {
             node.GetComponent<SpriteRenderer>().color = Color.white;
         }
+        EventManager.NextDay();
     }
 }
 

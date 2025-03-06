@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -74,5 +75,13 @@ public class NodeBuilder
         float dy = node.transPos.y - otherNode.transPos.y;
         return dx * dx + dy * dy;
     }
-
+    public void AddEvent()
+    {
+        foreach(var node in nodes)
+        {
+            var nodeEvent = node.AddComponent<NodeEvent>();
+            nodeEvent.EventId = 3001;
+            nodeEvent.Day = 999;
+        }
+    }
 }

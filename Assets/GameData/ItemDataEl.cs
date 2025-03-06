@@ -5,7 +5,6 @@ using UnityEngine;
 [Serializable]
 public class ItemData
 {
-    
     public int id;
     public string name;
     public int price;
