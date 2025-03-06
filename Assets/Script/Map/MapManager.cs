@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapManager : SingleTon<MapManager>
 {
@@ -23,8 +24,6 @@ public class MapManager : SingleTon<MapManager>
     public void TransPlace(MapNode enterNode)
     {
         if (!DecMove()) return; 
-        if (currentNode == enterNode)
-            return;
         if (currentNode != null)
         {
             if (!CanReach(enterNode))

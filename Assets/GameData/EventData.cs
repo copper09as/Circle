@@ -18,7 +18,4 @@ public class EventData
     public int Awardid;
     public int AwardCount;
     public string Description;
-
-
-
 }

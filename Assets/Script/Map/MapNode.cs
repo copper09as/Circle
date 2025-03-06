@@ -10,7 +10,7 @@ public class MapNode : MonoBehaviour
     public Vector2Int transPos;
     public bool collapsed;
     public NodeCreater creater;
-    public List<MapEventid> events;
+    public List<int> events;
     [SerializeField] private Material material;
     private void Awake()
     {
@@ -46,9 +46,12 @@ public class MapNode : MonoBehaviour
     private void OnMouseDown()
     {
         MapManager.Instance.TransPlace(this);
-
     }
-    public MapEventid EventTrig()
+    public void EventTrig()
+    {
+        MapEventManager.Instance.EffectTrid(GetRandomEventId());
+    }
+    public int GetRandomEventId()
     {
         return events[Random.Range(0, events.Count)];
     }
@@ -76,6 +79,7 @@ public class MapNode : MonoBehaviour
         {
             node.GetComponent<SpriteRenderer>().color = Color.green;
         }
+        EventTrig();
     }
     public void Exit()
     {
