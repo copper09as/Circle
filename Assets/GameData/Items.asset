@@ -16,15 +16,25 @@ MonoBehaviour:
   - id: 1
     name: f
     price: 20
+    description: 452
+    effectId: 1
   - id: 2
     name: 2
     price: 2
+    description: 42
+    effectId: 1
   - id: 3
     name: 2
     price: 3
+    description: 41
+    effectId: 1
   - id: 4
     name: 123
     price: 4
+    description: 
+    effectId: 11
   - id: 5
     name: 12
     price: 11
+    description: 
+    effectId: 0

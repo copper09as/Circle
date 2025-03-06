@@ -54,6 +54,12 @@ public class NodeCreater : MonoBehaviour
         yield return CreateNodeFirst(); // 等待节点初始化完成
         StartCoroutine(RandomNodeFirst(DeleteCount));
         MapManager.Instance.nodes = this.nodes;
+        foreach(var node in nodes)
+        {
+            node.events.Add(3001);
+            int ranstyle = Random.Range(0, 4);
+            node.style = (NodeStyle)ranstyle;
+        }
     }
     private IEnumerator CreateNodeFirst()
     {

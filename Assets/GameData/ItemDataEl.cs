@@ -9,4 +9,6 @@ public class ItemData
     public int id;
     public string name;
     public int price;
+    public string description;
+    public int effectId;
 }
