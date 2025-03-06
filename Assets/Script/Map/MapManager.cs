@@ -12,8 +12,17 @@ public class MapManager : SingleTon<MapManager>
         //currentNode.Enter();
         Debug.Log(ran.ToString());
     }
+    private void OnEnable()
+    {
+        EventManager.nextDay += UpdarteDayData;
+    }
+    private void OnDisable()
+    {
+        EventManager.nextDay -= UpdarteDayData;
+    }
     public void TransPlace(MapNode enterNode)
     {
+        if (!DecMove()) return; 
         if (currentNode == enterNode)
             return;
         if (currentNode != null)
@@ -23,8 +32,21 @@ public class MapManager : SingleTon<MapManager>
             currentNode.Exit();
         }
         enterNode.Enter();
-        StaticResource.day += 1;
         EventManager.UpdateMapUi();
+    }
+    private bool DecMove()
+    {
+        if(StaticResource.move>0)
+        {
+            StaticResource.move -= 1;
+            return true;
+        }
+        return false;
+    }
+    private void UpdarteDayData()
+    {
+        StaticResource.move = 1;
+        StaticResource.day += 1;
     }
     public bool CanReach(MapNode EnterNode)
     {

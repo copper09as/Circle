@@ -10,6 +10,7 @@ public class MapNode : MonoBehaviour
     public Vector2Int transPos;
     public bool collapsed;
     public NodeCreater creater;
+    public List<MapEventid> events;
     [SerializeField] private Material material;
     private void Awake()
     {
@@ -46,6 +47,10 @@ public class MapNode : MonoBehaviour
     {
         MapManager.Instance.TransPlace(this);
 
+    }
+    public MapEventid EventTrig()
+    {
+        return events[Random.Range(0, events.Count)];
     }
     public void AddAdj(MapNode node)
     {
