@@ -24,7 +24,7 @@ public class SoldUi : MonoBehaviour
     }
     private void OnCancle()
     {
-        Bag.Instance.selectItem = null;
+        Shop.Instance.selectItem = null;
         Shop.Instance.TransShopState(new ShopNormalState());
         Destroy(gameObject);
     }

@@ -19,6 +19,7 @@ public class BuyUi : MonoBehaviour
     {
 
         if (!Shop.Instance.BuyItem(1)) return;
+        
         Shop.Instance.selectItem = null;
         Shop.Instance.TransShopState(new ShopNormalState());
         Destroy(gameObject);

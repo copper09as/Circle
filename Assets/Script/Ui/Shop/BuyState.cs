@@ -7,7 +7,7 @@ public class BuyState : ShopState
         get { return ShopUiState.Buy; }
     }
 
-    public override void Enter()
+    public override void Enter()//进入后生成购买界面
     {
         base.Enter();
         var shop = Shop.Instance;

@@ -9,7 +9,7 @@ public class ShopSlot : MonoBehaviour, IPointerDownHandler
     public int Mount;
     public TextMeshProUGUI mountText;
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)//点击后进入购买
     {
         var shop = Shop.Instance;
 
@@ -26,7 +26,7 @@ public class ShopSlot : MonoBehaviour, IPointerDownHandler
             handle.Result.GetComponent<BuyUi>().itemImage.sprite = itemData.sprite;
         };*/
     }
-    internal void ClearData()
+    internal void ClearData()//清空格子数据
     {
         Mount = 0;
         itemData = null;

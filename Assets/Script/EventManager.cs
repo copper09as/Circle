@@ -6,21 +6,10 @@ using UnityEngine;
 
 public static class EventManager
 {
-    public static event Action updateMapUi;//刷新ui
+    public static event Action updateMapUi;//刷新地图ui
     public static void UpdateMapUi() => updateMapUi?.Invoke();
 
-    public static event Action updateSlotUi;
+    public static event Action updateSlotUi;//当前拥有bag的刷新格子数据的方法
     public static void UpdateSlotUi() => updateSlotUi?.Invoke();
-
-    public static event Action<int,int> addItem;
-
-    public static void AddItem(int id, int mount) => addItem?.Invoke(id, mount);
-
-    public static event Action<int, int> removeItem;
-    public static void RemoveItem(int id, int mount) => removeItem?.Invoke(id, mount);
-
-    public static event Action<int> soldItem;
-
-    public static void SoldItem(int mount) => soldItem?.Invoke(mount);
 
 }

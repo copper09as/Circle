@@ -337,11 +337,6 @@ MonoBehaviour:
     id: 2
   - mount: 1
     id: 3
-  selectItem:
-    id: 0
-    Name: 
-    sprite: {fileID: 0}
-    price: 0
   SlotCount: 10
 --- !u!1 &197876866
 GameObject:
@@ -772,10 +767,10 @@ MonoBehaviour:
     id: 2
   selectItem:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   canvas: {fileID: 1008866654}
+  bag: {fileID: 189892260}
 --- !u!1 &383786656
 GameObject:
   m_ObjectHideFlags: 0
@@ -963,8 +958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 1207032011}
@@ -1162,8 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 7148205}
@@ -1485,8 +1478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 1709155462}
@@ -1581,8 +1573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 233602644}
@@ -1811,8 +1802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 241960151}
@@ -1890,7 +1880,7 @@ MonoBehaviour:
     id: 1
   - mount: 1
     id: 2
-  itemListSo: {fileID: 11400000, guid: 155646e62d09a214c9439eeacb1306a9, type: 2}
+  itemData: {fileID: 11400000, guid: 5071a92691f5f434088217e135ac9b06, type: 2}
 --- !u!4 &1748811228
 Transform:
   m_ObjectHideFlags: 0
@@ -1959,8 +1949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
     id: 0
-    Name: 
-    sprite: {fileID: 0}
+    name: 
     price: 0
   Mount: 0
   mountText: {fileID: 383786658}

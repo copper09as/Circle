@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class Slot : MonoBehaviour,IPointerDownHandler
 {
     public ItemData itemData;
     public int Mount;
@@ -23,23 +23,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         mountText.text = Mount.ToString();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Debug.Log(eventData.pointerCurrentRaycast.ToString());
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
-    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-
         if (itemData.id == 0) return;
+        if (Shop.Instance.currentState.state != ShopUiState.Main) return;
         Shop.Instance.selectItem = itemData;
         Shop.Instance.TransShopState(new SoldState());
-
-
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NodeCreater : MonoBehaviour
 {
+    [Header("首次删除节点次数")]
     [SerializeField] private int DeleteCount;
     [Header("孤立节点判断条件")]
     [SerializeField] private float lonelyDec;
@@ -36,6 +37,8 @@ public class NodeCreater : MonoBehaviour
     [Header("节点初始生成地偏移度")]
     [SerializeField] private float NodesOffestX;
     [SerializeField] private float NodesOffestY;
+    [Header("节点是否偏移")]
+    [SerializeField] private bool isOffest;
     [Header("节点偏移度")]
     [SerializeField] private float NodeX;
     [SerializeField] private float NodeY;
@@ -171,8 +174,8 @@ public class NodeCreater : MonoBehaviour
                 var connectNode = nodes.Find(n => GetSqrDistance(nodes[i],n) < ((NodeHeight * NodeHeight + NodeWidth * NodeWidth) / lonelyDec));
                 if (connectNode != null)
                 {
-                    connectNode.adjancentNode.Add(nodes[i]);
-                    nodes[i].adjancentNode.Add(connectNode);
+                    connectNode.AddAdj(nodes[i]);
+   
                 }
             }
         }
@@ -194,7 +197,8 @@ public class NodeCreater : MonoBehaviour
     }
     private void RandomNodeThird()
     {
-        MapNodeOffset();
+        if(isOffest)
+            MapNodeOffset();
         HelpLonelyNode();
         DeleteFriendNode();
         LonelyCityDec();

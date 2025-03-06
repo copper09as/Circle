@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
-public class Bag : SingleTon<Bag>
+public class Bag : MonoBehaviour
 {
     public List<Slot> slots;
     public List<itemId> items;
-    public ItemData selectItem;
     [SerializeField] private int SlotCount;
     private void OnEnable()
     {
@@ -31,7 +31,10 @@ public class Bag : SingleTon<Bag>
     {
         for(int i = 0;i<SlotCount;i++)
         {
-            CreatePrefab.Creat("BagSlot", transform);
+            Addressables.InstantiateAsync("BagSlot").Completed += handle =>
+            {
+                handle.Result.transform.SetParent(transform, false);
+            };
         }
     }
     IEnumerator UpdateBagUi()
@@ -41,14 +44,13 @@ public class Bag : SingleTon<Bag>
     }
     public void RemoveItem(int id, int itemMount)
     {
-        EventManager.RemoveItem(id, itemMount);
+        InventoryManager.Instance.RemoveItem(id, itemMount);
         slots[items.Count].ClearData();
         EventManager.UpdateSlotUi();
     }
     public void AddItem(int id, int itemMount)
     {
-        EventManager.AddItem(id, itemMount);
-        EventManager.UpdateSlotUi();
+        InventoryManager.Instance.AddItem(id, itemMount);
     }
     private void UpdateSlotUi()
     {

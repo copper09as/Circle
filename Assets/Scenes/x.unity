@@ -325,20 +325,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09104d46e08c8947ad08bc92ac6ed0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteCount: 5
+  lonelyDec: 0
+  isRound: 0
   nodes: []
   collapsedNodes: []
-  DeleteCount: 20
   isMagicCity: 0
+  magicCityDis: 2
   isLonely: 0
   maxAdjNode: 6
-  minAdjNode: -4
-  maxAdj: 6
-  minAdj: -1
-  MapSeed: 497
-  NodeWidth: 8
-  NodeHeight: 6
+  minAdjNode: 0
+  maxAdj: 4
+  minAdj: 1
+  MapSeed: 870
+  NodeWidth: 10
+  NodeHeight: 5
   NodesOffestX: -11.1
-  NodesOffestY: 5
+  NodesOffestY: 6
+  isOffest: 0
   NodeX: 2.34
   NodeY: 2.29
   nodeRange: 3.02
@@ -675,7 +679,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -784,8 +788,8 @@ Transform:
   m_GameObject: {fileID: 2012773136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.041098595, y: -0.048600182, z: 1}
-  m_LocalScale: {x: 0.6380188, y: 0.8407356, z: 1}
+  m_LocalPosition: {x: -0.11499596, y: -0.05500126, z: 1}
+  m_LocalScale: {x: 0.95563924, y: 1.2161642, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

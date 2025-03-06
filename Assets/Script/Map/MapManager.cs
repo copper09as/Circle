@@ -12,19 +12,6 @@ public class MapManager : SingleTon<MapManager>
         //currentNode.Enter();
         Debug.Log(ran.ToString());
     }
-    private void OnEnable()
-    {
-
-    }
-    private void OnDisable()
-    {
-
-    }
-    void Update()
-    {
-
-    }
-
     public void TransPlace(MapNode enterNode)
     {
         if (currentNode == enterNode)

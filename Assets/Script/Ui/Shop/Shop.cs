@@ -8,7 +8,13 @@ public class Shop : SingleTon<Shop>
     public List<itemId> items;
     public ItemData selectItem;
     public Canvas canvas;
-    public ShopState currentState;
+    public ShopState currentState;//处理当前状态
+    public Bag bag;
+    private void Awake()
+    {
+        if (bag == null)
+            bag = GameObject.Find("Bag").GetComponent<Bag>();
+    }
     private void Start()
     {
         UpdateShopSlotUi();
@@ -40,7 +46,7 @@ public class Shop : SingleTon<Shop>
         {
             if (!CanBuy(id, itemMount)) return false;
             StaticResource.Gold -= InventoryManager.Instance.FindItem(id).price * itemMount;
-            EventManager.AddItem(id, itemMount);
+           InventoryManager.Instance.AddItem(id, itemMount);
             if(item.mount - itemMount>0)
                 item.mount -= itemMount;
             else
@@ -60,10 +66,10 @@ public class Shop : SingleTon<Shop>
     public void SoldItem(int mount)
     {
         int id = selectItem.id;
-        var item = Bag.Instance.items.Find(i => i.id == id);
+        var item = bag.items.Find(i => i.id == id);
         if (!CanSold(item.mount, mount)) return;
         StaticResource.Gold += InventoryManager.Instance.FindItem(id).price * mount;
-        Bag.Instance.RemoveItem(id, mount);
+        bag.RemoveItem(id, mount);
         EventManager.UpdateSlotUi();
     }
     private bool CanSold(int mount, int soldMount)

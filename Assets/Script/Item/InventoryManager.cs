@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class InventoryManager : SingleTon<InventoryManager>
 {
-    public List<itemId> items;
-    public Items itemData;
+    public List<itemId> items;//玩家拥有的物品，使用id和数量保存
+    public Items itemData;//excel储存的物品数据集
     private void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
-        EventManager.addItem += AddItem;
-        EventManager.removeItem += RemoveItem;
     }
-    private void OnDisable()
-    {
-        EventManager.addItem -= AddItem;
-        EventManager.removeItem -= RemoveItem;
-    }
-    public ItemData FindItem(int id)
+    public ItemData FindItem(int id)//根据id返回物品数据
     {
         return itemData.Sheet1.Find(i => i.id == id);
     }
-    public void RemoveItem(int id, int itemMount)
+    public void RemoveItem(int id, int itemMount)//移除物品
     {
         bool isBeyond = false;
         foreach (var i in items)
@@ -42,18 +35,15 @@ public class InventoryManager : SingleTon<InventoryManager>
             }
             else
                 return;
-            
-
             EventManager.UpdateSlotUi();
         }
-
         else
         {
             return;
         }
 
     }
-    public void AddItem(int id, int itemMount)
+    public void AddItem(int id, int itemMount)//添加物品
     {
         bool isBeyond = false;
         foreach (var i in items)
