@@ -57,6 +57,8 @@ public class NodeCreater : MonoBehaviour
         foreach(var node in nodes)
         {
             node.events.Add(3001);
+            int ranstyle = Random.Range(0, 4);
+            node.style = (NodeStyle)ranstyle;
         }
     }
     private IEnumerator CreateNodeFirst()

@@ -9,6 +9,7 @@ public class UiManager : SingleTon<UiManager>
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI moveText;
     [SerializeField] private Button turnEnd;
+    
     private void OnEnable()
     {
         EventManager.updateMapUi += UpdateText;

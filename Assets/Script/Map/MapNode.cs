@@ -12,14 +12,11 @@ public class MapNode : MonoBehaviour
     public NodeCreater creater;
     public List<int> events;
     [SerializeField] private Material material;
+    public NodeStyle style;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         DrawLine();
-    }
-    public void Init()
-    {
-        creater.nodes.Add(this);
     }
     public void DrawLine()
     {
@@ -55,7 +52,7 @@ public class MapNode : MonoBehaviour
     {
         return events[Random.Range(0, events.Count)];
     }
-    public void AddAdj(MapNode node)
+    public void AddAdj(MapNode node)//加入节点
     {
         if (adjancentNode.Contains(node))
             return;
@@ -63,7 +60,7 @@ public class MapNode : MonoBehaviour
         adjancentNode.Add(node);
         node.adjancentNode.Add(this);
     }
-    public void RemoveAdj(MapNode node)
+    public void RemoveAdj(MapNode node)//移除目标节点
     {
         if (!adjancentNode.Contains(node))
             return;
@@ -79,7 +76,7 @@ public class MapNode : MonoBehaviour
         {
             node.GetComponent<SpriteRenderer>().color = Color.green;
         }
-        EventTrig();
+        //EventTrig();触发事件
     }
     public void Exit()
     {

@@ -38,7 +38,7 @@ public class NodeBuilder
             node.collapsed = collapsed;
             node.gameObject.name = node.transPos.ToString();
             node.creater = creater;
-            node.Init();
+            nodes.Add(node);
         };
     }
     public void AddAdj(List<MapNode> nodes,MapNode node)
