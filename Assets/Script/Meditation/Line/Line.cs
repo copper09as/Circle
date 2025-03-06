@@ -9,45 +9,40 @@ public class Line : MonoBehaviour
     public Vector3 headPos;
     public Vector3 endPos;
 
-    private double P;
+    Vector3 Pos;//当前向量
+    Vector3 StartPos;//初始向量
+
+    private double P;//长度
     public Line Last;
-    //public Vector3_ HeadPos//方便外界浅拷贝
-    //{ get { return HeadPos; }
-    // set { HeadPos = value; headPos = value.vector3; }
-    //}
-    //public Vector3_ EndPos
-    //{
-    //    get { return EndPos; }
-    //    set { EndPos = value; endPos = value.vector3; }
-    //}
-    //public Vector3 FirstheadPos;
-    //public Vector3 FirstendPos;
 
     public LineRenderer lineRenderer;
-    public LineRenderer trailRenderer;
-    public float speed;//角速度 rad/s
-    
+    public LineRenderer trailRenderer;//轨迹渲染
+    public float s_speed;//设定相对角速度 rad/s
+    float speed;//实际角速度（相对坐标系）
+
     private List<Vector3> trailPositions; // 轨迹点列表
-    public int maxTrailPoints =1000;
+    public int maxTrailPoints = 1000;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         trailPositions = new List<Vector3>();
-        GetP();
-
+        SetP();//初始长度初始向量计算与实际速度计算
+        Pos = StartPos;//赋值当前向量
     }
     private void FixedUpdate()
     {
         Turning();
         UpdateTrail();
     }
-    
+
 
     public void Turning()
     {
+
         if (Last != null)
             headPos = Last.endPos;
-        lineRenderer.SetPosition(0,headPos);
+
+        lineRenderer.SetPosition(0, headPos);
         endPos = Calculation();
         lineRenderer.SetPosition(1, endPos);
     }
@@ -66,17 +61,23 @@ public class Line : MonoBehaviour
     }
     public Vector3 Calculation()
     {
-        Vector3 V  = new();
-        Vector3 Pos = endPos - headPos;
-        double tanValue = Math.Atan2(Pos.y,Pos.x);
-        V.y = (float)(P * Math.Sin(speed * 0.01+tanValue));
-        V.x = (float)(P * Math.Cos(speed * 0.01 + tanValue));
-        return V + headPos;
+        double tanValue = Math.Atan2(Pos.y, Pos.x);//计算现在的弧度值
+        Pos.y = (float)(P * Math.Sin(speed * 0.01 + tanValue));
+        Pos.x = (float)(P * Math.Cos(speed * 0.01 + tanValue));
+        return Pos + headPos;
     }
 
-    public void GetP()
+    void SetP()
     {
-        Vector3 Pos = endPos - headPos;
-        P = Math.Sqrt(Math.Pow(Pos.x, 2.0) + Math.Pow(Pos.y, 2.0));
+        StartPos = endPos - headPos;//计算初始向量
+        P = Math.Sqrt(Math.Pow(StartPos.x, 2.0) + Math.Pow(StartPos.y, 2.0));//计算初始长度
+    }
+    public float GetSpeed() => speed;
+    public void SetSpeed() 
+    {
+        if(Last!=null)
+        speed = Last.GetSpeed() + s_speed;
+        else
+        speed = s_speed;
     }
 }
