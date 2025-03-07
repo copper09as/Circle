@@ -14,22 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData:
   - id: 1
-    Name: "\u53161"
-    sprite: {fileID: 927246019, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    name: gogogogo
     price: 25
+    description: 
+    effectId: 0
   - id: 2
-    Name: "\u8BF7\u95EE"
-    sprite: {fileID: 1740279189, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    name: 
     price: 55
+    description: 
+    effectId: 0
   - id: 3
-    Name: "\u963F\u8FEA\u65AF"
-    sprite: {fileID: 613945193, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    name: 
     price: 30
+    description: 
+    effectId: 0
   - id: 4
-    Name: "\u6C14\u5473\u513F"
-    sprite: {fileID: 460425215, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    name: 
     price: 20
+    description: 
+    effectId: 0
   - id: 5
-    Name: 555
-    sprite: {fileID: 460425215, guid: ad357b1656fb93c4fa91e989093792b1, type: 3}
+    name: 
     price: 10
+    description: 
+    effectId: 0

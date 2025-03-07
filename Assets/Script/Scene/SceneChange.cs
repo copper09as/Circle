@@ -24,6 +24,5 @@ public class SceneChange : MonoBehaviour
             sceneLoadHandle = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         }
     }
-
-
+    
 }
