@@ -6,7 +6,7 @@ public class InventoryManager : SingleTon<InventoryManager>
 {
     public BagSaveData saveData;
     public List<itemId> items;//玩家拥有的物品，使用id和数量保存
-    public Items itemData;//excel储存的物品数据集
+    public List<ItemData> itemData;
     public  int Gold
     {
         get
@@ -36,7 +36,7 @@ public class InventoryManager : SingleTon<InventoryManager>
     }
     public ItemData FindItem(int id)//根据id返回物品数据
     {
-        return itemData.Sheet1.Find(i => i.id == id);
+        return itemData.Find(i => i.id == id);
     }
     public void RemoveItem(int id, int itemMount)//移除物品
     {

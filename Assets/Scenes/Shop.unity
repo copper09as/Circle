@@ -765,12 +765,7 @@ MonoBehaviour:
     id: 3
   - mount: 1
     id: 2
-  selectItem:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  selectItem: {fileID: 0}
   canvas: {fileID: 1008866654}
   bag: {fileID: 189892260}
 --- !u!1 &383786656
@@ -958,12 +953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 1207032011}
 --- !u!114 &411991741
@@ -1158,12 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 7148205}
 --- !u!114 &1200794497
@@ -1482,12 +1467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 1709155462}
 --- !u!114 &1374869836
@@ -1579,12 +1559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 233602644}
 --- !u!114 &1610087885
@@ -1810,12 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 241960151}
 --- !u!114 &1711063055
@@ -1889,7 +1859,12 @@ MonoBehaviour:
     items: []
     Gold: 0
   items: []
-  itemData: {fileID: 11400000, guid: 5071a92691f5f434088217e135ac9b06, type: 2}
+  itemData:
+  - {fileID: 11400000, guid: 012982dc7643c084f95b034de39a7ce4, type: 2}
+  - {fileID: 11400000, guid: 97523c65d5a348740a488792b1fc254a, type: 2}
+  - {fileID: 11400000, guid: a07a54dfa695ef745aa98a5a105e19a0, type: 2}
+  - {fileID: 11400000, guid: 1b4f471f9438d8d4ca6882bdef57f50d, type: 2}
+  - {fileID: 11400000, guid: 7c2d06c5a0aa97d4ca9670ff417dcc00, type: 2}
 --- !u!4 &1748811228
 Transform:
   m_ObjectHideFlags: 0
@@ -1956,12 +1931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b7305192eb5964ea4ee3ddbe589cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData:
-    id: 0
-    name: 
-    price: 0
-    description: 
-    effectId: 0
+  itemData: {fileID: 0}
   Mount: 0
   mountText: {fileID: 383786658}
 --- !u!114 &2132022918

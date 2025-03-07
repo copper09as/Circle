@@ -33,7 +33,7 @@ public class Shop : SingleTon<Shop>
             var item = InventoryManager.Instance.FindItem(items[i].id);
             slots[i].Mount = items[i].mount;
             slots[i].itemData = item;
-            //slots[i].GetComponent<Image>().sprite = item.sprite;
+            slots[i].GetComponent<Image>().sprite = item.image;
             slots[i].mountText.text = slots[i].Mount.ToString();
         }
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sheet1:
   - id: 1
-    name: f
+    name: ASDASD
     price: 20
     description: 452
     effectId: 1
@@ -36,5 +36,10 @@ MonoBehaviour:
   - id: 5
     name: 12
     price: 11
+    description: 
+    effectId: 0
+  - id: 123
+    name: 
+    price: 0
     description: 
     effectId: 0
