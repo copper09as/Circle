@@ -11,16 +11,25 @@ public class NodeTypyFactory
     }
     public void AddBuilding()
     {
+        MapManager mapManager = MapManager.Instance;
         switch(nodeStyle)
         {
             case NodeStyle.City:
-                mapNode.AddComponent<BuildingCity>();break;
+                mapNode.AddComponent<BuildingCity>();
+                mapManager.CityNodes.Add(mapNode);
+                break;
             case NodeStyle.Shop:
-                mapNode.AddComponent<BuildingShop>(); break;
+                mapNode.AddComponent<BuildingShop>();
+                mapManager.ShopNodes.Add(mapNode); 
+                break;
             case NodeStyle.Shrine:
-                mapNode.AddComponent<BuildingShrine>(); break;
+                mapNode.AddComponent<BuildingShrine>();
+                mapManager.ShrineNodes.Add(mapNode); 
+                break;
             case NodeStyle.Inn:
-                mapNode.AddComponent<BuildingInn>(); break;
+                mapNode.AddComponent<BuildingInn>(); 
+                mapManager.InnNodes.Add(mapNode);
+                break;
         }
     }
 

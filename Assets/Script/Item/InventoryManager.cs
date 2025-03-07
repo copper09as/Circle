@@ -4,11 +4,35 @@ using UnityEngine;
 
 public class InventoryManager : SingleTon<InventoryManager>
 {
+    public BagSaveData saveData;
     public List<itemId> items;//玩家拥有的物品，使用id和数量保存
     public Items itemData;//excel储存的物品数据集
+    public  int Gold
+    {
+        get
+        {
+            return saveData.Gold;
+        }
+        set
+        {
+            saveData.Gold = value;
+        }
+    }
+    private void Awake()
+    {
+        if(GameSave.LoadByJson<BagSaveData>("BagData.json")!=null)
+        {
+            saveData = GameSave.LoadByJson<BagSaveData>("BagData.json");
+            items = saveData.items;
+        }
+    }
+
     private void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
+        EventManager.updateSlotUi += SaveBagData;
+        items = saveData.items;
+        Gold = saveData.Gold;
     }
     public ItemData FindItem(int id)//根据id返回物品数据
     {
@@ -66,5 +90,10 @@ public class InventoryManager : SingleTon<InventoryManager>
             items.Add(_item);
         }
         EventManager.UpdateSlotUi();
+    }
+    private void SaveBagData()
+    {
+        GameSave.SaveByJson("BagData.json", saveData);
+        Debug.Log("测试存档功能");
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class NodeCreater : MonoBehaviour
 {
+    [Header("节点大小")]
+    [SerializeField] private float NodeScale;
     [Header("首次删除节点次数")]
     [SerializeField] private int DeleteCount;
     [Header("孤立节点判断条件")]

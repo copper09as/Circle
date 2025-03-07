@@ -24,6 +24,6 @@ public class NodeEvent : MonoBehaviour
     {
         Day -= 1;
         if (Day == 0)
-            Destroy(this);
+            Debug.Log(EventId + "事件已结束");
     }
 }

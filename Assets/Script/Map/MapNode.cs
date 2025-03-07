@@ -60,7 +60,8 @@ public class MapNode : MonoBehaviour
     }
     public void Enter()
     {
-        if (GetComponent<NodeEvent>() != null) 
+        transform.GetChild(0).gameObject.SetActive(false);
+        if (GetComponent<NodeEvent>().Day>0) 
             GetComponent<NodeEvent>().EventTrig();
         MapManager.Instance.currentNode = this;
         GetComponent<SpriteRenderer>().color = Color.blue;
