@@ -11,9 +11,6 @@ public class MapManager : SingleTon<MapManager>
     void Start()
     {
         enterNode.onClick.AddListener(EnterNode);
-        float ran = Random.Range(0f, 1f);
-        //currentNode.Enter();
-        Debug.Log(ran.ToString());
     }
     private void OnEnable()
     {
@@ -25,7 +22,7 @@ public class MapManager : SingleTon<MapManager>
     }
     private void EnterNode()
     {
-        Debug.Log(currentNode.style.ToString());
+        currentNode.GetComponent<BuildingInNode>().Enter();
         //根据当前节点进入对应场景
     }
     public void TransPlace(MapNode enterNode)

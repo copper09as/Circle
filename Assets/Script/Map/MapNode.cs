@@ -11,7 +11,6 @@ public class MapNode : MonoBehaviour
     public bool collapsed;
     public NodeCreater creater;
     [SerializeField] private Material material;
-    public NodeStyle style;
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
