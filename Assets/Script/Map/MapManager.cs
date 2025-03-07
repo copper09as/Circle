@@ -7,13 +7,16 @@ public class MapManager : SingleTon<MapManager>
 {
     public MapNode currentNode;
     public List<MapNode> nodes;
+    public List<MapNode> CityNodes;
+    public List<MapNode> ShrineNodes;
+    public List<MapNode> InnNodes;
+    public List<MapNode> ShopNodes;
+
     [SerializeField] private Button enterNode;
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         enterNode.onClick.AddListener(EnterNode);
-        float ran = Random.Range(0f, 1f);
-        //currentNode.Enter();
-        Debug.Log(ran.ToString());
     }
     private void OnEnable()
     {
@@ -25,12 +28,12 @@ public class MapManager : SingleTon<MapManager>
     }
     private void EnterNode()
     {
-        Debug.Log(currentNode.style.ToString());
+        currentNode.GetComponent<BuildingInNode>().Enter();
         //根据当前节点进入对应场景
     }
     public void TransPlace(MapNode enterNode)
     {
-        if (!DecMove()) return; 
+        if (!DecMove()) return;
         if (currentNode != null)
         {
             if (!CanReach(enterNode))
@@ -42,7 +45,7 @@ public class MapManager : SingleTon<MapManager>
     }
     private bool DecMove()
     {
-        if(StaticResource.move>0)
+        if (StaticResource.move > 0)
         {
             StaticResource.move -= 1;
             return true;

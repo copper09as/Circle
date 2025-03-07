@@ -80,7 +80,7 @@ public class NodeBuilder
         foreach(var node in nodes)
         {
             var nodeEvent = node.AddComponent<NodeEvent>();
-            nodeEvent.EventId = 3001;
+            nodeEvent.EventId = 3003;
             nodeEvent.Day = 999;
         }
     }

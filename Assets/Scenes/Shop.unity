@@ -769,6 +769,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   canvas: {fileID: 1008866654}
   bag: {fileID: 189892260}
 --- !u!1 &383786656
@@ -960,6 +962,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 1207032011}
 --- !u!114 &411991741
@@ -1158,6 +1162,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 7148205}
 --- !u!114 &1200794497
@@ -1480,6 +1486,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 1709155462}
 --- !u!114 &1374869836
@@ -1575,6 +1583,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 233602644}
 --- !u!114 &1610087885
@@ -1804,6 +1814,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 241960151}
 --- !u!114 &1711063055
@@ -1873,13 +1885,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ac351b1fbbe1947a1e78815fa0c143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - mount: 3
-    id: 4
-  - mount: 1
-    id: 1
-  - mount: 1
-    id: 2
+  saveData:
+    items: []
+    Gold: 0
+  items: []
   itemData: {fileID: 11400000, guid: 5071a92691f5f434088217e135ac9b06, type: 2}
 --- !u!4 &1748811228
 Transform:
@@ -1951,6 +1960,8 @@ MonoBehaviour:
     id: 0
     name: 
     price: 0
+    description: 
+    effectId: 0
   Mount: 0
   mountText: {fileID: 383786658}
 --- !u!114 &2132022918

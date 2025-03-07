@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class NodeEvent : MonoBehaviour
+public class NodeEvent : MonoBehaviour//储存地点拥有的事件数据
 {
     public int EventId;
 
@@ -24,6 +24,6 @@ public class NodeEvent : MonoBehaviour
     {
         Day -= 1;
         if (Day == 0)
-            Destroy(this);
+            Debug.Log(EventId + "事件已结束");
     }
 }

@@ -1,10 +1,13 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NodeCreater : MonoBehaviour
 {
+    [Header("节点大小")]
+    [SerializeField] private float NodeScale;
     [Header("首次删除节点次数")]
     [SerializeField] private int DeleteCount;
     [Header("孤立节点判断条件")]
@@ -59,7 +62,8 @@ public class NodeCreater : MonoBehaviour
         foreach(var node in nodes)
         {
             int ranstyle = Random.Range(0, 4);
-            node.style = (NodeStyle)ranstyle;
+            var nodeTypyFactory = new NodeTypyFactory((NodeStyle)ranstyle,node);
+            nodeTypyFactory.AddBuilding();
         }
         nodeBuilder.AddEvent();
     }
