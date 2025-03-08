@@ -11,7 +11,7 @@ public class MapManager : SingleTon<MapManager>
     public List<MapNode> ShrineNodes;
     public List<MapNode> InnNodes;
     public List<MapNode> ShopNodes;
-
+    public NodeCreater creater;
     [SerializeField] private Button enterNode;
     void Start()
     {
@@ -45,17 +45,19 @@ public class MapManager : SingleTon<MapManager>
     }
     private bool DecMove()
     {
-        if (StaticResource.move > 0)
+        if (GameDataManager.Instance.move > 0)
         {
-            StaticResource.move -= 1;
+            GameDataManager.Instance.move -= 1;
             return true;
         }
         return false;
     }
     private void UpdarteDayData()
     {
-        StaticResource.move = 1;
-        StaticResource.day += 1;
+        creater.initNodePos = currentNode.transPos;
+        GameDataManager.Instance.move = StaticResource.maxMove;
+        GameDataManager.Instance.day += 1;
+        EventManager.SaveGameData();
     }
     public bool CanReach(MapNode EnterNode)
     {

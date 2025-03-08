@@ -198,6 +198,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 79061852}
   m_CullTransparentMesh: 1
+--- !u!1 &95530623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 95530624}
+  - component: {fileID: 95530625}
+  m_Layer: 0
+  m_Name: GameDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &95530624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95530623}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 176007417}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &95530625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95530623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae04de8101b255a469ff3fc60c142f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayData:
+    day: 1
+    move: 0
+  nodeData:
+    NodeScale: 0
+    DeleteCount: 0
+    lonelyDec: 0
+    isRound: 0
+    isMagicCity: 0
+    magicCityDis: 0
+    isLonely: 0
+    maxAdjNode: 0
+    minAdjNode: 0
+    maxAdj: 0
+    minAdj: 0
+    MapSeed: 0
+    NodeWidth: 0
+    NodeHeight: 0
+    NodesOffestX: 0
+    NodesOffestY: 0
+    isOffest: 0
+    NodeX: 0
+    NodeY: 0
+    nodeRange: 0
+    initNodePos: {x: 0, y: 0}
 --- !u!1 &141344767
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +468,7 @@ Transform:
   - {fileID: 430439219}
   - {fileID: 238530345}
   - {fileID: 1413313825}
+  - {fileID: 95530624}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238530344
@@ -838,6 +908,7 @@ MonoBehaviour:
   ShrineNodes: []
   InnNodes: []
   ShopNodes: []
+  creater: {fileID: 1122436650}
   enterNode: {fileID: 1309319560}
 --- !u!4 &716435573
 Transform:
@@ -1018,6 +1089,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09104d46e08c8947ad08bc92ac6ed0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodeData:
+    NodeScale: 0
+    DeleteCount: 0
+    lonelyDec: 0
+    isRound: 0
+    isMagicCity: 0
+    magicCityDis: 0
+    isLonely: 0
+    maxAdjNode: 0
+    minAdjNode: 0
+    maxAdj: 0
+    minAdj: 0
+    MapSeed: 0
+    NodeWidth: 0
+    NodeHeight: 0
+    NodesOffestX: 0
+    NodesOffestY: 0
+    isOffest: 0
+    NodeX: 0
+    NodeY: 0
+    nodeRange: 0
+    initNodePos: {x: 0, y: 0}
   NodeScale: 0
   DeleteCount: 5
   lonelyDec: 0
@@ -1031,7 +1124,7 @@ MonoBehaviour:
   minAdjNode: 1
   maxAdj: 8
   minAdj: -1
-  MapSeed: 1047
+  MapSeed: 21321
   NodeWidth: 8
   NodeHeight: 5
   NodesOffestX: -18.7
@@ -1040,6 +1133,7 @@ MonoBehaviour:
   NodeX: 2
   NodeY: 2
   nodeRange: 5.5
+  initNodePos: {x: 0, y: 0}
 --- !u!1 &1309319558
 GameObject:
   m_ObjectHideFlags: 0

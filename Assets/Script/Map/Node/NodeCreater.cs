@@ -1,54 +1,53 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class NodeCreater : MonoBehaviour
 {
+    public NodeData nodeData;
     [Header("节点大小")]
-    [SerializeField] private float NodeScale;
+    public float NodeScale;
     [Header("首次删除节点次数")]
-    [SerializeField] private int DeleteCount;
+    public int DeleteCount;
     [Header("孤立节点判断条件")]
-    [SerializeField] private float lonelyDec;
+    public float lonelyDec;
     [Header("是否开启环形修正")]
-    [SerializeField] private bool isRound;
+    public bool isRound;
     [Header("当前存在的节点")]
     public List<MapNode> nodes;
     [Header("已坍缩的节点")]
-    [SerializeField] private List<MapNode> collapsedNodes;
+    public List<MapNode> collapsedNodes;
     [Header("是否可出现传送城")]
-    [SerializeField] private bool isMagicCity;
+    public bool isMagicCity;
     [Header("传送城判定参数")]
-    [SerializeField] private float magicCityDis;
+    public float magicCityDis;
     [Header("是否可出现孤岛")]
-    [SerializeField] private bool isLonely;
+    public bool isLonely;
     [Header("节点最大连线数")]
-    [SerializeField] private int maxAdjNode;
+    public int maxAdjNode;
     [Header("节点最小连线数")]
-    [SerializeField] private int minAdjNode;
+    public int minAdjNode;
     [Header("节点最大邻接数")]
-    [SerializeField] private int maxAdj;
+    public int maxAdj;
     [Header("节点最小邻接数")]
-    [SerializeField] private int minAdj;
+    public int minAdj;
     [Header("地图种子")]
-    [SerializeField] private int MapSeed;
+    public int MapSeed;
     [Header("节点长宽数量")]
-    [SerializeField] private int NodeWidth;
-    [SerializeField] private int NodeHeight;
+    public int NodeWidth;
+    public int NodeHeight;
     [Header("节点初始生成地偏移度")]
-    [SerializeField] private float NodesOffestX;
-    [SerializeField] private float NodesOffestY;
+    public float NodesOffestX;
+    public float NodesOffestY;
     [Header("节点是否偏移")]
-    [SerializeField] private bool isOffest;
+    public bool isOffest;
     [Header("节点偏移度")]
-    [SerializeField] private float NodeX;
-    [SerializeField] private float NodeY;
+    public float NodeX;
+    public float NodeY;
     [Header("节点间距")]
-    [SerializeField] private float nodeRange;
-
-
+    public float nodeRange;
+    public Vector2Int initNodePos;
     private Dictionary<int, int> collapsedXnode = new Dictionary<int, int>();
     private Dictionary<int, int> collapsedYnode = new Dictionary<int, int>();
     private NodeBuilder nodeBuilder;
@@ -59,10 +58,10 @@ public class NodeCreater : MonoBehaviour
         yield return CreateNodeFirst(); // 等待节点初始化完成
         StartCoroutine(RandomNodeFirst(DeleteCount));
         MapManager.Instance.nodes = this.nodes;
-        foreach(var node in nodes)
+        foreach (var node in nodes)
         {
             int ranstyle = Random.Range(0, 4);
-            var nodeTypyFactory = new NodeTypyFactory((NodeStyle)ranstyle,node);
+            var nodeTypyFactory = new NodeTypyFactory((NodeStyle)ranstyle, node);
             nodeTypyFactory.AddBuilding();
         }
         nodeBuilder.AddEvent();
@@ -184,11 +183,11 @@ public class NodeCreater : MonoBehaviour
 
             if (nodes[i].adjancentNode.Count <= minAdjNode)
             {
-                var connectNode = nodes.Find(n => GetSqrDistance(nodes[i],n) < ((NodeHeight * NodeHeight + NodeWidth * NodeWidth) / lonelyDec));
+                var connectNode = nodes.Find(n => GetSqrDistance(nodes[i], n) < ((NodeHeight * NodeHeight + NodeWidth * NodeWidth) / lonelyDec));
                 if (connectNode != null)
                 {
                     connectNode.AddAdj(nodes[i]);
-   
+
                 }
             }
         }
@@ -210,7 +209,7 @@ public class NodeCreater : MonoBehaviour
     }
     private void RandomNodeThird()
     {
-        if(isOffest)
+        if (isOffest)
             MapNodeOffset();
         HelpLonelyNode();
         DeleteFriendNode();
@@ -220,9 +219,19 @@ public class NodeCreater : MonoBehaviour
             node.DrawLine();
         }
         if (nodes.Count > 0)
-            MapManager.Instance.TransPlace(nodes[0]);
+            if (nodes.Find(i => i.transPos == initNodePos) != null)
+            {
+                MapManager.Instance.TransPlace(nodes.Find(i => i.transPos == initNodePos));
+            }
+            else
+            {
+                MapManager.Instance.TransPlace(nodes[0]);
+            }
         else
+        {
             Debug.LogError("所有节点已坍缩，无法指定初始节点");
+        }
+                
     }
     private void LonelyCityDec()
     {

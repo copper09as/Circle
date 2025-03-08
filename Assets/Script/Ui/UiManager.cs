@@ -21,8 +21,8 @@ public class UiManager : SingleTon<UiManager>
     }
     private void UpdateText()
     {
-        dayText.text = StaticResource.day.ToString();
-        moveText.text = StaticResource.move.ToString();
+        dayText.text = GameDataManager.Instance.day.ToString();
+        moveText.text = GameDataManager.Instance.move.ToString();
     }
 
 }
