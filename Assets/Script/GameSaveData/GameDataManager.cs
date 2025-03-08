@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 
@@ -85,6 +86,9 @@ public class GameDataManager : SingleTon<GameDataManager>
     {
         if (nodeCreater == null) nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
         nodeData =  GameSave.LoadByJson<NodeData>("NodeData.json");
+        if (nodeData == null) 
+            throw new System.Exception
+                ("存档为空,请在"+Path.Combine(Application.persistentDataPath, "NodeData.json") +"路径，填入"+ "{\"NodeScale\":0.0,\"DeleteCount\":5,\"lonelyDec\":0.0,\"isRound\":true,\"isMagicCity\":false,\"magicCityDis\":2.0,\"isLonely\":true,\"maxAdjNode\":6,\"minAdjNode\":1,\"maxAdj\":8,\"minAdj\":-1,\"MapSeed\":21321,\"NodeWidth\":8,\"NodeHeight\":5,\"NodesOffestX\":-18.700000762939454,\"NodesOffestY\":4.0,\"isOffest\":true,\"NodeX\":2.0,\"NodeY\":2.0,\"nodeRange\":5.5,\"initNodePos\":{\"x\":6,\"y\":3}}");
         nodeCreater.isOffest = nodeData.isOffest;
         nodeCreater.NodesOffestX = nodeData.NodesOffestX;
         nodeCreater.NodesOffestY = nodeData.NodesOffestY;
