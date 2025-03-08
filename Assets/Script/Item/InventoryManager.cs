@@ -31,9 +31,11 @@ public class InventoryManager : SingleTon<InventoryManager>
     {
         DontDestroyOnLoad(gameObject);
         EventManager.updateSlotUi += SaveBagData;
+        EventManager.saveGameData += SaveBagData;
         items = saveData.items;
         Gold = saveData.Gold;
     }
+
     public ItemData FindItem(int id)//根据id返回物品数据
     {
         return itemData.Find(i => i.id == id);

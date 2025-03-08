@@ -48,8 +48,15 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
 
         //if (ValueDemand == -1) return;
-        EventFactory.EventTrig(reputation);
-        EventManager.EventOvr();
+        try
+        {
+            EventFactory.EventTrig(reputation);
+            EventManager.EventOvr();
+        }
+        catch
+        {
+            throw new System.Exception("ÊÂ¼þÎ´´¥·¢");
+        }
         /*switch (ValueType)
         {
             case "Att": DesEffect(Value,currentEvent.Att);break;
