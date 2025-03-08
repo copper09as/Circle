@@ -1205,10 +1205,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1413313824}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef500c6c541e5a74abaa13d981a614a5, type: 3}
+  m_Script: {fileID: 11500000, guid: f1c950625e5be9d4fbca4a742827d7e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eventsData: {fileID: 11400000, guid: cca5d11b72c6a6045b34a918c237cd8a, type: 2}
+  currentEvent:
+    id: 0
+    Name: 
+    Limit: 
+    Awardid: 0
+    AwardCount: 0
+    Description: 
 --- !u!1 &1585364774
 GameObject:
   m_ObjectHideFlags: 0

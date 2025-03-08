@@ -36,6 +36,6 @@ public class MapEventUi : MonoBehaviour
     {
         EventName.text = eventData.Name;
         EventDescription.text = eventData.Description;
-        EventPro.text = "Att:"+eventData.Att.ToString() + " Reply"+eventData.Reply.ToString()+" Limit"+eventData.Limit;
+        EventPro.text = " Limit"+eventData.Limit;
     }
 }

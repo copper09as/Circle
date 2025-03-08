@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MapEventFactory
-{    public int EffectId;
+public  class MapEventFactory
+{ 
     public MapEvent mapEvent;
- 
-    public abstract void Create(int Effectid);
 
-    public virtual void EventTrig(int value = -1,int demand = -1)
+    public void Create(int Eventid)
     {
-        if (value == -1) return;
+        switch (Eventid)
+        {
+            case 3003:
+                this.mapEvent = new LosingChild(); break;
+        }
+    }
+    public void EventTrig(int reputation)
+    {
+        Debug.Log("工厂触发效果");
+
+        this.mapEvent.EffectTrig(reputation);
     }
 }

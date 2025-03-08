@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class MapEvent//事件效果处理
 {
-    public abstract void EffectTrig(int Value = 0,int ValueDemand = 0);
+    public abstract void EffectTrig(int reputation,string limit = null);
 }

@@ -5,6 +5,7 @@ public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
     public EventData currentEvent;
+    private MapEventFactory EventFactory;//事件建造工厂
     private void OnEnable()
     {
         EventManager.eventOver += EventOver;
@@ -19,6 +20,8 @@ public class MapEventManager : SingleTon<MapEventManager>
     }
     public void EffectTrid(int id)
     {
+        if (FindItem(id) == null)
+            Debug.LogError("事件id查找失败");
         Addressables.InstantiateAsync("MapEventPanel").Completed += handle =>
         {
             handle.Result.transform.SetParent(GameObject.Find("Canvas").transform, false);
@@ -27,32 +30,38 @@ public class MapEventManager : SingleTon<MapEventManager>
             eventUi.eventData = FindItem(id);
             eventUi.InitEventUi();
         };
+        EventFactory = new MapEventFactory();
+        EventFactory.Create(id);
     }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            PlaceCard(40, "Att");
+            PlaceCard(-50);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PlaceCard(20, "Att");
+            PlaceCard(-100);
         }
     }
-    public void PlaceCard(int Value, string ValueType)
+    public void PlaceCard(int reputation,string limit = null)
     {
-        switch (ValueType)
+
+        //if (ValueDemand == -1) return;
+        EventFactory.EventTrig(reputation);
+        EventManager.EventOvr();
+        /*switch (ValueType)
         {
             case "Att": DesEffect(Value,currentEvent.Att);break;
             case "Ref":RefreshEffect(Value,currentEvent.Reply);break;
             case "Con":ControlEffect();break;
-        }
+        }*/
     }
-    public void DesEffect(int Value,int ValueDemand)
+    /*public void DesEffect(int Value,int ValueDemand)
     {
         if (ValueDemand == -1) return;
-        AttEventFactory attEventFactory = new AttEventFactory();
-        attEventFactory.Create(currentEvent.AttEffid);
+        MapEventFactory attEventFactory = new MapEventFactory();
+        attEventFactory.Create(currentEvent.id);
         attEventFactory.EventTrig(Value,ValueDemand);
         EventManager.EventOvr();
 
@@ -65,13 +74,14 @@ public class MapEventManager : SingleTon<MapEventManager>
     public void ControlEffect()
     {
         EventManager.EventOvr();
-    }
+    }*/
     public void SkipEffect()
     {
         EventManager.EventOvr();
     }
     private void EventOver()
     {
+        EventFactory = null;
         currentEvent = null;
     }
 }
