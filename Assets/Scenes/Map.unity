@@ -1125,12 +1125,12 @@ MonoBehaviour:
   minAdjNode: 1
   maxAdj: 8
   minAdj: -1
-  MapSeed: 21321
+  MapSeed: 22395
   NodeWidth: 8
   NodeHeight: 5
   NodesOffestX: -18.7
   NodesOffestY: 4
-  isOffest: 0
+  isOffest: 1
   NodeX: 2
   NodeY: 2
   nodeRange: 5.5
