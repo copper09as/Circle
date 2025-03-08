@@ -51,6 +51,18 @@ public class NodeCreater : MonoBehaviour
     private Dictionary<int, int> collapsedXnode = new Dictionary<int, int>();
     private Dictionary<int, int> collapsedYnode = new Dictionary<int, int>();
     private NodeBuilder nodeBuilder;
+    private void Awake()
+    {
+        try
+        {
+            GameDataManager.Instance.LoadNodeData();
+        }
+        catch
+        {
+            Debug.Log("´æµµÎª¿Õ");
+        }
+        
+    }
     IEnumerator Start()
     {
         nodeBuilder = new NodeBuilder(false, transform, nodeRange, new Vector2(NodesOffestX, NodesOffestY), nodes);
