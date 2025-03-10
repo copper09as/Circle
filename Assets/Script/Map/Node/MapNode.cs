@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-
+using MainGame;
 public class MapNode : MonoBehaviour
 {
     public bool CanGet = true;
@@ -40,6 +40,8 @@ public class MapNode : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (State.Instance.currentState != GameState.Map)
+            return;
         MapManager.Instance.TransPlace(this);
     }
     public void AddAdj(MapNode node)//加入节点

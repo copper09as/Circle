@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-
+using MainGame;
 public class Bag : MonoBehaviour
 {
     [SerializeField] private Slot slotPrefab;
@@ -13,11 +13,13 @@ public class Bag : MonoBehaviour
     [SerializeField] private int SlotCount;
     private void OnEnable()
     {
+        State.Instance.currentState = GameState.Bag;
         EventManager.updateSlotUi += UpdateSlotUi;
         
     }
     private void OnDisable()
     {
+        State.Instance.currentState = GameState.Map;
         EventManager.updateSlotUi -= UpdateSlotUi;
         
     }

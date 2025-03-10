@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MainGame;
 using Unity.VisualScripting;
 using UnityEngine;
-
 public static class EventManager
 {
     public static event Action updateMapUi;//刷新移动力文本以及天数文本
@@ -13,7 +13,8 @@ public static class EventManager
 
     public static void NextDay()//刷新下一日数据
     {
-        
+        if (MainGame.State.Instance.currentState != GameState.Map)
+            return;
         nextDay?.Invoke();
         EventManager.UpdateMapUi();
     }

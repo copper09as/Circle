@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Npc;
 using UnityEngine.AddressableAssets;
+using MainGame;
 public class MapEventUi : MonoBehaviour
 {
     public EventData eventData; 
@@ -15,10 +16,12 @@ public class MapEventUi : MonoBehaviour
     [SerializeField] private Button SkipButton;
     private void OnEnable()
     {
+        State.Instance.currentState = GameState.Event;
         EventManager.eventOver += Exit;
     }
     private void OnDisable()
     {
+        State.Instance.currentState = GameState.Map;
         EventManager.eventOver -= Exit;
     }
     private void Start()

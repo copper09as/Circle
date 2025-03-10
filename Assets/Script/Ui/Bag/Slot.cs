@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using MainGame;
 public class Slot : MonoBehaviour,IPointerDownHandler
 {
     public ItemData itemData;
@@ -22,6 +22,8 @@ public class Slot : MonoBehaviour,IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (State.Instance.currentState != GameState.Shop)
+            return;
         if (itemData.id == 0) return;
         if (Shop.Instance.currentState.state != ShopUiState.Main) return;
         Shop.Instance.selectItem = itemData;

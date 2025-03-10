@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-
+using MainGame;
 public class UiManager : SingleTon<UiManager>
 {
     [SerializeField] private TextMeshProUGUI dayText;
@@ -32,11 +32,14 @@ public class UiManager : SingleTon<UiManager>
     }
     private void OpenBag()
     {
+        if (State.Instance.currentState != GameState.Map)
+            return;
         Addressables.InstantiateAsync("Bag").Completed += handle =>
         {
             var canvas = GameObject.Find("Canvas");
             handle.Result.transform.SetParent(canvas.transform, false);
         };
+        
     }
 
 }

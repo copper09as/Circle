@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using MainGame;
 
 public class MapManager : SingleTon<MapManager>
 {
@@ -28,6 +28,8 @@ public class MapManager : SingleTon<MapManager>
     }
     private void EnterNode()
     {
+        if (State.Instance.currentState != GameState.Map)
+            return;
         currentNode.GetComponent<BuildingInNode>().Enter();
         //根据当前节点进入对应场景
     }
