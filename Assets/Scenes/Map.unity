@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 79061856}
   - component: {fileID: 79061855}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: EnterCity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -615,7 +615,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayText: {fileID: 1911747767}
   moveText: {fileID: 674561699}
+  goldText: {fileID: 0}
   turnEnd: {fileID: 808963023}
+  bagButton: {fileID: 1772708775}
   NumberSprites:
   - {fileID: -1546582159, guid: b8d32daf639790948aa63e4941e8bdbf, type: 3}
   - {fileID: -1790536090, guid: b8d32daf639790948aa63e4941e8bdbf, type: 3}
@@ -993,7 +995,7 @@ GameObject:
   - component: {fileID: 808963024}
   - component: {fileID: 808963023}
   m_Layer: 5
-  m_Name: Button
+  m_Name: NextDay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1363,6 +1365,7 @@ MonoBehaviour:
     Name: 
     NpcTag: 
     Description: 
+  npc: {fileID: 0}
 --- !u!1 &1585364774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,8 +1463,8 @@ RectTransform:
   - {fileID: 1911747766}
   - {fileID: 674561698}
   - {fileID: 808963022}
-  - {fileID: 1772708774}
   - {fileID: 79061853}
+  - {fileID: 1772708774}
   - {fileID: 1633527466}
   - {fileID: 141344768}
   m_Father: {fileID: 0}
@@ -1604,7 +1607,7 @@ GameObject:
   - component: {fileID: 1772708776}
   - component: {fileID: 1772708775}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1626,8 +1629,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 832, y: -237}
-  m_SizeDelta: {x: 240.96, y: 240.96}
+  m_AnchoredPosition: {x: 839.93726, y: -230}
+  m_SizeDelta: {x: 225.09, y: 215.5611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1772708775
 MonoBehaviour:
@@ -1693,7 +1696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1267067703, guid: e3270acd55865714ea88b7ac2a451db6, type: 3}
+  m_Sprite: {fileID: 1411967157, guid: e3270acd55865714ea88b7ac2a451db6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

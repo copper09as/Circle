@@ -10,10 +10,6 @@ public class Slot : MonoBehaviour,IPointerDownHandler
     public TextMeshProUGUI mountText;
 
 
-    private void Start()
-    {
-        transform.parent.GetComponent<Bag>().slots.Add(this);
-    }
 
     internal void ClearData()
     {

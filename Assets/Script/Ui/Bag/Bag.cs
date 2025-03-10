@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Bag : MonoBehaviour
 {
+    [SerializeField] private Slot slotPrefab;
     public List<Slot> slots;
     public List<itemId> items;
     [SerializeField] private int SlotCount;
@@ -23,29 +24,18 @@ public class Bag : MonoBehaviour
     void Start()
     {
         items = InventoryManager.Instance.items;
-        InitBag();
-        StartCoroutine(UpdateBagUi());
-
-    }
-    void InitBag()
-    {
-        for(int i = 0;i<SlotCount;i++)
-        {
-            Addressables.InstantiateAsync("BagSlot").Completed += handle =>
-            {
-                handle.Result.transform.SetParent(transform, false);
-            };
-        }
-    }
-    IEnumerator UpdateBagUi()
-    {
-        yield return null;
-        EventManager.UpdateSlotUi();
+        UpdateSlotUi();
     }
     public void RemoveItem(int id, int itemMount)
     {
         InventoryManager.Instance.RemoveItem(id, itemMount);
-        slots[items.Count].ClearData();
+        items = InventoryManager.Instance.items; // 刷新列表
+
+        if (items.Count < slots.Count)
+        {
+            slots[items.Count].ClearData();
+        }
+
         EventManager.UpdateSlotUi();
     }
     public void AddItem(int id, int itemMount)
@@ -55,9 +45,21 @@ public class Bag : MonoBehaviour
     private void UpdateSlotUi()
     {
         items = InventoryManager.Instance.items;
+
+        // 动态扩展槽位
+        while (slots.Count < items.Count || slots.Count < SlotCount)
+        {
+            var newSlot = Instantiate(slotPrefab, transform);
+            slots.Add(newSlot.GetComponent<Slot>());
+        }
+
         for (int i = 0; i < items.Count; i++)
         {
+            if (i >= slots.Count) break; // 防止越界
+
             var item = InventoryManager.Instance.FindItem(items[i].id);
+            if (item == null || slots[i] == null) continue; // 空值保护
+
             slots[i].Mount = items[i].mount;
             slots[i].itemData = item;
             slots[i].GetComponent<Image>().sprite = item.image;

@@ -22,6 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ce81455168b42a4e9cc6857b3b1ed61
+    m_Address: Bag
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6958dc1ec8acabd44862d2f878a96090
     m_Address: Buy
     m_ReadOnly: 0

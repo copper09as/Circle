@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using UnityEngine;
 
 public class GameDataManager : SingleTon<GameDataManager>
@@ -110,8 +107,7 @@ public class GameDataManager : SingleTon<GameDataManager>
     {
         if (nodeCreater == null) nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
         if (nodeData == null)
-            throw new System.Exception
-                ("´æµµÎª¿Õ,ÇëÔÚ" + Path.Combine(Application.persistentDataPath, "NodeData.json") + "Â·¾¶£¬ÌîÈë" + "{\"NodeScale\":0.0,\"DeleteCount\":5,\"lonelyDec\":0.0,\"isRound\":true,\"isMagicCity\":false,\"magicCityDis\":2.0,\"isLonely\":true,\"maxAdjNode\":6,\"minAdjNode\":1,\"maxAdj\":8,\"minAdj\":-1,\"MapSeed\":21321,\"NodeWidth\":8,\"NodeHeight\":5,\"NodesOffestX\":-18.700000762939454,\"NodesOffestY\":4.0,\"isOffest\":true,\"NodeX\":2.0,\"NodeY\":2.0,\"nodeRange\":5.5,\"initNodePos\":{\"x\":6,\"y\":3}}");
+            throw new System.Exception("¶ÁÈ¡µØÍ¼´æµµÊ§°Ü");
         nodeCreater.isOffest = nodeData.isOffest;
         nodeCreater.NodesOffestX = nodeData.NodesOffestX;
         nodeCreater.NodesOffestY = nodeData.NodesOffestY;
