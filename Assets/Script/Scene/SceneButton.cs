@@ -16,6 +16,6 @@ public class SceneButton : MonoBehaviour
 
     private void ChangeScene()
     {
-        StartCoroutine(SceneChangeManager.Instance.LoadScene(sceneName,0));
+        StartCoroutine(SceneChangeManager.Instance.LoadScene(sceneName,0,true));
     }
 }

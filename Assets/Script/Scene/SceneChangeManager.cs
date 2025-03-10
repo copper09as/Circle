@@ -24,7 +24,7 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            StartCoroutine(LoadScene("Shop",1,true));
+            StartCoroutine(LoadScene("Shop",1));
         }
     }
     public  IEnumerator LoadScene(string sceneName,int mode,bool isLoading = false)
