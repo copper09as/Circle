@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Npc.State;
 using UnityEngine;
 namespace Npc
@@ -21,6 +22,16 @@ namespace Npc
         public abstract void OnHappy();
 
         public abstract void OnSad();
+
+        public abstract void OnDead();
+
+        public virtual void TakeDamage(int damage)
+        {
+            if(Health - damage < 0)
+            {
+                OnDead();
+            }
+        }
 
         public void GetItem(int id,int mount)//获取npc身上物品
         {

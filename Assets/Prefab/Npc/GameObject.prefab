@@ -50,5 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 510
   takeItems:
-  - mount: 1
-    id: 4
+  - mount: 2
+    id: 1
+  sprite: {fileID: 0}

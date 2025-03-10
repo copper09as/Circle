@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class MapEventFactory
+/*public  class MapEventFactory
 { 
     public MapEvent mapEvent;
 
@@ -27,4 +27,4 @@ public enum EventResult
 
 
 
-}
+}*/

@@ -11,7 +11,7 @@ public class MapEventUi : MonoBehaviour
     public TextMeshProUGUI EventName;
     public TextMeshProUGUI EventDescription;
     public TextMeshProUGUI EventPro;//事件数值显示
-    public Npc.Npc tritNpc;
+    public Npc.Npc npc;
     [SerializeField] private Button SkipButton;
     private void OnEnable()
     {
@@ -45,7 +45,8 @@ public class MapEventUi : MonoBehaviour
         Addressables.InstantiateAsync(eventData.NpcTag).Completed += handle =>
         {
             handle.Result.transform.SetParent(transform, false);
-            var npc = handle.Result.GetComponent < Npc.Npc>();
+            npc = handle.Result.GetComponent<Npc.Npc>();
+            MapEventManager.Instance.npc = npc;
         };
     }
 }

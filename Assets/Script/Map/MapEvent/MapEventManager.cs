@@ -4,7 +4,7 @@ public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
     public EventData currentEvent;
-    private MapEventFactory EventFactory;//事件建造工厂
+    public Npc.Npc npc;
     private void OnEnable()
     {
         EventManager.eventOver += EventOver;
@@ -29,25 +29,26 @@ public class MapEventManager : SingleTon<MapEventManager>
             eventUi.eventData = FindItem(id);
             eventUi.InitEventUi();
         };
-        EventFactory = new MapEventFactory();
-        EventFactory.Create(id);
+        //EventFactory = new MapEventFactory();
+        //EventFactory.Create(id);
     }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            PlaceCard(-50,23);
+            npc.TakeDamage(1111);
+            EventManager.EventOvr();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PlaceCard(-100,22);
+            EventManager.EventOvr();
         }
     }
-    public void PlaceCard(int reputation, int threat,string limit = null)
+    public void PlaceCard()
     {
-        
-            EventFactory.EventTrig(reputation,threat);
+            //EventFactory.EventTrig();
             EventManager.EventOvr();
+
         /*switch (ValueType)
         {
             case "Att": DesEffect(Value,currentEvent.Att);break;
@@ -79,7 +80,7 @@ public class MapEventManager : SingleTon<MapEventManager>
     }
     private void EventOver()
     {
-        EventFactory = null;
+        npc = null;
         currentEvent = null;
     }
 }

@@ -30,6 +30,11 @@ namespace Npc
 
         }
 
+        public override void OnDead()
+        {
+            GetItem(1, 2);
+        }
+
         // Start is called before the first frame update
     }
 }
