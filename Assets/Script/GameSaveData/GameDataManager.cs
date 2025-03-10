@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-public class GameDataManager : SingleTon<GameDataManager>
+public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
 {
     [SerializeField] private DayData dayData;
     [SerializeField] private NodeData nodeData;
@@ -10,6 +10,13 @@ public class GameDataManager : SingleTon<GameDataManager>
     {
         get
         {
+            if (dayData == null)
+                dayData = new DayData()
+                {
+                    day = 1,
+                    move = 2
+                };
+
             return dayData.move;
         }
         set
@@ -131,5 +138,8 @@ public class GameDataManager : SingleTon<GameDataManager>
         nodeCreater.NodeY = nodeData.NodeY;
     }
 
-
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 }

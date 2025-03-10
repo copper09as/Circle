@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneChangeManager : SingleTon<SceneChangeManager>
+public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
 {
     private float LoadingProgress = 0;
     private void Awake()
@@ -14,13 +14,13 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            StartCoroutine(LoadSceen("Shop"));
+            StartCoroutine(LoadSceen("Shop",1));
         }
     }
-    public IEnumerator LoadSceen(string sceneName)
+    public IEnumerator LoadSceen(string sceneName,int mode)
     {
         ShowLoading();
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, (LoadSceneMode)mode);
         while(asyncOperation.progress<0.9f)
         {
             Debug.Log("当前加载场景进度是" + Instance.LoadingProgress);
@@ -37,5 +37,10 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>
     {
         Instance.LoadingProgress = asyncOperation.progress;
 
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

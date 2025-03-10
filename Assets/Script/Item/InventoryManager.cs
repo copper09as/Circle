@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : SingleTon<InventoryManager>
+public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
 {
     public BagSaveData saveData;
     public List<itemId> items;//玩家拥有的物品，使用id和数量保存
@@ -96,5 +96,10 @@ public class InventoryManager : SingleTon<InventoryManager>
     {
         GameSave.SaveByJson("BagData.json", saveData);
         Debug.Log("测试存档功能");
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }
