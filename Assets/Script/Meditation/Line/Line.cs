@@ -7,39 +7,46 @@ using UnityEngine.Android;
 public class Line : MonoBehaviour
 {
     public Vector3 headPos;
-    public Vector3 endPos;
+    Vector3 endPos;
 
     Vector3 Pos;//当前向量
     Vector3 StartPos;//初始向量
+    public double rad;//向量的弧度值
 
-    private double P;//长度
+    public double P;//长度
     public Line Last;
 
     public LineRenderer lineRenderer;
     public LineRenderer trailRenderer;//轨迹渲染
     public float s_speed;//设定相对角速度 rad/s
-    float speed;//实际角速度（相对坐标系）
+    [SerializeField]float speed;//实际角速度（相对坐标系）
 
     private List<Vector3> trailPositions; // 轨迹点列表
-    public int maxTrailPoints = 1000;
-    private void Awake()
+    public int maxTrailPoints = 1000;//轨迹点上限
+    void Awake()
+    {
+        SetStartPos();
+    }
+    void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         trailPositions = new List<Vector3>();
-        SetP();//初始长度初始向量计算与实际速度计算
+        //初始长度初始向量计算与实际速度计算
         Pos = StartPos;//赋值当前向量
+
+        //endPos = headPos + StartPos;//计算初始点坐标
     }
     private void FixedUpdate()
     {
-        Turning();
-        UpdateTrail();
+        Turning();//旋转
+        UpdateTrail();//轨迹描绘
     }
 
 
     public void Turning()
     {
 
-        if (Last != null)
+        if (Last != null)//给HeadPos赋值
             headPos = Last.endPos;
 
         lineRenderer.SetPosition(0, headPos);
@@ -67,17 +74,18 @@ public class Line : MonoBehaviour
         return Pos + headPos;
     }
 
-    void SetP()
+    void SetStartPos()//通过弧度值和长度计算当前向量
     {
-        StartPos = endPos - headPos;//计算初始向量
-        P = Math.Sqrt(Math.Pow(StartPos.x, 2.0) + Math.Pow(StartPos.y, 2.0));//计算初始长度
+        StartPos.x = (float)(P * Math.Cos(rad));
+        StartPos.y = (float)(P * Math.Sin(rad));
     }
-    public float GetSpeed() => speed;
     public void SetSpeed() 
     {
         if(Last!=null)
-        speed = Last.GetSpeed() + s_speed;
+        speed = Last.speed + s_speed;
         else
         speed = s_speed;
     }
+    public void SetHeadPos(Vector3 p) => headPos = p;
+    public Vector3 SetEndPos()=> endPos = headPos+StartPos;
 }
