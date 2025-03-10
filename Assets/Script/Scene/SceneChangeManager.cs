@@ -24,12 +24,12 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            StartCoroutine(LoadScene("Shop",1));
+            StartCoroutine(LoadScene("Shop",1,true));
         }
     }
-    public  IEnumerator LoadScene(string sceneName,int mode)
+    public  IEnumerator LoadScene(string sceneName,int mode,bool isLoading = false)
     {
-
+        if(isLoading)
         ShowLoading();
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, (LoadSceneMode)mode);
         //加载完成之后是否允许跳转
@@ -40,8 +40,13 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
             Debug.Log("当前加载场景进度是" + Instance.LoadingProgress);
             yield return null;
         }
-        Instance.loadingPanel.SetLoadingProcess(1, 1f);
-        HideLoading();
+        if (isLoading)
+        {
+            Instance.loadingPanel.SetLoadingProcess(1, 1f);
+
+            HideLoading();
+        }
+
         asyncOperation.allowSceneActivation = true;
         yield return null;
     }
