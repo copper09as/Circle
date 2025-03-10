@@ -22,7 +22,7 @@ public class TitleUi : MonoBehaviour
         {
             i.DestroySelf();
         }
-        StartCoroutine(SceneChangeManager.Instance.LoadSceen("Resident", 0));
+        StartCoroutine(SceneChangeManager.Instance.LoadScene("Resident", 0));
 
     }
 }
