@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &108039179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 670.04, y: 714}
+  m_AnchoredPosition: {x: 669.96, y: 695.0399}
   m_SizeDelta: {x: 1340.08, y: 769.9201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &132992673
@@ -233,6 +233,10 @@ PrefabInstance:
     - target: {fileID: 469172432922089105, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: FirstheadPos.x
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 469172432922089105, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
+      propertyPath: maxTrailPoints
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1849492768945474018, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: m_Positions.Array.data[0].x
@@ -382,6 +386,10 @@ PrefabInstance:
     - target: {fileID: 469172432922089105, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: FirstendPos.x
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 469172432922089105, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
+      propertyPath: maxTrailPoints
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1849492768945474018, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: m_MotionVectors
@@ -730,7 +738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 155}
   m_SizeDelta: {x: 4503.2085, y: 4272.4854}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &674802685
@@ -1768,7 +1776,7 @@ Transform:
   m_GameObject: {fileID: 2042555727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.4, y: 2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1945,6 +1953,10 @@ PrefabInstance:
       propertyPath: FirstendPos.x
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 469172432922089105, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
+      propertyPath: maxTrailPoints
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 1849492768945474018, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: m_Positions.Array.data[0].x
       value: 0
@@ -1968,6 +1980,10 @@ PrefabInstance:
     - target: {fileID: 6900127789498364899, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
       propertyPath: m_Name
       value: Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900127789498364899, guid: d8f5d65313e00a04ea82d059f344efe1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

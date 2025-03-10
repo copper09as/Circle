@@ -7,7 +7,7 @@ using UnityEngine;
 public class ItemData:TScriptableObject
 {
     public int id;
-    public string name;
+    public string Name;
     public int price;
     public Sprite image;
     public string description;

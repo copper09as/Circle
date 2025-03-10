@@ -39,7 +39,7 @@ public class MapDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = Vector3.zero;
+        //rectTransform.anchoredPosition = Vector3.zero;
     }
     
 
