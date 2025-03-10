@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
 {
     private float LoadingProgress = 0;
+    [SerializeField] private TitleUi titleUi;
     private void Awake()
     {
+        if (titleUi != null)
+            titleUi.importantManager.Add(this);
         DontDestroyOnLoad(gameObject);
     }
     private void Update()

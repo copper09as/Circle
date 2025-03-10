@@ -4,6 +4,7 @@ namespace MainGame
     public class State : SingleTon<State>,IDestroySelf
     {
         public GameState currentState = GameState.Map;
+        [SerializeField] private TitleUi titleUi;
 
         public void DestroySelf()
         {
@@ -12,6 +13,8 @@ namespace MainGame
 
         private void Awake()
         {
+            if(titleUi!=null)
+            titleUi.importantManager.Add(this);
             DontDestroyOnLoad(gameObject);
         }
     }

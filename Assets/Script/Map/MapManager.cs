@@ -33,9 +33,9 @@ public class MapManager : SingleTon<MapManager>
         currentNode.GetComponent<BuildingInNode>().Enter();
         //根据当前节点进入对应场景
     }
-    public void TransPlace(MapNode enterNode)
+    public void TransPlace(MapNode enterNode,bool isLoad)//如果isLoad为真，则消耗行动力
     {
-        if (!DecMove()) return;
+        if (!DecMove(isLoad)) return;
         if (currentNode != null)
         {
             if (!CanReach(enterNode))
@@ -45,8 +45,14 @@ public class MapManager : SingleTon<MapManager>
         enterNode.Enter();
         EventManager.UpdateMapUi();
     }
-    private bool DecMove()
+    private bool DecMove(bool isLoad)
     {
+        if (isLoad)
+        {
+            GameDataManager.Instance.move -= 0;
+            return true;
+        }
+            
         if (GameDataManager.Instance.move > 0)
         {
             GameDataManager.Instance.move -= 1;

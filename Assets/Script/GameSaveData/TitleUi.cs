@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TitleUi : MonoBehaviour
 {
     [SerializeField] private Button delSave;
-    [SerializeField] private List<IDestroySelf> importantManager;
+     public List<IDestroySelf> importantManager = new List<IDestroySelf>();
     private void OnEnable()
     {
         delSave.onClick.AddListener(DelSave);

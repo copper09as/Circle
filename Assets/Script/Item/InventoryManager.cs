@@ -7,6 +7,7 @@ public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
     public BagSaveData saveData;
     public List<itemId> items;//玩家拥有的物品，使用id和数量保存
     public List<ItemData> itemData;
+    [SerializeField] private TitleUi titleUi;
     public  int Gold
     {
         get
@@ -20,7 +21,9 @@ public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
     }
     private void Awake()
     {
-        if(GameSave.LoadByJson<BagSaveData>("BagData.json")!=null)
+        if (titleUi != null)
+            titleUi.importantManager.Add(this);
+        if (GameSave.LoadByJson<BagSaveData>("BagData.json")!=null)
         {
             saveData = GameSave.LoadByJson<BagSaveData>("BagData.json");
             items = saveData.items;

@@ -233,11 +233,11 @@ public class NodeCreater : MonoBehaviour
         if (nodes.Count > 0)
             if (nodes.Find(i => i.transPos == initNodePos) != null)
             {
-                MapManager.Instance.TransPlace(nodes.Find(i => i.transPos == initNodePos));
+                MapManager.Instance.TransPlace(nodes.Find(i => i.transPos == initNodePos),true);
             }
             else
             {
-                MapManager.Instance.TransPlace(nodes[0]);
+                MapManager.Instance.TransPlace(nodes[0],true);
             }
         else
         {

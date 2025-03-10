@@ -6,6 +6,8 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
     [SerializeField] private DayData dayData;
     [SerializeField] private NodeData nodeData;
     [SerializeField] private NodeCreater nodeCreater;
+    [SerializeField] private TitleUi titleUi;
+
     public int move
     {
         get
@@ -37,6 +39,8 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
     }
     private void Awake()
     {
+        if (titleUi != null)
+            titleUi.importantManager.Add(this);
         DontDestroyOnLoad(gameObject);
         LoadDayData();
         dayData = GameSave.LoadByJson<DayData>("DayData.json");
