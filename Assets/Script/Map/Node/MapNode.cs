@@ -42,7 +42,7 @@ public class MapNode : MonoBehaviour
     {
         if (State.Instance.currentState != GameState.Map)
             return;
-        MapManager.Instance.TransPlace(this);
+        MapManager.Instance.TransPlace(this,false);
     }
     public void AddAdj(MapNode node)//加入节点
     {
