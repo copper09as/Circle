@@ -55,7 +55,7 @@ public class NodeCreater : MonoBehaviour
     {
         try
         {
-            GameDataManager.Instance.LoadNodeData();
+            GameDataManager.Instance.LoadNodeData(this);
         }
         catch
         {

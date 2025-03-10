@@ -43,11 +43,11 @@ public class InventoryManager : SingleTon<InventoryManager>
     public void RemoveItem(int id, int itemMount)//移除物品
     {
         bool isBeyond = false;
-        foreach (var i in items)
+        if(items.Find(i=>i.id == id)!=null)
         {
-            if (id == i.id)
-                isBeyond = true;
+            isBeyond = true;
         }
+
         if (isBeyond)
         {
             if (items.Find(i => i.id == id).mount - itemMount > 0)
@@ -72,10 +72,9 @@ public class InventoryManager : SingleTon<InventoryManager>
     public void AddItem(int id, int itemMount)//添加物品
     {
         bool isBeyond = false;
-        foreach (var i in items)
+        if (items.Find(i => i.id == id) != null)
         {
-            if (id == i.id)
-                isBeyond = true;
+            isBeyond = true;
         }
         if (isBeyond)
         {

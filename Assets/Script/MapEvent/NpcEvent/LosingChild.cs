@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class LosingChild : MapEvent
 {
-    public override void EffectTrig(int reputation,string limit = null)
+
+    public override void EffectTrig(int reputation,int threat,string limit = null)
     {
         switch (reputation)
         {
@@ -15,10 +18,6 @@ public class LosingChild : MapEvent
             case -50:
                 Debug.Log("…±≤ªÀ¿–°≈Û”—£°");
                 break;
-
-
-
-
         }
 
 

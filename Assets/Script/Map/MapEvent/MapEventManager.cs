@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-
 public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
@@ -37,23 +36,18 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            PlaceCard(-50);
+            PlaceCard(-50,23);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PlaceCard(-100);
+            PlaceCard(-100,22);
         }
     }
-    public void PlaceCard(int reputation,string limit = null)
+    public void PlaceCard(int reputation, int threat,string limit = null)
     {
-
-        //if (ValueDemand == -1) return;
- 
         
-            EventFactory.EventTrig(reputation);
+            EventFactory.EventTrig(reputation,threat);
             EventManager.EventOvr();
-        
-
         /*switch (ValueType)
         {
             case "Att": DesEffect(Value,currentEvent.Att);break;

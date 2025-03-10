@@ -6,8 +6,6 @@ public class EventData
 {
     public int id;
     public string Name;
-    public string Limit;
-    public int Awardid;
-    public int AwardCount;
+    public string NpcTag;
     public string Description;
 }

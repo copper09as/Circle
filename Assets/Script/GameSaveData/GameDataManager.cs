@@ -35,8 +35,9 @@ public class GameDataManager : SingleTon<GameDataManager>
     {
         DontDestroyOnLoad(gameObject);
         LoadDayData();
-        if(nodeCreater == null)
-        nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
+        dayData = GameSave.LoadByJson<DayData>("DayData.json");
+        nodeData = GameSave.LoadByJson<NodeData>("NodeData.json");
+
 
     }
     private void OnEnable()
@@ -53,7 +54,6 @@ public class GameDataManager : SingleTon<GameDataManager>
     {
         try
         {
-            dayData = GameSave.LoadByJson<DayData>("DayData.json");
             day = dayData.day;
             move = dayData.move;
         }
@@ -77,6 +77,10 @@ public class GameDataManager : SingleTon<GameDataManager>
             nodeData = new NodeData();
             Debug.Log("新建nodeData");
         }
+        if (nodeCreater == null)
+            nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
+        if (nodeCreater == null)
+            return;
             nodeData.isOffest = nodeCreater.isOffest;
             nodeData.NodesOffestX = nodeCreater.NodesOffestX;
             nodeData.NodesOffestY = nodeCreater.NodesOffestY;
@@ -102,10 +106,9 @@ public class GameDataManager : SingleTon<GameDataManager>
             Debug.Log("测试节点存档功能");
         
     }
-    public void LoadNodeData()
+    public void LoadNodeData(NodeCreater nodeCreater)
     {
         if (nodeCreater == null) nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
-        nodeData = GameSave.LoadByJson<NodeData>("NodeData.json");
         if (nodeData == null)
             throw new System.Exception
                 ("存档为空,请在" + Path.Combine(Application.persistentDataPath, "NodeData.json") + "路径，填入" + "{\"NodeScale\":0.0,\"DeleteCount\":5,\"lonelyDec\":0.0,\"isRound\":true,\"isMagicCity\":false,\"magicCityDis\":2.0,\"isLonely\":true,\"maxAdjNode\":6,\"minAdjNode\":1,\"maxAdj\":8,\"minAdj\":-1,\"MapSeed\":21321,\"NodeWidth\":8,\"NodeHeight\":5,\"NodesOffestX\":-18.700000762939454,\"NodesOffestY\":4.0,\"isOffest\":true,\"NodeX\":2.0,\"NodeY\":2.0,\"nodeRange\":5.5,\"initNodePos\":{\"x\":6,\"y\":3}}");

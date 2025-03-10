@@ -18,6 +18,7 @@ public class UiManager : SingleTon<UiManager>
     private void OnDisable()
     {
         EventManager.updateMapUi -= UpdateText;
+        turnEnd.onClick?.RemoveListener(EventManager.NextDay);
     }
     private void UpdateText()
     {
