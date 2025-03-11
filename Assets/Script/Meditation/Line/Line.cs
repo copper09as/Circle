@@ -17,7 +17,7 @@ public class Line : MonoBehaviour
     double rad;//向量的弧度值
     [Header("相对角速度")]
     public float s_speed;//设定相对角速度 rad/s
-    float speed;//实际角速度（相对坐标系）
+    public float speed;//实际角速度（相对坐标系）
     public double length;//长度
     [Header("上一条线")]
     public Line Last;
@@ -33,23 +33,31 @@ public class Line : MonoBehaviour
     void Awake()
     {
         Nexts = new List<Line>();//初始化
-        rad = angle / 180 * 2 * Math.PI;//计算弧度值
+        rad = angle / 180 * Math.PI;//计算弧度值
         SetStartPos();
     }
     void Start()
     {
+        Intialize();
+    }
+    void Intialize()
+    {
         lineRenderer = GetComponent<LineRenderer>();
         //lineMaterial = lineRenderer.material;
-        trailRenderer.useWorldSpace = false;//使用局部坐标
-        trailPositions = new List<Vector3>();
+        if (lineRenderer != null)
+        {
+            trailRenderer.useWorldSpace = false;//使用局部坐标
+            trailPositions = new List<Vector3>();
+        }
         //初始长度初始向量计算与实际速度计算
         Pos = StartPos;//赋值当前向量
         //endPos = headPos + StartPos;//计算初始点坐标
         HideLine();//隐藏向量
-        
     }
+
     private void FixedUpdate()
     {
+        if(gameObject.CompareTag("HeadLine"))return;
         Turning();//旋转
         UpdateTrail();//轨迹描绘
     }
@@ -57,14 +65,37 @@ public class Line : MonoBehaviour
 
 
     //先序遍历森林
-    public void Traversal()
+    public void Traversal(string H,string E)
     {
-        //开始执行一些操作
+        //对每个结点执行一些操作
+        //action1?.Invoke();
+        if (H == "Refresh") Refresh();
+        SetSpeed();
+        SetHeadPos(SetEndPos());
+        //此后改为switch
         foreach (Line line in Nexts)
         {
-            line.Traversal();
+            line.Traversal(H, E);
         }//执行到空时
-        //开始执行一些操作
+        //对每个尾节点结点执行一些操作
+        //action2?.Invoke();
+    }
+
+    //创建森林
+    public void Refresh()
+        //获取父物体的Line
+        //遍历每个一级子物体，并获取他们的Line组件到Nexts中
+    {
+        if(!gameObject.CompareTag("HeadLine")) 
+            Last = transform.parent?.GetComponent<Line>();
+        Nexts.Clear();//刷新
+        foreach (Transform child in transform) // 遍历所有一级子物体
+        {
+            if (child.TryGetComponent<Line>(out var line))
+            {
+                Nexts.Add(line);
+            }
+        }
     }
 
 
