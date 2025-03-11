@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CardPool : MonoBehaviour
+public class CardPool
 {
 
     public List<CardDisplay> Create()

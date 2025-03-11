@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Npc.State
 {
-    public class StateMachine : MonoBehaviour
+    public class StateMachine
     {
         public State currentState;
         public State PreState;

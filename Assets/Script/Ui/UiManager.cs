@@ -29,11 +29,13 @@ public class UiManager : SingleTon<UiManager>
     {
         dayText.text = GameDataManager.Instance.day.ToString();
         moveText.text = GameDataManager.Instance.move.ToString();
+        goldText.text = InventoryManager.Instance.Gold.ToString();
     }
     private void OpenBag()
     {
         if (State.Instance.currentState != GameState.Map)
             return;
+        State.Instance.currentState = GameState.Bag;
         Addressables.InstantiateAsync("Bag").Completed += handle =>
         {
             var canvas = GameObject.Find("Canvas");

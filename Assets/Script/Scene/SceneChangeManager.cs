@@ -20,14 +20,8 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
         ShowLoading();
         Instance.loadingPanel.SetLoadingProcess(1, 1f);
     }*/
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            StartCoroutine(LoadScene("Shop",1));
-        }
-    }
-    public  IEnumerator LoadScene(string sceneName,int mode,bool isLoading = false)
+
+    public IEnumerator LoadScene(string sceneName,int mode,bool isLoading = false)
     {
         if(isLoading)
         ShowLoading();
@@ -50,7 +44,18 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
         asyncOperation.allowSceneActivation = true;
         yield return null;
     }
+    public IEnumerator LeaveScene(string sceneName)
+    {
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(sceneName);
+        asyncOperation.allowSceneActivation = false;
+        while (asyncOperation.progress < 0.9f)
+        {
+            yield return null;
+        }
 
+        asyncOperation.allowSceneActivation = true;
+        yield return null;
+    }
     public void ShowLoading()
     {
         if (Instance.loadingPanel == null)

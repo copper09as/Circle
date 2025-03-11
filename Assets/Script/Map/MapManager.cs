@@ -15,7 +15,6 @@ public class MapManager : SingleTon<MapManager>
     [SerializeField] private Button enterNode;
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         enterNode.onClick.AddListener(EnterNode);
     }
     private void OnEnable()
@@ -62,10 +61,15 @@ public class MapManager : SingleTon<MapManager>
     }
     private void UpdarteDayData()
     {
+
         creater.initNodePos = currentNode.transPos;
         GameDataManager.Instance.move = StaticResource.maxMove;
         GameDataManager.Instance.day += 1;
         EventManager.SaveGameData();
+        foreach(var node in nodes)
+        {
+            node.GetComponent<BuildingInNode>().CanReach = true;
+        }
     }
     public bool CanReach(MapNode EnterNode)
     {

@@ -13,7 +13,7 @@ public class Bag : MonoBehaviour
     [SerializeField] private int SlotCount;
     private void OnEnable()
     {
-        State.Instance.currentState = GameState.Bag;
+
         EventManager.updateSlotUi += UpdateSlotUi;
         
     }

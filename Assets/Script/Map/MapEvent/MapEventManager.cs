@@ -32,18 +32,7 @@ public class MapEventManager : SingleTon<MapEventManager>
         //EventFactory = new MapEventFactory();
         //EventFactory.Create(id);
     }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            npc.TakeDamage(1111);
-            EventManager.EventOvr();
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            EventManager.EventOvr();
-        }
-    }
+
     public void PlaceCard()
     {
             //EventFactory.EventTrig();

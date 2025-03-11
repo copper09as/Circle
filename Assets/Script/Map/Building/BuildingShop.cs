@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using MainGame;
 using UnityEngine;
 
 public class BuildingShop : BuildingInNode
 {
     public override void Enter()
     {
-        Debug.Log("进入了集市");
+        if (CanReach == false) return;
+        CanReach = false;
+        MainGame.State.Instance.currentState = GameState.Shop;
+        StartCoroutine(SceneChangeManager.Instance.LoadScene("Shop", 1));
     }
-
-    // Start is called before the first frame update
-
 }
