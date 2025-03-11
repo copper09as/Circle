@@ -1,110 +1,110 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using MainGame;
 using UnityEngine;
 
-    /// <summary>
-    /// 相机的控制器，实现相机的wasd移动、鼠标缩放视野、拖拽移动、鼠标放置在边缘移动etc
-    /// 需要挂接在MainCamera上
-    /// </summary>
-    public class CameraController : MonoBehaviour {
+/// <summary>
+/// 相机的控制器，实现相机的wasd移动、鼠标缩放视野、拖拽移动、鼠标放置在边缘移动etc
+/// 需要挂接在MainCamera上
+/// </summary>
+public class CameraController : MonoBehaviour
+{
 
-        public static CameraController Instance;
+    public static CameraController Instance;
 
-        [Header("限制移动边缘")]
-        CameraTarget cameraTarget;
-        [SerializeField] private Transform target;
+    [Header("限制移动边缘")]
+    CameraTarget cameraTarget;
+    [SerializeField] private Transform target;
+    [Tooltip("相机到目标的距离")]
+    [SerializeField] private float distance;
+    //[SerializeField] private float addDistanceOffset = 0;
+    [SerializeField] private float minOrthoSize = 2f;
+    [SerializeField] private float maxOrthoSize = 10f;
+    [SerializeField] private float scrollSensitivity = 5f;
+    [SerializeField] private float zoomSmoothing = 5f;
+    private float targetDistance;
+    private float targetOrthoSize;
 
-        
-        [Header("实现视野缩放")]
-        [SerializeField] private float minDistance = 2.5f;
-        [SerializeField] private float maxDistance = 12.0f;
-        [Tooltip("相机视野缩放系数")]
-        [SerializeField] private float scrollSpeed = 1.8f;
-        [Tooltip("相机到目标的距离")]
-        [SerializeField] private float distance;
-        //[SerializeField] private float addDistanceOffset = 0;
+    //位置偏移
 
-        //位置偏移
-        private Vector3 offsetPosition;
 
-        [SerializeField] private float smoothing = 10.0f;
+    [SerializeField] private float smoothing = 10.0f;
 
-        [SerializeField] private float moveSpeed = 10.0f;
-         
+    [SerializeField] private float moveSpeed = 10.0f;
 
-        private void Start() {
-            Instance = this;
-            cameraTarget = target.GetComponent<CameraTarget>() ;
-            offsetPosition = transform.position - target.position;
-        }
 
-        private void Update() {
-            cameraTarget.MoveWithImport(moveSpeed);
-            ScrollView();
-        }
+    private void Start()
+    {
+        Instance = this;
+        cameraTarget = target.GetComponent<CameraTarget>();
+    }
 
-        private void LateUpdate() {
-            if (target != null) {
+    private void Update()
+    {
+        if (State.Instance.currentState != GameState.Map)
+            return;
+        cameraTarget.HandleMouseInput();
+        cameraTarget.MoveWithImport(moveSpeed);
+        ScrollView();
+        if (Input.GetKeyDown(KeyCode.Q))
+            SetCameraPos(new Vector3(0, 0, -1));
+    }
 
-                if ((target.position.x != transform.position.x) 
-                    || (target.position.y != transform.position.y)) {
-                    //仅判断x y方向,跟随之
+    /*private void LateUpdate() {
+        if (target != null) {
 
-                    //NOTICE:这里是 减去 distance，注意场景！
-                    Vector3 targetPos = new Vector3(
-                        target.position.x, 
-                        target.position.y, 
-                        target.position.z
-                    );
-                    transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
-                }
+            if ((target.position.x != transform.position.x) 
+                || (target.position.y != transform.position.y)) {
+                //仅判断x y方向,跟随之
+
+                //NOTICE:这里是 减去 distance，注意场景！
+                Vector3 targetPos = new Vector3(
+                    target.position.x, 
+                    target.position.y, 
+                    target.position.z
+                );
+                transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
             }
         }
+    }*/
 
-        void ScrollView() {
-            /*//实现滑动缩放效果
-            if (addDistanceOffset > 0) {
-                addDistanceOffset--;
-            } else if (addDistanceOffset < 0) {
-                addDistanceOffset++;
-            }
-
-            //没有输入且停止滑动时 返回
-            if (Input.GetAxis("Mouse ScrollWheel") == 0 && addDistanceOffset == 0) {
-                return;
-            } else if(Input.GetAxis("Mouse ScrollWheel") != 0) {
-                addDistanceOffset = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-            } else if(addDistanceOffset != 0) {
-                //addDistanceOffset = 0;
-            }*/
-
-            //得到偏移向量的长度
-            distance = offsetPosition.magnitude;
-            distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-            //distance -= addDistanceOffset;
-
-            distance = Mathf.Clamp(
-                distance, minDistance, maxDistance
-            );
-
-            offsetPosition = offsetPosition.normalized * distance;
-
-        //更新缩放
-        Vector3 targetPos = new Vector3(
-            transform.position.x,
-            transform.position.y,
-            target.position.z
+    void ScrollView()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        targetOrthoSize -= scroll * scrollSensitivity;
+        targetOrthoSize = Mathf.Clamp(targetOrthoSize, minOrthoSize, maxOrthoSize);
+        GetComponent<Camera>().orthographicSize =
+            Mathf.Lerp(
+            GetComponent<Camera>().orthographicSize,
+            targetOrthoSize,
+            Time.deltaTime * zoomSmoothing
         );
-            transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
-        }
-
-        /// <summary>
-        /// 为相机定位
-        /// </summary>
-        public void SetCameraPos(Vector3 pos) {
-            target.transform.position = pos;
-            //Debug.Log("move camera");
-        }
 
     }
+
+    /// <summary>
+    /// 为相机定位
+    /// </summary>
+    public void SetCameraPos(Vector3 pos,float moveSpeed = 100f)
+    {
+        transform.position  = new Vector3(
+                Mathf.Lerp(
+                    transform.position.x,
+                    pos.x,
+                    Time.deltaTime * moveSpeed
+                    ),
+                Mathf.Lerp(
+                    transform.position.y,
+                    pos.y,
+                    Time.deltaTime * moveSpeed
+                    ),
+                transform.position.z
+            );
+        GetComponent<Camera>().orthographicSize =
+        Mathf.Lerp(
+        GetComponent<Camera>().orthographicSize,
+        16.5f,
+        Time.deltaTime * zoomSmoothing
+);
+        //Debug.Log("move camera");
+    }
+
+}
