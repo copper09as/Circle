@@ -11,4 +11,8 @@ public class Magic : TScriptableObject
     {
         return;
     }
+    public virtual void Fuction(Npc.Npc npc)
+    {
+        return;
+    }
 }

@@ -23,6 +23,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         cardName = magic.MagicName;
         cardType = magic.MagicType;
+        Text.text = cardName;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

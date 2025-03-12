@@ -920,6 +920,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3732611289229573285, guid: 0d9505b5f681a244b9b08f44f3ebb7d5, type: 3}
+      propertyPath: magic
+      value: 
+      objectReference: {fileID: 11400000, guid: d0e78d88ee691c9439ef6de9e3817e23, type: 2}
     - target: {fileID: 8588081105875557514, guid: 0d9505b5f681a244b9b08f44f3ebb7d5, type: 3}
       propertyPath: m_Name
       value: Card
@@ -1550,7 +1554,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

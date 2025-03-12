@@ -9,6 +9,6 @@ using UnityEngine;
 //}
 public enum MagicKind
 {
-    ruin,
-    heal,
+    Ruin,
+    Heal,
 }
