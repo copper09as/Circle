@@ -24,20 +24,21 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
     public IEnumerator LoadScene(string sceneName,int mode,bool isLoading = false)
     {
         if(isLoading)
-        ShowLoading();
+            ShowLoading();
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, (LoadSceneMode)mode);
         //加载完成之后是否允许跳转
         asyncOperation.allowSceneActivation = false;
         while (asyncOperation.progress < 0.9f)
         {
-            SetLoadingProcess(asyncOperation);
-            Debug.Log("当前加载场景进度是" + Instance.LoadingProgress);
+            if (isLoading)
+            {
+                SetLoadingProcess(asyncOperation);
+                Debug.Log("当前加载场景进度是" + Instance.LoadingProgress);
+            }
             yield return null;
         }
         if (isLoading)
         {
-            Instance.loadingPanel.SetLoadingProcess(1, 1f);
-
             HideLoading();
         }
 
@@ -100,7 +101,7 @@ public class SceneChangeManager : SingleTon<SceneChangeManager>,IDestroySelf
     public void SetLoadingProcess(AsyncOperation asyncOperation)
     {
         Instance.LoadingProgress = asyncOperation.progress;
-        //Instance.loadingPanel.SetLoadingProcess(1, Instance.LoadingProgress);现在加载太快，项目大之后再使用
+        Instance.loadingPanel.SetLoadingProcess(1, Instance.LoadingProgress);
 
     }
 

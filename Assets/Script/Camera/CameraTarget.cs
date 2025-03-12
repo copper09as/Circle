@@ -17,14 +17,14 @@ using UnityEngine;
 
     public void HandleMouseInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             // 记录拖拽开始的位置
             dragOrigin = Input.mousePosition;
             isDragging = true;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             isDragging = false;
         }

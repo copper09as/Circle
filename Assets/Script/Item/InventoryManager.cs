@@ -6,7 +6,9 @@ public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
 {
     public BagSaveData saveData;
     public List<itemId> items;//玩家拥有的物品，使用id和数量保存
+    public List<List<itemId>> npcItems;
     public List<ItemData> itemData;
+    [SerializeField] private ItemSoList npcWareHouse;
     [SerializeField] private TitleUi titleUi;
     public  int Gold
     {

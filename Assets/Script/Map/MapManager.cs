@@ -12,14 +12,14 @@ public class MapManager : SingleTon<MapManager>
     public List<MapNode> InnNodes;
     public List<MapNode> ShopNodes;
     public NodeCreater creater;
+    [SerializeField] private PeopleProPanel peoplePanel;
     [SerializeField] private Button enterNode;
-    void Start()
-    {
-        enterNode.onClick.AddListener(EnterNode);
-    }
+    [SerializeField] private Button peopleProfile;
     private void OnEnable()
     {
         EventManager.nextDay += UpdarteDayData;
+        enterNode.onClick.AddListener(EnterNode);
+        peopleProfile.onClick.AddListener(DisplayLocalPeople);
     }
     private void OnDisable()
     {
@@ -83,7 +83,15 @@ public class MapManager : SingleTon<MapManager>
     {
         return (currentNode.adjancentNode.Contains(EnterNode) && EnterNode.CanGet);
     }
-
+    private void DisplayLocalPeople()
+    {
+        if(currentNode != null && State.Instance.currentState == GameState.Map)
+        {
+            Debug.Log(currentNode.stayNpc[0].npcName);
+            peoplePanel.gameObject.SetActive(true);
+            State.Instance.currentState = GameState.People;
+        }
+    }
 }
 public enum NodeStyle
 {

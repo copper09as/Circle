@@ -1,3 +1,4 @@
+using Npc;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 public class MapEventManager : SingleTon<MapEventManager>
@@ -17,6 +18,14 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         return eventsData.Sheet1.Find(i => i.id == id);
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            npc.TakeDamage(1111);
+            EventManager.EventOvr();
+        }
+    }
     public void EffectTrid(int id)
     {
         if (FindItem(id) == null)
@@ -28,6 +37,8 @@ public class MapEventManager : SingleTon<MapEventManager>
             currentEvent = FindItem(id);
             eventUi.eventData = FindItem(id);
             eventUi.InitEventUi();
+            eventUi.npc = new LostChild(null,null);
+            this.npc = eventUi.npc;
         };
         //EventFactory = new MapEventFactory();
         //EventFactory.Create(id);

@@ -23,7 +23,8 @@ namespace MainGame
         Map,
         Bag,
         Event,
-        Shop
+        Shop,
+        People
     }
 }
 

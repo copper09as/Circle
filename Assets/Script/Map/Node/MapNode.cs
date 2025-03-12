@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using MainGame;
+using Npc;
 public class MapNode : MonoBehaviour
 {
     public bool CanGet = true;
+    public bool isLoacte;
     public List<MapNode> adjancentNode = new List<MapNode>();
+    public List<string> npcName;
+    public List<Npc.Npc> stayNpc = new List<Npc.Npc>();
     private LineRenderer lineRenderer;
     public Vector2Int transPos;
     public bool collapsed;
@@ -51,6 +55,12 @@ public class MapNode : MonoBehaviour
         if (node == this) return;
         adjancentNode.Add(node);
         node.adjancentNode.Add(this);
+    }
+    public void AddNpc(Npc.Npc npc)
+    {
+        if (npc == null) Debug.LogError("null npc");
+        stayNpc.Add(npc);
+        npcName.Add(npc.npcName);
     }
     public void RemoveAdj(MapNode node)//移除目标节点
     {

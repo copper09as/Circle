@@ -41,15 +41,6 @@ public class MapEventUi : MonoBehaviour
     {
         EventName.text = eventData.Name;
         EventDescription.text = eventData.Description;
-        LoadNpc();
     }
-    private void LoadNpc()
-    {
-        Addressables.InstantiateAsync(eventData.NpcTag).Completed += handle =>
-        {
-            handle.Result.transform.SetParent(transform, false);
-            npc = handle.Result.GetComponent<Npc.Npc>();
-            MapEventManager.Instance.npc = npc;
-        };
-    }
+
 }

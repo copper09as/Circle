@@ -45,7 +45,11 @@ public class CameraController : MonoBehaviour
         cameraTarget.MoveWithImport(moveSpeed);
         ScrollView();
         if (Input.GetKeyDown(KeyCode.Q))
+        {
             SetCameraPos(new Vector3(0, 0, -1));
+            Debug.Log("已经返回初始位置");
+        }
+            
     }
 
     /*private void LateUpdate() {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -5,34 +6,54 @@ using Npc.State;
 using UnityEngine;
 namespace Npc
 {
-    public abstract class Npc : MonoBehaviour
+    public abstract class Npc
     {
+        public string npcName;
+
         protected StateMachine machine;
         [Range(0,999)]
-        [SerializeField]private int Health;
-
-        [SerializeField] private List<itemId> takeItems;//携带物品
-
-        public Sprite sprite;
-        protected virtual void Awake()
+        protected int Health;
+        [Range(0,0.9f)]
+        protected float defeat;
+        protected float loveDefeat;
+        protected int damage;
+        protected int loveHealth;
+        protected List<itemId> takeItems = new List<itemId>();//携带物品
+        public string imagePath;
+        public Npc(string name,List<itemId> items,int damage,float defeat)
         {
+            this.npcName = name;
+            this.takeItems = items;
+            this.damage = damage;
+            this.defeat = defeat;
             Init();
         }
-        protected abstract void Init();
+        protected virtual void Init()
+        {
+            machine = new StateMachine();
+            Sad sad = new Sad(machine, this);
+            Happy happy = new Happy(machine, this);
+            machine.Init(sad);
+        }
+        public abstract void OnLove();
         public abstract void OnHappy();
-
         public abstract void OnSad();
-
         public abstract void OnDead();
-
+        public abstract void OnAngry();
         public virtual void TakeDamage(int damage)
         {
-            if(Health - damage < 0)
+            if(Health - damage*(1-defeat) < 0)
             {
                 OnDead();
             }
         }
-
+        public virtual void TakeLove(int loveValue)
+        {
+            if (loveHealth - loveValue * (1 - loveDefeat) < 0)
+            {
+                OnLove();
+            }
+        }
         public void GetItem(int id,int mount)//获取npc身上物品
         {
             itemId getItem = takeItems.Find(i => (i.id == id) && (i.mount >= mount));
@@ -43,10 +64,16 @@ namespace Npc
                     getItem.mount -= mount;
                 else if (getItem.mount - mount == 0)
                     takeItems.Remove(getItem);
-                
             }
-            
         }
     }
 }
+public enum npcType
+{ 
+    braNpc,
+    intNpc,
+    chiNpc,
+    speNpc
+}
+
 

@@ -1654,6 +1654,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a07a54dfa695ef745aa98a5a105e19a0, type: 2}
   - {fileID: 11400000, guid: 1b4f471f9438d8d4ca6882bdef57f50d, type: 2}
   - {fileID: 11400000, guid: 7c2d06c5a0aa97d4ca9670ff417dcc00, type: 2}
+  npcWareHouse: {fileID: 11400000, guid: 524d83e86cf45e945b12d45fc4956996, type: 2}
   titleUi: {fileID: 433071996}
 --- !u!4 &1952012537
 Transform:
