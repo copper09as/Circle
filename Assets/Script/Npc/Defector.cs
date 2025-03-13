@@ -17,7 +17,7 @@ namespace Npc
 
         public override void OnDead()
         {
-            throw new System.NotImplementedException();
+            MapEventManager.Instance.eventUi.EventDescription.text = "我早已不再畏惧";
         }
 
         public override void OnHappy()

@@ -5,7 +5,7 @@ namespace Npc
 {
     public class LostChild : Npc
     {
-        public LostChild(string name,List<itemId>items) : base(name,items,1,1)
+        public LostChild(string name,List<itemId>items) : base(name,items,1,1,0,0,0)
         {
             
         }
@@ -23,6 +23,7 @@ namespace Npc
         }
         public override void OnDead()
         {
+            MapEventManager.Instance.eventUi.EventDescription.text = "我想要一位真正的神";
             GetItem(1, 2);
         }
         public override void OnAngry()

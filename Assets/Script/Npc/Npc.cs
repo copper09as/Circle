@@ -9,7 +9,6 @@ namespace Npc
     public abstract class Npc
     {
         public string npcName;
-
         protected StateMachine machine;
         [Range(0,999)]
         protected int Health;
@@ -46,9 +45,14 @@ namespace Npc
         public abstract void OnAngry();
         public virtual void TakeDamage(int damage)
         {
-            if(Health - damage*(1-defeat) < 0)
+            if(Health - damage*((100-defeat)/100) < 0)
             {
                 OnDead();
+                Debug.Log("dead");
+            }
+            else
+            {
+                Debug.Log("1dead");
             }
         }
         public virtual void TakeLove(int loveValue)

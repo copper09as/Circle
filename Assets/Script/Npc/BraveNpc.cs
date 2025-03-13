@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BraveNpc : Npc.Npc
 {
-    public BraveNpc(string name, List<itemId> items) : base(name, items,1,1)
+    public BraveNpc(string name, List<itemId> items) : base(name, items,1,1,0,0,0)
     {
         this.Health = Random.Range(20, 590);
     }
