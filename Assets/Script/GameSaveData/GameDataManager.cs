@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
@@ -7,6 +9,7 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
     [SerializeField] private NodeData nodeData;
     [SerializeField] private NodeCreater nodeCreater;
     [SerializeField] private TitleUi titleUi;
+    [SerializeField] private MapEventData eventData;
 
     public int move
     {
@@ -45,8 +48,7 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
         LoadDayData();
         dayData = GameSave.LoadByJson<DayData>("DayData.json");
         nodeData = GameSave.LoadByJson<NodeData>("NodeData.json");
-
-
+        eventData = GameSave.LoadByJson<MapEventData>("EventData.json");
     }
     private void OnEnable()
     {
@@ -141,7 +143,53 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
         nodeCreater.NodeX = nodeData.NodeX;
         nodeCreater.NodeY = nodeData.NodeY;
     }
+    public void SaveEventData(List<MapNode> nodes)
+    {
+        if(eventData == null)
+        {
+            eventData = new MapEventData()
+            {
+                eventId = new List<int>(),
+                eventDay = new List<int>()
+            };
+        }
+        eventData.eventId.Clear();
+        eventData.eventDay.Clear();
+        foreach(var node in nodes)
+        {
+            eventData.eventId.Add(node.GetComponent<NodeEvent>().EventId);
+            eventData.eventDay.Add(node.GetComponent<NodeEvent>().Day);
+        }
+        GameSave.SaveByJson("EventData.json", eventData);
+    }
+    public void LoadEventData(List<MapNode> nodes)
+    {
+        if(eventData == null)
+        {
+            eventData = new MapEventData()
+            {
+                eventId = new List<int>(),
+                eventDay = new List<int>()
+            };
+            foreach (var node in nodes)
+            {
+                var nodeEvent = node.AddComponent<NodeEvent>();
+                nodeEvent.EventId = 3003;
+                nodeEvent.Day = 999;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                var nodeEvent = nodes[i].AddComponent<NodeEvent>();
+                nodeEvent.EventId = eventData.eventId[i];
+                nodeEvent.Day = eventData.eventDay[i];
 
+            }
+        }
+
+    }
     public void DestroySelf()
     {
         Destroy(gameObject);

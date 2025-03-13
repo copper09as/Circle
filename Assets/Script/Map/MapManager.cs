@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MainGame;
+using System.Runtime.CompilerServices;
 
 public class MapManager : SingleTon<MapManager>
 {
@@ -18,12 +19,14 @@ public class MapManager : SingleTon<MapManager>
     private void OnEnable()
     {
         EventManager.nextDay += UpdarteDayData;
+        EventManager.saveGameData += SaveNodeEvent;
         enterNode.onClick.AddListener(EnterNode);
         peopleProfile.onClick.AddListener(DisplayLocalPeople);
     }
     private void OnDisable()
     {
         EventManager.nextDay -= UpdarteDayData;
+        EventManager.saveGameData -= SaveNodeEvent;
     }
     private void EnterNode()
     {
@@ -32,7 +35,7 @@ public class MapManager : SingleTon<MapManager>
         currentNode.GetComponent<BuildingInNode>().Enter();
         //根据当前节点进入对应场景
     }
-    public void TransPlace(MapNode enterNode,bool isLoad)//如果isLoad为真，则消耗行动力
+    public void TransPlace(MapNode enterNode,bool isLoad)//如果isLoad为真，则不消耗行动力
     {
         if (!DecMove(isLoad)) return;
         if (currentNode != null)
@@ -41,7 +44,8 @@ public class MapManager : SingleTon<MapManager>
                 return;
             currentNode.Exit();
         }
-        enterNode.Enter();
+            enterNode.Enter(isLoad);
+
         EventManager.UpdateMapUi();
     }
     private bool DecMove(bool isLoad)
@@ -65,7 +69,7 @@ public class MapManager : SingleTon<MapManager>
         creater.initNodePos = currentNode.transPos;
         GameDataManager.Instance.move = StaticResource.maxMove;
         GameDataManager.Instance.day += 1;
-        EventManager.SaveGameData();
+
         foreach(var node in nodes)
         {
             node.GetComponent<BuildingInNode>().CanReach = true;
@@ -92,7 +96,12 @@ public class MapManager : SingleTon<MapManager>
             State.Instance.currentState = GameState.People;
         }
     }
+    private void SaveNodeEvent()
+    {
+        GameDataManager.Instance.SaveEventData(nodes);
+    }
 }
+  
 public enum NodeStyle
 {
     Shrine,

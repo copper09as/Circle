@@ -77,6 +77,7 @@ public class NodeCreater : MonoBehaviour
             nodeTypyFactory.AddBuilding();
             node.AddNpc(new BraveNpc("Vans", null));
         }
+        yield return null;
         nodeBuilder.AddEvent();
     }
     private IEnumerator CreateNodeFirst()
@@ -112,7 +113,6 @@ public class NodeCreater : MonoBehaviour
         yield return null;
         while (times > 0)
         {
-
             int index = Random.Range(0, nodes.Count);
             var node = nodes[index];
             int keyX = node.transPos.x;

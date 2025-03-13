@@ -8,9 +8,8 @@ public class Character : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     private int _currentHealth;
-    [SerializeField] private int currentHealth
+    [SerializeField] public int currentHealth
     {
-       
         get
         {
             return _currentHealth;
@@ -29,6 +28,7 @@ public class Character : MonoBehaviour
             {
                 _currentHealth = value;
             }
+            SetHealthBar();
         }
     }
 

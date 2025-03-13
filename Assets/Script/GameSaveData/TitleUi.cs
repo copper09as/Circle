@@ -17,6 +17,7 @@ public class TitleUi : MonoBehaviour
         GameSave.DeleteFile("DayData.json");
         GameSave.DeleteFile("NodeData.json");
         GameSave.DeleteFile("BagData.json");
+        GameSave.DeleteFile("EventData.json");
         Debug.Log("ÕýÔÚÉ¾³ý´æµµ");
         foreach(var i in importantManager)
         {

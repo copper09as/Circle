@@ -77,11 +77,6 @@ public class NodeBuilder
     }
     public void AddEvent()
     {
-        foreach(var node in nodes)
-        {
-            var nodeEvent = node.AddComponent<NodeEvent>();
-            nodeEvent.EventId = 3003;
-            nodeEvent.Day = 999;
-        }
+        GameDataManager.Instance.LoadEventData(MapManager.Instance.nodes);
     }
 }

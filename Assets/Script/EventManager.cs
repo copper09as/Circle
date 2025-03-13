@@ -17,6 +17,7 @@ public static class EventManager
             return;
         nextDay?.Invoke();
         EventManager.UpdateMapUi();
+        SaveGameData();
     }
 
     public static event Action updateSlotUi;//当前拥有bag的刷新格子数据的方法

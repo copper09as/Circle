@@ -19,6 +19,7 @@ namespace Npc
         protected int damage;
         protected int loveHealth;
         protected List<itemId> takeItems = new List<itemId>();//Ğ¯´øÎïÆ·
+        public string description;
         public string imagePath;
         public Npc(string name,List<itemId> items,int damage,float defeat)
         {

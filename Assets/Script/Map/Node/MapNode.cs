@@ -70,10 +70,10 @@ public class MapNode : MonoBehaviour
         adjancentNode.Remove(node);
         node.adjancentNode.Remove(this);
     }
-    public void Enter()
+    public void Enter(bool IsSupper)
     {
         transform.GetChild(0).gameObject.SetActive(false);
-        if (GetComponent<NodeEvent>().Day>0) 
+        if (!IsSupper &&GetComponent<NodeEvent>().Day>0) 
             GetComponent<NodeEvent>().EventTrig();
         MapManager.Instance.currentNode = this;
         GetComponent<SpriteRenderer>().color = Color.blue;
