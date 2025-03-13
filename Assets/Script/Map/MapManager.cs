@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 
 public class MapManager : SingleTon<MapManager>
 {
+    public Character character;
     public MapNode currentNode;
     public List<MapNode> nodes;
     public List<MapNode> CityNodes;

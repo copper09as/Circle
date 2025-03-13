@@ -1437,6 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49aa538fa25aa8743882f6214a2bdf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 1472002893}
   currentNode: {fileID: 0}
   nodes: []
   CityNodes: []

@@ -24,7 +24,8 @@ namespace MainGame
         Bag,
         Event,
         Shop,
-        People
+        People,
+        Inn
     }
 }
 
