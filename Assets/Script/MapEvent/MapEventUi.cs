@@ -35,7 +35,7 @@ public class MapEventUi : MonoBehaviour
     }
     private void Exit()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
     public void InitEventUi()
     {

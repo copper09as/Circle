@@ -5,6 +5,7 @@ public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
     public EventData currentEvent;
+    public MapEventUi eventUi;
     public Npc.Npc npc;
     private void OnEnable()
     {
@@ -22,29 +23,34 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            npc.TakeDamage(1111);
-            EventManager.EventOvr();
+            npc.TakeDamage(111001);
             Debug.Log("用于测试npc死亡");
         }
     }
-    public void EffectTrid(int id)
+    public void EffectEnter(int id)
     {
         if (FindItem(id) == null)
             Debug.LogError("事件id查找失败");
-        Addressables.InstantiateAsync("MapEventPanel").Completed += handle =>
+        eventUi.gameObject.SetActive(true);
+        currentEvent = FindItem(id);
+        eventUi.eventData = FindItem(id);
+        eventUi.InitEventUi();
+        eventUi.npc = new Defector();
+        this.npc = eventUi.npc;
+     
+       /* Addressables.InstantiateAsync("MapEventPanel").Completed += handle =>
         {
-            handle.Result.transform.SetParent(GameObject.Find("Canvas").transform, false);
+            
             var eventUi = handle.Result.GetComponent<MapEventUi>();
             currentEvent = FindItem(id);
             eventUi.eventData = FindItem(id);
             eventUi.InitEventUi();
-            eventUi.npc = new LostChild(null,null);
+            eventUi.npc = new Defector();
             this.npc = eventUi.npc;
-        };
+        };*/
         //EventFactory = new MapEventFactory();
         //EventFactory.Create(id);
     }
-
     public void PlaceCard()
     {
             //EventFactory.EventTrig();

@@ -10,7 +10,8 @@ public class NodeEvent : MonoBehaviour//储存地点拥有的事件数据
     public int Day;
     public void EventTrig()
     {
-        MapEventManager.Instance.EffectTrid(EventId);
+        MapEventManager.Instance.EffectEnter(EventId);
+
     }
     private void OnEnable()
     {

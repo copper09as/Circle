@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 6c3ab4f560bda5a4c8a02b50ae4cd8b5
   m_SerializeEntries:
-  - m_GUID: 023f3f8403d56414980e58539a7ee51e
-    m_Address: MapEventPanel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a0e42ed66edf094db8efe13fbf66480
     m_Address: MapNode
     m_ReadOnly: 0
