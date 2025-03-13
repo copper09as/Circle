@@ -17,7 +17,12 @@ public class InnUi : MonoBehaviour
     private void Use()
     {
         if (InventoryManager.Instance.Gold < 60)
+        {
             Debug.Log("Need Gold");
+            return;
+            
+        }
+            
         InventoryManager.Instance.Gold -= 60;
         MapManager.Instance.character.currentHealth += 500;
         EventManager.UpdateMapUi();

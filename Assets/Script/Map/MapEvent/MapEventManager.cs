@@ -24,6 +24,7 @@ public class MapEventManager : SingleTon<MapEventManager>
         {
             npc.TakeDamage(1111);
             EventManager.EventOvr();
+            Debug.Log("ÓÃÓÚ²âÊÔnpcËÀÍö");
         }
     }
     public void EffectTrid(int id)

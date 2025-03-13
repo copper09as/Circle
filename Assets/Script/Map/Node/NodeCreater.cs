@@ -76,6 +76,7 @@ public class NodeCreater : MonoBehaviour
             var nodeTypyFactory = new NodeTypyFactory((NodeStyle)ranstyle, node);
             nodeTypyFactory.AddBuilding();
             node.AddNpc(new BraveNpc("Vans", null));
+            node.AddNpc(new BraveNpc("Majie", null));
         }
         yield return null;
         nodeBuilder.AddEvent();

@@ -21,10 +21,13 @@ namespace Npc
         protected List<itemId> takeItems = new List<itemId>();//Ð¯´øÎïÆ·
         public string description;
         public string imagePath;
-        public Npc(string name,List<itemId> items,int damage,float defeat)
+        public Npc(string name,List<itemId> items,int damage,float defeat, int loveHealth, int Health, float loveDefeat)
         {
             this.npcName = name;
             this.takeItems = items;
+            this.Health = Health;
+            this.loveDefeat = loveDefeat;
+            this.loveHealth = loveHealth;
             this.damage = damage;
             this.defeat = defeat;
             Init();
