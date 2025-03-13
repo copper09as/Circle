@@ -23,7 +23,7 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            npc.TakeDamage(111001);
+            npc.TakeDamage(11);
             Debug.Log("ÓÃÓÚ²âÊÔnpcËÀÍö");
         }
     }

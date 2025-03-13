@@ -9,7 +9,12 @@ public class BraveNpc : Npc.Npc
     {
         this.Health = Random.Range(20, 590);
     }
-
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        MapManager.Instance.character.currentHealth -= 3490;
+        Debug.Log(MapManager.Instance.character.currentHealth);
+    }
     public override void OnAngry()
     {
         throw new System.NotImplementedException();

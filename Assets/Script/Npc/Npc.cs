@@ -49,10 +49,7 @@ namespace Npc
             {
                 OnDead();
                 Debug.Log("dead");
-            }
-            else
-            {
-                Debug.Log("1dead");
+
             }
         }
         public virtual void TakeLove(int loveValue)
