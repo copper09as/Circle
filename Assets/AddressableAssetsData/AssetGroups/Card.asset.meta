@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/AddressableAssetsData/AssetGroups/Card.asset.meta
 guid: 192e5e35a5c0d7242aea6f898f55e5df
 NativeFormatImporter:
+========
+guid: 1488869add749824ab5652059cf3d845
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> 175a0f1e2863181e55f7deb5712a0013e32774cc:Assets/Script/Npc/CommonNpc.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 

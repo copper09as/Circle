@@ -13,7 +13,7 @@ public class ShopSlot : MonoBehaviour, IPointerDownHandler
     {
         var shop = Shop.Instance;
 
-        if (itemData.id == 0) return;
+        if (itemData == null ||itemData.id == 0)  return;
         if (shop.currentState.state != ShopUiState.Main) return;
         shop.selectItem = itemData;
         shop.TransShopState(new BuyState());

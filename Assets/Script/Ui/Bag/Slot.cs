@@ -24,7 +24,7 @@ public class Slot : MonoBehaviour,IPointerDownHandler
     {
         if (State.Instance.currentState != GameState.Shop)
             return;
-        if (itemData.id == 0) return;
+        if (itemData == null ||itemData.id == 0) return;
         if (Shop.Instance.currentState.state != ShopUiState.Main) return;
         Shop.Instance.selectItem = itemData;
         Shop.Instance.TransShopState(new SoldState());
