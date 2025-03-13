@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,16 +32,31 @@ public class SOMatching : EditorWindow
         _selections.Clear();
         ClearEditors();
 
-        // 查找所有SO实例
-        var guids = AssetDatabase.FindAssets($"t:TScriptableObject {_typeFilter}");
+        // 查找所有TScriptableObject实例
+        var guids = AssetDatabase.FindAssets("t:TScriptableObject");
         foreach (var guid in guids)
         {
             var path = AssetDatabase.GUIDToAssetPath(guid);
             var so = AssetDatabase.LoadAssetAtPath<TScriptableObject>(path);
             if (so != null)
             {
-                _allObjects.Add(so);
-                _selections.Add(false);
+                // 应用类型过滤
+                bool shouldAdd = true;
+                if (!string.IsNullOrEmpty(_typeFilter))
+                {
+                    Type filterType = GetFilterType(_typeFilter);
+                    Type objType = so.GetType();
+
+                    shouldAdd = filterType != null ?
+                        filterType.IsAssignableFrom(objType) :
+                        objType.Name.IndexOf(_typeFilter, StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+
+                if (shouldAdd)
+                {
+                    _allObjects.Add(so);
+                    _selections.Add(false);
+                }
             }
         }
 
@@ -47,7 +64,16 @@ public class SOMatching : EditorWindow
         if (_allObjects.Count > 0)
             CachePropertyNames(_allObjects[0]);
     }
-
+    Type GetFilterType(string typeName)
+    {
+        // 在程序集中查找匹配的类型
+        return AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .FirstOrDefault(t =>
+                t.IsSubclassOf(typeof(TScriptableObject)) &&
+                !t.IsAbstract &&
+                t.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase));
+    }
     void CachePropertyNames(ScriptableObject sample)
     {
         _propertyNames.Clear();
