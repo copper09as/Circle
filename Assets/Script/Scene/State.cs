@@ -25,7 +25,8 @@ namespace MainGame
         Event,
         Shop,
         People,
-        Inn
+        Inn,
+        Meditation//冥想（制作法阵）
     }
 }
 

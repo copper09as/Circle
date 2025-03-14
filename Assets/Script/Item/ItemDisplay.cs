@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Image image;
+    public ItemData itemData;
+    public Button Button;
+
+    private void Start()
     {
-        
+        image = GetComponent<Image>();
+        Button = GetComponent<Button>();
+        Button.onClick.AddListener(Use);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Use()
     {
-        
+        itemData.Func();
     }
 }
