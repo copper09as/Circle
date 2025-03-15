@@ -10,9 +10,7 @@ namespace Npc
     {
         public string npcName;
         protected StateMachine machine;
-        [Range(0,999)]
         protected int Health;
-        [Range(0,0.9f)]
         protected float defeat;
         protected float loveDefeat;
         protected int damage;
