@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using MainGame;
-using Npc;
 public class MapNode : MonoBehaviour
 {
     public bool CanGet = true;

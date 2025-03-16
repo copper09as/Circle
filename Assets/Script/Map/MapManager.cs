@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MainGame;
-using System.Runtime.CompilerServices;
-
 public class MapManager : SingleTon<MapManager>
 {
     public Character character;

@@ -13,7 +13,6 @@ public class SceneButton : MonoBehaviour
         changeButton = GetComponent<Button>();
         changeButton.onClick.AddListener(ChangeScene);
     }
-
     private void ChangeScene()
     {
         StartCoroutine(SceneChangeManager.Instance.LoadScene(sceneName,0,true));
