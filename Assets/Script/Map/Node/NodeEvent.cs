@@ -10,6 +10,8 @@ public class NodeEvent : MonoBehaviour//储存地点拥有的事件数据
     public int Day;
     public void EventTrig()
     {
+        Day = 0;
+        Debug.Log(EventId + "事件已结束");
         MapEventManager.Instance.EffectEnter(EventId);
 
     }

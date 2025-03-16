@@ -119,8 +119,7 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
     public void LoadNodeData(NodeCreater nodeCreater)
     {
         if (nodeCreater == null) nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
-        if (nodeData == null)
-            throw new System.Exception("∂¡»°µÿÕº¥Êµµ ß∞‹");
+        Debug.Assert(nodeData != null, "∂¡»°µÿÕº¥Êµµ ß∞‹");
         nodeCreater.isOffest = nodeData.isOffest;
         nodeCreater.NodesOffestX = nodeData.NodesOffestX;
         nodeCreater.NodesOffestY = nodeData.NodesOffestY;
@@ -185,7 +184,6 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
                 var nodeEvent = nodes[i].AddComponent<NodeEvent>();
                 nodeEvent.EventId = eventData.eventId[i];
                 nodeEvent.Day = eventData.eventDay[i];
-
             }
         }
 

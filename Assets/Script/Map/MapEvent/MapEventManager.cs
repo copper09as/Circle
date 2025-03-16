@@ -1,10 +1,11 @@
 using Npc;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
-    public EventData currentEvent;
+
+
+    
     public MapEventUi eventUi;
     public Npc.Npc npc;
     private void OnEnable()
@@ -15,72 +16,39 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         EventManager.eventOver -= EventOver;
     }
-    public EventData FindItem(int id)//根据id返回物品数据
+    public EventData FindEvent(int id)//根据id返回事件数据
     {
         return eventsData.Sheet1.Find(i => i.id == id);
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             npc.TakeDamage(11);
             Debug.Log("用于测试npc死亡");
         }
     }
+    private bool CanFindEvent(int id)
+    {
+        return FindEvent(id) != null;
+    }
+    private void SetEventUi(int id,Npc.Npc npc)//启用事件ui
+    {
+        eventUi.gameObject.SetActive(true);
+        eventUi.eventData = FindEvent(id);
+        eventUi.InitEventUi();
+        eventUi.npc = npc;
+    }
     public void EffectEnter(int id)
     {
-        if (FindItem(id) == null)
-            Debug.LogError("事件id查找失败");
-        eventUi.gameObject.SetActive(true);
-        currentEvent = FindItem(id);
-        eventUi.eventData = FindItem(id);
-        eventUi.InitEventUi();
-        eventUi.npc = new Defector();
+        Debug.Assert(CanFindEvent(id), "事件库无此事件");
+        SetEventUi(id, new Defector());
         this.npc = eventUi.npc;
-     
-       /* Addressables.InstantiateAsync("MapEventPanel").Completed += handle =>
-        {
-            
-            var eventUi = handle.Result.GetComponent<MapEventUi>();
-            currentEvent = FindItem(id);
-            eventUi.eventData = FindItem(id);
-            eventUi.InitEventUi();
-            eventUi.npc = new Defector();
-            this.npc = eventUi.npc;
-        };*/
-        //EventFactory = new MapEventFactory();
-        //EventFactory.Create(id);
     }
     public void PlaceCard()
     {
-            //EventFactory.EventTrig();
-            EventManager.EventOvr();
-
-        /*switch (ValueType)
-        {
-            case "Att": DesEffect(Value,currentEvent.Att);break;
-            case "Ref":RefreshEffect(Value,currentEvent.Reply);break;
-            case "Con":ControlEffect();break;
-        }*/
-    }
-    /*public void DesEffect(int Value,int ValueDemand)
-    {
-        if (ValueDemand == -1) return;
-        MapEventFactory attEventFactory = new MapEventFactory();
-        attEventFactory.Create(currentEvent.id);
-        attEventFactory.EventTrig(Value,ValueDemand);
-        EventManager.EventOvr();
-
-    }
-    public void RefreshEffect(int Value, int ValueDemand)
-    {
-        if (ValueDemand == -1) return;
         EventManager.EventOvr();
     }
-    public void ControlEffect()
-    {
-        EventManager.EventOvr();
-    }*/
     public void SkipEffect()
     {
         EventManager.EventOvr();
@@ -88,6 +56,5 @@ public class MapEventManager : SingleTon<MapEventManager>
     private void EventOver()
     {
         npc = null;
-        currentEvent = null;
     }
 }

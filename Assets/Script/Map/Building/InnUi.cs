@@ -20,7 +20,6 @@ public class InnUi : MonoBehaviour
         {
             Debug.Log("Need Gold");
             return;
-            
         }
             
         InventoryManager.Instance.Gold -= 60;

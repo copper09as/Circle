@@ -8,11 +8,11 @@ public class MapNode : MonoBehaviour
     public bool CanGet = true;
     public bool isLoacte;
     public List<MapNode> adjancentNode = new List<MapNode>();
-    public List<string> npcName;
+    public List<string> npcName;//便于可视化npc
     public List<Npc.Npc> stayNpc = new List<Npc.Npc>();
     private LineRenderer lineRenderer;
     public Vector2Int transPos;
-    public bool collapsed;
+    public bool collapsed;//是否坍缩
     public NodeCreater creater;
     [SerializeField] private Material material;
     private void Awake()
@@ -58,7 +58,7 @@ public class MapNode : MonoBehaviour
     }
     public void AddNpc(Npc.Npc npc)
     {
-        if (npc == null) Debug.LogError("null npc");
+        Debug.Assert(npc != null, "加入节点的npc为空");
         stayNpc.Add(npc);
         npcName.Add(npc.npcName);
     }
@@ -70,10 +70,10 @@ public class MapNode : MonoBehaviour
         adjancentNode.Remove(node);
         node.adjancentNode.Remove(this);
     }
-    public void Enter(bool IsSupper)
+    public void Enter(bool isTrig)
     {
         transform.GetChild(0).gameObject.SetActive(false);
-        if (!IsSupper &&GetComponent<NodeEvent>().Day>0) 
+        if (isTrigEvent(isTrig)) 
             GetComponent<NodeEvent>().EventTrig();
         MapManager.Instance.currentNode = this;
         GetComponent<SpriteRenderer>().color = Color.blue;
@@ -81,6 +81,10 @@ public class MapNode : MonoBehaviour
         {
             node.GetComponent<SpriteRenderer>().color = Color.green;
         }
+    }
+    private bool isTrigEvent(bool isTrig)
+    {
+        return !isTrig && GetComponent<NodeEvent>().Day > 0;
     }
     public void Exit()
     {

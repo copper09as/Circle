@@ -291,10 +291,8 @@ public class NodeCreater : MonoBehaviour
         Queue<Vector2Int> queue = new Queue<Vector2Int>();
         var startNode = nodes.Find(n => n.transPos == position);
         if (startNode == null) return false;
-
         queue.Enqueue(startNode.transPos);
         visited.Add(startNode.transPos);
-
         while (queue.Count > 0)
         {
             var current = queue.Dequeue();
