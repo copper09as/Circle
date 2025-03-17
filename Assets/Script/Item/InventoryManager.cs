@@ -10,6 +10,7 @@ public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
     public List<ItemData> itemData;
     [SerializeField] private NpcItemList npcWareHouse;//Œ¥¿¥ª·∆˙”√
     [SerializeField] private TitleUi titleUi;
+   
     public  int Gold
     {
         get

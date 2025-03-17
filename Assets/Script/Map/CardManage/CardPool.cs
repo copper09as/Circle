@@ -38,4 +38,10 @@ public class CardPool
         card.gameObject.SetActive(!isDestory);
         enterDomain.Add(card);
     }
+    public void CardMove(CardDisplay card)
+    {
+        CardManager.Instance.Hand.Remove(card);
+        CardManager.Instance.Deck.Remove(card);
+        card.DestroySelf();
+    }
 }

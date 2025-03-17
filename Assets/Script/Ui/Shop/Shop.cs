@@ -10,8 +10,10 @@ public class Shop : SingleTon<Shop>
     public Canvas canvas;
     public ShopState currentState;//处理当前状态
     public Bag bag;
+    public float itemDiscount;
     private void Awake()
     {
+        itemDiscount = Random.Range(0.4f, 1.4f);
         if (bag == null)
             bag = GameObject.Find("Bag").GetComponent<Bag>();
         Leave.onClick.AddListener(LeaveShop);
@@ -54,7 +56,7 @@ public class Shop : SingleTon<Shop>
         if (remainingItem >= 0)
         {
             if (!CanBuy(id, itemMount)) return false;
-            InventoryManager.Instance.Gold -= InventoryManager.Instance.FindItem(id).price * itemMount;
+            InventoryManager.Instance.Gold -= (int)(InventoryManager.Instance.FindItem(id).price * itemMount * itemDiscount);
             InventoryManager.Instance.AddItem(id, itemMount);
             if (item.mount - itemMount > 0)
                 item.mount -= itemMount;
@@ -71,7 +73,7 @@ public class Shop : SingleTon<Shop>
     }
     private bool CanBuy(int id, int itemMount)
     {
-        return (InventoryManager.Instance.Gold - InventoryManager.Instance.FindItem(id).price * itemMount >= 0);
+        return (InventoryManager.Instance.Gold - InventoryManager.Instance.FindItem(id).price * itemMount * itemDiscount >= 0);
     }
     public void SoldItem(int mount)
     {

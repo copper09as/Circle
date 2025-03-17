@@ -32,10 +32,11 @@ namespace Npc
         protected virtual void Init()
         {
             machine = new StateMachine();
-            Sad sad = new Sad(machine, this);
+            Sad sad = new Sad(machine, this);//感觉不需要
             Happy happy = new Happy(machine, this);
             machine.Init(sad);
         }
+        protected abstract void Attack();
         public abstract void OnLove();
         public abstract void OnHappy();
         public abstract void OnSad();

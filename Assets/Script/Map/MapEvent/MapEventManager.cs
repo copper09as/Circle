@@ -3,9 +3,6 @@ using UnityEngine;
 public class MapEventManager : SingleTon<MapEventManager>
 {
     public MapEvents eventsData;//所有事件数据
-
-
-    
     public MapEventUi eventUi;
     public Npc.Npc npc;
     private void OnEnable()

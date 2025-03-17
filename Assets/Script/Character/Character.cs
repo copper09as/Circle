@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Character : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     private int _currentHealth;
+    private float defeat = 20;
     [SerializeField] public int currentHealth
     {
         get
@@ -41,5 +43,14 @@ public class Character : MonoBehaviour
     public void SetHealthBar()
     {
         sliderBar.UpdateSliderBar(maxHealth, currentHealth, true);
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= (int)(damage * ((100 - defeat) / 100));
+        if (currentHealth < 0)
+        {
+            Debug.Log("dead");
+        }
+        SetHealthBar();
     }
 }

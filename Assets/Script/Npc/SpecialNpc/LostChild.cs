@@ -34,6 +34,11 @@ namespace Npc
         {
             throw new System.NotImplementedException();
         }
+
+        protected override void Attack()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

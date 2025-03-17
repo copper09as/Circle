@@ -19,19 +19,19 @@ public class CardManager : SingleTon<CardManager>
         handCard = new GameObject
         {
             name = "HandCard"
-            
         };
         handCard.transform.parent = canvas.transform;
         pool = new CardPool();
         //pool.Create();
         foreach(var card in Deck)
         {
-            Instantiate(card, handCard.transform);
-            Hand.Add(card);
+            var insCard = Instantiate(card, handCard.transform);
+            Hand.Add(insCard);
         }
         CardSort();
 
     }
+
     /*private void OnEnable()
     {
         Event.drawCard += DrawCard;
@@ -48,7 +48,7 @@ public class CardManager : SingleTon<CardManager>
         Event.displayCard -= Display;
         Event.turnRefresh -= DrawCard;
     }*/
-    
+
     /*private void Start()
     {
         
@@ -65,6 +65,7 @@ public class CardManager : SingleTon<CardManager>
             float spacing = Mathf.Max(50f, 1200f / (Hand.Count + 1));
             float xPosition = 400 + i * spacing;
             card.transform.position = new Vector2(xPosition, 185);
+            Debug.Log(i);
         }
     }
    private  void ClearHand()

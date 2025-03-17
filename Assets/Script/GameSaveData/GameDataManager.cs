@@ -119,7 +119,7 @@ public class GameDataManager : SingleTon<GameDataManager>,IDestroySelf
     public void LoadNodeData(NodeCreater nodeCreater)
     {
         if (nodeCreater == null) nodeCreater = GameObject.Find("Place").GetComponent<NodeCreater>();
-        Debug.Assert(nodeData != null, "∂¡»°µÿÕº¥Êµµ ß∞‹");
+        //Debug.Assert(nodeData != null, "∂¡»°µÿÕº¥Êµµ ß∞‹");
         nodeCreater.isOffest = nodeData.isOffest;
         nodeCreater.NodesOffestX = nodeData.NodesOffestX;
         nodeCreater.NodesOffestY = nodeData.NodesOffestY;

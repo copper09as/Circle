@@ -45,7 +45,10 @@ namespace Npc
             base.Init();
         }
 
-
+        protected override void Attack()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

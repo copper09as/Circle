@@ -9,4 +9,9 @@ public class Heal : Magic
     {
         //治愈法阵的效果
     }
+
+    protected override bool CanUse()
+    {
+        throw new System.NotImplementedException();
+    }
 }
