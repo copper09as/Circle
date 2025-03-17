@@ -2,15 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Npc.State;
 using UnityEngine;
 namespace Npc
 {
-    public abstract class Npc
+    public abstract class Npc:MonoBehaviour
     {
         public string npcName;
-        protected StateMachine machine;
-        protected int Health;
+       [SerializeField]protected int Health;
         protected float defeat;
         protected float loveDefeat;
         protected int damage;
@@ -18,23 +16,15 @@ namespace Npc
         protected List<itemId> takeItems = new List<itemId>();//携带物品
         public string description;
         public string imagePath;
-        public Npc(string name,List<itemId> items,int damage,float defeat, int loveHealth, int Health, float loveDefeat)
+        private void Awake()
         {
-            this.npcName = name;
-            this.takeItems = items;
-            this.Health = Health;
-            this.loveDefeat = loveDefeat;
-            this.loveHealth = loveHealth;
-            this.damage = damage;
-            this.defeat = defeat;
             Init();
         }
-        protected virtual void Init()
+        public virtual void Init()
         {
-            machine = new StateMachine();
-            Sad sad = new Sad(machine, this);//感觉不需要
-            Happy happy = new Happy(machine, this);
-            machine.Init(sad);
+            this.npcName = "maJie";
+            this.Health = 100;
+            this.defeat = 20;
         }
         protected abstract void Attack();
         public abstract void OnLove();
@@ -42,14 +32,16 @@ namespace Npc
         public abstract void OnSad();
         public abstract void OnDead();
         public abstract void OnAngry();
+        public abstract void AfterBeAttack();
         public virtual void TakeDamage(int damage)
         {
             if(Health - damage*((100-defeat)/100) < 0)
             {
                 OnDead();
                 Debug.Log("dead");
-
+                return;
             }
+            AfterBeAttack();
         }
         public virtual void TakeLove(int loveValue)
         {
@@ -58,6 +50,7 @@ namespace Npc
                 OnLove();
             }
         }
+        public abstract void TakeRefresh(int value);
         public void GetItem(int id,int mount)//获取npc身上物品
         {
             itemId getItem = takeItems.Find(i => (i.id == id) && (i.mount >= mount));
@@ -71,6 +64,7 @@ namespace Npc
             }
         }
     }
+    
 }
 public enum npcType
 { 

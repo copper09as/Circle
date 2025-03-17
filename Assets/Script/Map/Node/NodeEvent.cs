@@ -11,8 +11,7 @@ public class NodeEvent : MonoBehaviour//储存地点拥有的事件数据
     {
         Day = 0;
         Debug.Log(EventId + "事件已结束");
-        MapEventManager.Instance.EffectEnter(EventId);
-
+        MapEventManager.Instance.EffectEnter(EventId,GetComponent<MapNode>());
     }
     private void OnEnable()
     {

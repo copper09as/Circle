@@ -88,12 +88,9 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             float t = elapsed / duration;
             transform.position = Vector2.Lerp(from, to, t);
-
             yield return null;
-
             elapsed += Time.deltaTime;
         }
-
         transform.position = to;
         canDrag = true;
     }

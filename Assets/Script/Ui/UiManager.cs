@@ -41,7 +41,5 @@ public class UiManager : SingleTon<UiManager>
             var canvas = GameObject.Find("Canvas");
             handle.Result.transform.SetParent(canvas.transform, false);
         };
-        
     }
-
 }

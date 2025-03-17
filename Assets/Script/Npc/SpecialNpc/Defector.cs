@@ -5,10 +5,7 @@ namespace Npc
 {
     public class Defector : Npc
     {
-        public Defector() : base("希律王", new List<itemId>(),300, 20,122,400,10)
-        {
-            
-        }
+
         protected override void Attack()
         {
             MapManager.Instance.character.TakeDamage(2111);
@@ -16,10 +13,12 @@ namespace Npc
         public override void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
-            OnSad();
-            Attack();
+
         }
-        
+        public override void TakeLove(int loveValue)
+        {
+            base.TakeLove(loveValue);
+        }
         public override void OnAngry()
         {
             throw new System.NotImplementedException();
@@ -42,6 +41,17 @@ namespace Npc
         public override void OnSad()
         {
             MapEventManager.Instance.eventUi.EventDescription.text = "还是下手了吗，魔法的走狗";
+        }
+
+        public override void TakeRefresh(int value)
+        {
+            return;
+        }
+
+        public override void AfterBeAttack()
+        {
+            OnSad();
+            Attack();
         }
     }
 }

@@ -7,6 +7,7 @@ public class Ruin : Magic
 {
     public override void Fuction(Npc.Npc npc)
     {
+        if (!CanUse()) return;
         base.Fuction(npc);
         npc.TakeDamage(1231);
         //毁灭法阵的效果

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MainGame;
+using Npc;
 public class MapManager : SingleTon<MapManager>
 {
     public Character character;
@@ -15,6 +16,13 @@ public class MapManager : SingleTon<MapManager>
     [SerializeField] private PeopleProPanel peoplePanel;
     [SerializeField] private Button enterNode;
     [SerializeField] private Button peopleProfile;
+    public Dictionary<string, System.Type> npcMap = new Dictionary<string, System.Type>();
+    private void Awake()
+    {
+        npcMap.Add("Defector", typeof(Defector));
+        npcMap.Add("BraveNpc", typeof(BraveNpc));
+        npcMap.Add("LostChild", typeof(LostChild));
+    }
     private void OnEnable()
     {
         EventManager.nextDay += UpdarteDayData;
@@ -26,6 +34,23 @@ public class MapManager : SingleTon<MapManager>
     {
         EventManager.nextDay -= UpdarteDayData;
         EventManager.saveGameData -= SaveNodeEvent;
+    }
+    public Npc.Npc AddNpc(MapNode node, string key)
+    {
+        Npc.Npc npcComponent = null;
+        if (npcMap.TryGetValue(key, out System.Type componentType))
+        {
+            npcComponent = node.gameObject.AddComponent(componentType) as Npc.Npc;
+            if (npcComponent != null)
+            {
+                return npcComponent;
+            }
+        }
+        else
+        {
+            Debug.LogError($"未找到与关键字 '{key}' 关联的组件类型。");
+        }
+        return null;
     }
     private void EnterNode()
     {

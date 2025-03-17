@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Android;
-using Npc.State;
 
 public class Line : MonoBehaviour
 {

@@ -1,14 +1,10 @@
 using System.Collections.Generic;
-using Npc.State;
 using UnityEngine;
 namespace Npc
 {
     public class LostChild : Npc
     {
-        public LostChild(string name,List<itemId>items) : base(name,items,1,1,0,0,0)
-        {
-            
-        }
+
         public override void OnHappy()
         {
             GetItem(1, 2);
@@ -16,10 +12,6 @@ namespace Npc
         public override void OnSad()
         {
             Debug.Log("UnHappy");
-        }
-        protected override void Init()
-        {
-
         }
         public override void OnDead()
         {
@@ -36,6 +28,16 @@ namespace Npc
         }
 
         protected override void Attack()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void TakeRefresh(int value)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void AfterBeAttack()
         {
             throw new System.NotImplementedException();
         }

@@ -7,9 +7,9 @@ public class Heal : Magic
 {
     public override void Fuction(Npc.Npc npc)
     {
-        //治愈法阵的效果
+        npc.TakeRefresh(123);
+        npc.TakeLove(300);
     }
-
     protected override bool CanUse()
     {
         throw new System.NotImplementedException();

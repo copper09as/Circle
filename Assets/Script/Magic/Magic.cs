@@ -10,7 +10,7 @@ public abstract class Magic : TScriptableObject
     public Sprite sprite;
     public virtual void Fuction()
     {
-        if (!CanUse()) return;
+       
     }
     public virtual void Fuction(Npc.Npc npc)
     {

@@ -9,7 +9,6 @@ using UnityEngine;
         [SerializeField] private SliderBar sliderBar;
         [SerializeField] private TMP_Text tipText;
 
-
         [Header("提示文本")]
         public List<string> tips;
         private int curTipIndex = 0;

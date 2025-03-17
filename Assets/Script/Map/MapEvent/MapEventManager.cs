@@ -21,7 +21,7 @@ public class MapEventManager : SingleTon<MapEventManager>
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            npc.TakeDamage(11);
+            npc.TakeDamage(1111);
             Debug.Log("用于测试npc死亡");
         }
     }
@@ -36,10 +36,12 @@ public class MapEventManager : SingleTon<MapEventManager>
         eventUi.InitEventUi();
         eventUi.npc = npc;
     }
-    public void EffectEnter(int id)
+    public void EffectEnter(int id,MapNode node)
     {
         Debug.Assert(CanFindEvent(id), "事件库无此事件");
-        SetEventUi(id, new Defector());
+        var npc = MapManager.Instance.AddNpc(node,"Defector");
+
+        SetEventUi(id, npc);
         this.npc = eventUi.npc;
     }
     public void PlaceCard()
@@ -52,6 +54,6 @@ public class MapEventManager : SingleTon<MapEventManager>
     }
     private void EventOver()
     {
-        npc = null;
+        //npc = null;
     }
 }

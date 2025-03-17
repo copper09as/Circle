@@ -54,8 +54,9 @@ public class MapNode : MonoBehaviour
         adjancentNode.Add(node);
         node.adjancentNode.Add(this);
     }
-    public void AddNpc(Npc.Npc npc)
+    public void AddNpc(string npcTag)//添加NPC
     {
+        var npc = MapManager.Instance.AddNpc(this,npcTag);
         Debug.Assert(npc != null, "加入节点的npc为空");
         stayNpc.Add(npc);
         npcName.Add(npc.npcName);

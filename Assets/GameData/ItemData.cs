@@ -13,11 +13,9 @@ public class ItemData:TScriptableObject
     public Sprite image;
     public string description;
     public int effectId;
-
     public void Func()
     {
         Type targetType = typeof(ItemEfect);
-
         MethodInfo staticMethod = targetType.GetMethod(Name);
         staticMethod.Invoke(null, new object[] {});
     }

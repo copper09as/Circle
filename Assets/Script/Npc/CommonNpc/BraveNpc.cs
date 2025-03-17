@@ -5,10 +5,7 @@ namespace Npc
 {
     public class BraveNpc : Npc
     {
-        public BraveNpc(string name, List<itemId> items) : base(name, items, 1, 1, 0, 0, 0)
-        {
-            this.Health = Random.Range(20, 590);
-        }
+
         public override void TakeDamage(int damage)
         {
             base.TakeDamage(damage);
@@ -19,12 +16,10 @@ namespace Npc
         {
             throw new System.NotImplementedException();
         }
-
         public override void OnDead()
         {
             throw new System.NotImplementedException();
         }
-
         public override void OnHappy()
         {
             throw new System.NotImplementedException();
@@ -39,13 +34,16 @@ namespace Npc
         {
             throw new System.NotImplementedException();
         }
-
-        protected override void Init()
+        protected override void Attack()
         {
-            base.Init();
+            throw new System.NotImplementedException();
         }
 
-        protected override void Attack()
+        public override void TakeRefresh(int value)
+        {
+            throw new System.NotImplementedException();
+        }
+        public override void AfterBeAttack()
         {
             throw new System.NotImplementedException();
         }
