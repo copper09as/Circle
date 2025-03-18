@@ -41,6 +41,16 @@ namespace Npc
         {
             throw new System.NotImplementedException();
         }
+
+        protected override void Init()
+        {
+            return;
+        }
+
+        public override void AfterBeRefresh()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

@@ -39,18 +39,17 @@ public class MapEventManager : SingleTon<MapEventManager>
     public void EffectEnter(int id,MapNode node)
     {
         Debug.Assert(CanFindEvent(id), "事件库无此事件");
-        var npc = MapManager.Instance.AddNpc(node,"Defector");
-
+        var npc = node.AddNpc(FindEvent(id).NpcTag);
         SetEventUi(id, npc);
         this.npc = eventUi.npc;
     }
     public void PlaceCard()
     {
-        EventManager.EventOvr();
+        EventManager.EventOver();
     }
     public void SkipEffect()
     {
-        EventManager.EventOvr();
+        EventManager.EventOver();
     }
     private void EventOver()
     {

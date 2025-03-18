@@ -24,7 +24,7 @@ public static class EventManager
     public static void UpdateSlotUi() => updateSlotUi?.Invoke();
 
     public static event Action eventOver;//包含清除当前触发事件；摧毁事件ui的效果
-    public static void EventOvr() => eventOver?.Invoke();
+    public static void EventOver() => eventOver?.Invoke();
 
     public static event Action saveGameData;//保存物品数据,天数数据
     public static void SaveGameData() => saveGameData?.Invoke();

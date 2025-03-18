@@ -25,7 +25,7 @@ namespace Npc
         }
         public override void OnDead()
         {
-            MapEventManager.Instance.eventUi.EventDescription.text = "我曾幻想过，世界上再也没有魔法，所有人都可以平等的活下去";
+            ChangeText("我曾幻想过，世界上再也没有魔法，所有人都可以平等的活下去");
             InventoryManager.Instance.Gold += 293;
         }
         public override void OnHappy()
@@ -40,7 +40,7 @@ namespace Npc
 
         public override void OnSad()
         {
-            MapEventManager.Instance.eventUi.EventDescription.text = "还是下手了吗，魔法的走狗";
+            MapEventManager.Instance.eventUi.EventDescription.text = "魔法因何而生呢";
         }
 
         public override void TakeRefresh(int value)
@@ -52,6 +52,16 @@ namespace Npc
         {
             OnSad();
             Attack();
+        }
+
+        public override void AfterBeRefresh()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected override void Init()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

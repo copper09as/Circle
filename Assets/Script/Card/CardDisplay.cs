@@ -67,6 +67,8 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 magic.Fuction(MapEventManager.Instance.npc);
                 Debug.Log("¿¨ÅÆ´¥·¢");
                 CardManager.Instance.pool.CardMove(this);
+                CardManager.Instance.CardSort();
+                //EventManager.EventOver();
                 return;
             }
         }

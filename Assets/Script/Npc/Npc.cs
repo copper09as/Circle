@@ -20,12 +20,7 @@ namespace Npc
         {
             Init();
         }
-        public virtual void Init()
-        {
-            this.npcName = "maJie";
-            this.Health = 100;
-            this.defeat = 20;
-        }
+        protected abstract void Init();
         protected abstract void Attack();
         public abstract void OnLove();
         public abstract void OnHappy();
@@ -33,6 +28,12 @@ namespace Npc
         public abstract void OnDead();
         public abstract void OnAngry();
         public abstract void AfterBeAttack();
+
+        protected void ChangeText(string text)
+        {
+            MapEventManager.Instance.eventUi.EventDescription.text = text;
+        }
+        public abstract void AfterBeRefresh();
         public virtual void TakeDamage(int damage)
         {
             if(Health - damage*((100-defeat)/100) < 0)
@@ -50,7 +51,13 @@ namespace Npc
                 OnLove();
             }
         }
-        public abstract void TakeRefresh(int value);
+        public virtual void TakeRefresh(int value)
+        {
+            if(value >= Health/2)
+            {
+                AfterBeRefresh();
+            }
+        }
         public void GetItem(int id,int mount)//获取npc身上物品
         {
             itemId getItem = takeItems.Find(i => (i.id == id) && (i.mount >= mount));

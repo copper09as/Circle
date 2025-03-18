@@ -54,12 +54,13 @@ public class MapNode : MonoBehaviour
         adjancentNode.Add(node);
         node.adjancentNode.Add(this);
     }
-    public void AddNpc(string npcTag)//添加NPC
+    public Npc.Npc AddNpc(string npcTag)//添加NPC
     {
         var npc = MapManager.Instance.AddNpc(this,npcTag);
         Debug.Assert(npc != null, "加入节点的npc为空");
         stayNpc.Add(npc);
         npcName.Add(npc.npcName);
+        return npc;
     }
     public void RemoveAdj(MapNode node)//移除目标节点
     {

@@ -56,7 +56,7 @@ public class CardManager : SingleTon<CardManager>
         Event.DrawCard(MagicNumber.initDrawNumber);//³é¿¨
 
     }*/
-    private void CardSort()
+    public void CardSort()
     {
         for(int i = 0;i< Hand.Count;i++)
         {

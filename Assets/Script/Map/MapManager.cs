@@ -22,6 +22,8 @@ public class MapManager : SingleTon<MapManager>
         npcMap.Add("Defector", typeof(Defector));
         npcMap.Add("BraveNpc", typeof(BraveNpc));
         npcMap.Add("LostChild", typeof(LostChild));
+        npcMap.Add("Wizza", typeof(Wizza));
+        npcMap.Add("Lost", typeof(Lost));
     }
     private void OnEnable()
     {
