@@ -28,13 +28,12 @@ public class GainMagic:MonoBehaviour
         else
         { Debug.Log("未找到Card预制体"); return null; }
     }
-    public static async void GainCard(string magicName, GameObject Parent)//获取卡牌
+    public static async Task GainCard(string magicName, GameObject Parent)//获取卡牌
     {
-        GameObject card=await LoadCardPrefabAsync(Parent);
+        GameObject card = await LoadCardPrefabAsync(Parent);
         CardDisplay display = card.GetComponent<CardDisplay>();
         //赋值SO
         display.magic = await GainSO(magicName);
-
         display.Refresh();
         //对卡牌显示层进行刷新
     }

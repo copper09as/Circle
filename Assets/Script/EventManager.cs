@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 public static class EventManager
 {
-    public static event Action updateMapUi;//刷新移动力文本以及天数文本
+    public static event Action updateMapUi;//刷新移动力文本，天数文本，金钱文本
     public static void UpdateMapUi() => updateMapUi?.Invoke();
 
     public static event Action nextDay;//移动力回复，天数加一，所有事件存在天数减一

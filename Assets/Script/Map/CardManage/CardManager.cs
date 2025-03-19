@@ -13,7 +13,7 @@ public class CardManager : SingleTon<CardManager>
     public List<CardDisplay> Deck = new List<CardDisplay>();
     public List<CardDisplay> Hand = new List<CardDisplay>();
 
-    private void Awake()
+    private async void Awake()
     {
         canvas = GameObject.Find("Canvas");
         handCard = new GameObject
@@ -23,13 +23,15 @@ public class CardManager : SingleTon<CardManager>
         handCard.transform.parent = canvas.transform;
         pool = new CardPool();
         //pool.Create();
-        foreach(var card in Deck)
-        {
-            var insCard = Instantiate(card, handCard.transform);
-            Hand.Add(insCard);
-        }
-        CardSort();
 
+        for (int i = 0; i < 10; i++)
+        {
+            var a = Random.Range(0, 2);
+            if (a == 0) await GainMagic.GainCard("Heal", handCard);
+            else await GainMagic.GainCard("Ruin", handCard);
+        }
+
+        CardSort();
     }
 
     /*private void OnEnable()

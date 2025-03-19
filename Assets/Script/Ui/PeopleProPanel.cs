@@ -20,7 +20,7 @@ public class PeopleProPanel : MonoBehaviour
     {
         for(int i = 0;i<MapManager.Instance.currentNode.stayNpc.Count;i++)
         {
-            slots[i].UpdatePro(null, MapManager.Instance.currentNode.stayNpc[i].npcName);
+            slots[i].UpdatePro(MapManager.Instance.currentNode.stayNpc[i]);
         }
     }
     void Hide()

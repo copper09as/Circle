@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u6BC1\u706D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6b909d60bf348e04f8f25f02a157703c, type: 2}
-  m_sharedMaterial: {fileID: -7284024740578214363, guid: 6b909d60bf348e04f8f25f02a157703c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3bd21f304e77db54eb98a1f35f6a2680, type: 2}
+  m_sharedMaterial: {fileID: -3509209986637506031, guid: 3bd21f304e77db54eb98a1f35f6a2680, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

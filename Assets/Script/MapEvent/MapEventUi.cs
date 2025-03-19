@@ -14,24 +14,32 @@ public class MapEventUi : MonoBehaviour
     public TextMeshProUGUI EventPro;//事件数值显示
     public Npc.Npc npc;
     [SerializeField] private Button SkipButton;
+    [SerializeField] private Button CloseButton;
     private void OnEnable()
     {
         State.Instance.currentState = GameState.Event;
-        EventManager.eventOver += Exit;
+        EventManager.eventOver += EventClose;
+        CloseButton.onClick.AddListener(Skip);
+        CloseButton.gameObject.SetActive(false);
     }
     private void OnDisable()
     {
+        CloseButton.onClick.RemoveListener(Skip);
         State.Instance.currentState = GameState.Map;
-        EventManager.eventOver -= Exit;
+        EventManager.eventOver -= EventClose;
     }
     private void Start()
     {
-        SkipButton.onClick.AddListener(Skip);
+        //SkipButton.onClick.AddListener(Skip);
     }
     private void Skip()
     {
         MapEventManager.Instance.SkipEffect();
         Exit();
+    }
+    private void EventClose()
+    {
+        CloseButton.gameObject.SetActive(true);
     }
     private void Exit()
     {

@@ -18,12 +18,13 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void Start()
     {
-        Refresh();
+        //Refresh();
     }
     public void Refresh()
     {
         if (magic == null)
             magic = new Ruin();
+        CardManager.Instance.Hand.Add(this);
         cardName = magic.MagicName;
         cardType = magic.MagicType;
         Text.text = cardName;
@@ -55,6 +56,12 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerUp(PointerEventData eventData)
     {
         if (!canDrag) return;
+        if (MapEventManager.Instance.eventOver)
+        {
+            isDrag = false;
+            CardMove(transform.position, initPosition, 0.5f);
+            return;
+        }
         isDrag = false;
         PointerEventData SaveMousePosition = new PointerEventData(EventSystem.current);
         SaveMousePosition.position = Input.mousePosition;
@@ -68,7 +75,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 Debug.Log("¿¨ÅÆ´¥·¢");
                 CardManager.Instance.pool.CardMove(this);
                 CardManager.Instance.CardSort();
-                //EventManager.EventOver();
+                EventManager.EventOver();
                 return;
             }
         }

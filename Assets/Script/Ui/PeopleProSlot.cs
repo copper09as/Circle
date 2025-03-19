@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Npc;
+using UnityEngine.EventSystems;
+public class PeopleProSlot : MonoBehaviour,IPointerDownHandler
 
-public class PeopleProSlot : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI peopleName;
-    public void UpdatePro(Sprite sprite,string name)
+    public Npc.Npc npc;
+    public void UpdatePro(Npc.Npc npc)
     {
-        image.sprite = sprite;
-        peopleName.text = name;
+        this.npc = npc;
+        peopleName.text = npc.npcName;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log(npc.npcName);
     }
 }
