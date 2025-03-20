@@ -66,7 +66,7 @@ public class Shop : SingleTon<Shop>
         //{
             if (itemMount == 0) return false;
             if (!CanBuy(id, itemMount)) return false;
-            InventoryManager.Instance.Gold -= (int)(InventoryManager.Instance.FindItem(id).price * itemMount * GetDiscount(id));
+            InventoryManager.Instance.Gold -= (int)(InventoryManager.Instance.FindItem(id).price * GetDiscount(id)) * itemMount;
             InventoryManager.Instance.AddItem(id, itemMount);
         //if (item.mount - itemMount > 0)
         //item.mount -= itemMount;
@@ -83,7 +83,10 @@ public class Shop : SingleTon<Shop>
     }
     private bool CanBuy(int id, int itemMount)
     {
-        return (InventoryManager.Instance.Gold - InventoryManager.Instance.FindItem(id).price * itemMount * GetDiscount(id) >= 0);
+        Debug.Log(InventoryManager.Instance.Gold);
+        Debug.Log((int)(InventoryManager.Instance.FindItem(id).price * GetDiscount(id)) * itemMount);
+        Debug.Log(InventoryManager.Instance.Gold - (int)(InventoryManager.Instance.FindItem(id).price  * GetDiscount(id)) * itemMount >= 0);
+        return (InventoryManager.Instance.Gold - (int)(InventoryManager.Instance.FindItem(id).price* GetDiscount(id)) * itemMount >= 0);
     }
     public void SoldItem(int mount)
     {
@@ -91,7 +94,7 @@ public class Shop : SingleTon<Shop>
         int id = selectItem.id;
         var item = bag.items.Find(i => i.id == id);
         if (!CanSold(item.mount, mount)) return;
-        InventoryManager.Instance.Gold += (int)(0.8f*InventoryManager.Instance.FindItem(id).price * mount * GetDiscount(id));
+        InventoryManager.Instance.Gold += (int)(0.8f*InventoryManager.Instance.FindItem(id).price * GetDiscount(id)) * mount;
         bag.RemoveItem(id, mount);
         EventManager.UpdateSlotUi();
         EventManager.UpdateMapUi();
