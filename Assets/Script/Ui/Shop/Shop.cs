@@ -83,9 +83,6 @@ public class Shop : SingleTon<Shop>
     }
     private bool CanBuy(int id, int itemMount)
     {
-        Debug.Log(InventoryManager.Instance.Gold);
-        Debug.Log((int)(InventoryManager.Instance.FindItem(id).price * GetDiscount(id)) * itemMount);
-        Debug.Log(InventoryManager.Instance.Gold - (int)(InventoryManager.Instance.FindItem(id).price  * GetDiscount(id)) * itemMount >= 0);
         return (InventoryManager.Instance.Gold - (int)(InventoryManager.Instance.FindItem(id).price* GetDiscount(id)) * itemMount >= 0);
     }
     public void SoldItem(int mount)

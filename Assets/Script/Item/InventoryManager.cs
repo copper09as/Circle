@@ -36,7 +36,7 @@ public class InventoryManager : SingleTon<InventoryManager>,IDestroySelf
     private void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
-        EventManager.updateSlotUi += SaveBagData;
+        //EventManager.updateSlotUi += SaveBagData;
         EventManager.saveGameData += SaveBagData;
         items = saveData.items;
         Gold = saveData.Gold;
