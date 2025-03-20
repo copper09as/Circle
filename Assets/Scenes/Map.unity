@@ -2625,27 +2625,27 @@ MonoBehaviour:
     nodeRange: 0
     initNodePos: {x: 0, y: 0}
   NodeScale: 0
-  DeleteCount: 1
+  DeleteCount: 9
   lonelyDec: 0
   isRound: 1
   nodes: []
   collapsedNodes: []
-  isMagicCity: 0
+  isMagicCity: 1
   magicCityDis: 2
   isLonely: 0
   maxAdjNode: 6
   minAdjNode: 1
   maxAdj: 6
   minAdj: -1
-  MapSeed: 24274
-  NodeWidth: 4
-  NodeHeight: 4
+  MapSeed: 24734
+  NodeWidth: 9
+  NodeHeight: 8
   NodesOffestX: -18.7
   NodesOffestY: 4
   isOffest: 1
   NodeX: 2
   NodeY: 2
-  nodeRange: 14
+  nodeRange: 15.8
   initNodePos: {x: 0, y: 0}
 --- !u!1 &1123669891
 GameObject:
