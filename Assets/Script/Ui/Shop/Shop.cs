@@ -64,6 +64,7 @@ public class Shop : SingleTon<Shop>
         //int remainingItem = item.mount - itemMount;
         //if (remainingItem >= 0)
         //{
+            if (itemMount == 0) return false;
             if (!CanBuy(id, itemMount)) return false;
             InventoryManager.Instance.Gold -= (int)(InventoryManager.Instance.FindItem(id).price * itemMount * GetDiscount(id));
             InventoryManager.Instance.AddItem(id, itemMount);
@@ -86,6 +87,7 @@ public class Shop : SingleTon<Shop>
     }
     public void SoldItem(int mount)
     {
+        if (mount == 0) return; 
         int id = selectItem.id;
         var item = bag.items.Find(i => i.id == id);
         if (!CanSold(item.mount, mount)) return;

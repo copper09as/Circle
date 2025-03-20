@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class SoldUi : MonoBehaviour
 {
-    public TextMeshProUGUI priceText;
+    //public TextMeshProUGUI priceText;
     [SerializeField] Button SoldButton;
     [SerializeField] Button CancleButton;
+    [SerializeField] SliderUi slider;
     public Image itemImage;
     private void Start()
     {
@@ -17,7 +18,7 @@ public class SoldUi : MonoBehaviour
     }
     private void OnSold()
     {
-        Shop.Instance.SoldItem(1);
+        Shop.Instance.SoldItem(slider.number);
         Shop.Instance.selectItem = null;
         Shop.Instance.TransShopState(new ShopNormalState());
         Destroy(gameObject);
@@ -27,5 +28,12 @@ public class SoldUi : MonoBehaviour
         Shop.Instance.selectItem = null;
         Shop.Instance.TransShopState(new ShopNormalState());
         Destroy(gameObject);
+    }
+    public int MaxSold(int price)
+    {
+        int number = Shop.Instance.bag.items.Find(i => i.id == Shop.Instance.selectItem.id).mount;
+        slider.Init(number,price);
+        //priceText.text = (price * number).ToString();
+        return number;
     }
 }

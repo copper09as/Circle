@@ -11,15 +11,16 @@ public class BuyState : ShopState
     {
         base.Enter();
         var shop = Shop.Instance;
+        int price = (int)(shop.selectItem.price * shop.GetDiscount(shop.selectItem.id));
         Addressables.InstantiateAsync("Buy").Completed += handle =>
         {
             handle.Result.transform.SetParent(shop.canvas.transform, false);
-            handle.Result.GetComponent<BuyUi>().priceText.text =((int)((shop.selectItem.price*shop.GetDiscount(shop.selectItem.id)))).ToString();
+            //handle.Result.GetComponent<BuyUi>().priceText.text =price.ToString();
+            int number = handle.Result.GetComponent<BuyUi>().MaxBuy(price);
             //handle.Result.GetComponent<BuyUi>().itemImage.sprite = shop.selectItem.sprite;
         };
         
     }
-
     public override void Exit()
     {
         base.Exit();
