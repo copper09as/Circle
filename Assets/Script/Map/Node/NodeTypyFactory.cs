@@ -30,6 +30,10 @@ public class NodeTypyFactory
                 mapNode.AddComponent<BuildingInn>(); 
                 mapManager.InnNodes.Add(mapNode);
                 break;
+            case NodeStyle.MagicManager:
+                mapNode.AddComponent<BuildingMagicManager>();
+                mapManager.SpecialNodes.Add(mapNode);
+                break;
         }
     }
 

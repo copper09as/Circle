@@ -79,7 +79,7 @@ public class CardDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 return;
             }
         }
-        CardMove(transform.position, initPosition, 0.5f);
+        CardMove(transform.position, initPosition, 0.1f);
     }
     public void CardMove(Vector2 from, Vector2 to, float duration)
     {

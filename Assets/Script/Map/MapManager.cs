@@ -12,6 +12,7 @@ public class MapManager : SingleTon<MapManager>
     public List<MapNode> ShrineNodes;
     public List<MapNode> InnNodes;
     public List<MapNode> ShopNodes;
+    public List<MapNode> SpecialNodes;
     public NodeCreater creater;
     [SerializeField] private PeopleProPanel peoplePanel;
     [SerializeField] private Button enterNode;
@@ -133,6 +134,7 @@ public enum NodeStyle
     Shrine,
     Shop,
     Inn,
-    City
+    City,
+    MagicManager
 }
 

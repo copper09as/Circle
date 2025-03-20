@@ -393,7 +393,6 @@ MonoBehaviour:
   - {fileID: 2044145134}
   - {fileID: 240650152}
   - {fileID: 95369905}
-  items: []
   selectItem: {fileID: 0}
   canvas: {fileID: 1008866654}
   bag: {fileID: 594565308}
@@ -707,7 +706,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1 &1049219599
 GameObject:

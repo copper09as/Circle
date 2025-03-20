@@ -67,15 +67,16 @@ public class Shop : SingleTon<Shop>
             if (!CanBuy(id, itemMount)) return false;
             InventoryManager.Instance.Gold -= (int)(InventoryManager.Instance.FindItem(id).price * itemMount * GetDiscount(id));
             InventoryManager.Instance.AddItem(id, itemMount);
-            //if (item.mount - itemMount > 0)
-                //item.mount -= itemMount;
-            //else
-            //{
-                //items.Remove(item);
-               //slots[items.Count].ClearData();
-            //}
-            EventManager.UpdateSlotUi();
-            return true;
+        //if (item.mount - itemMount > 0)
+        //item.mount -= itemMount;
+        //else
+        //{
+        //items.Remove(item);
+        //slots[items.Count].ClearData();
+        //}
+        EventManager.UpdateSlotUi();
+        EventManager.UpdateMapUi();
+        return true;
         //}
         //return false;
     }
@@ -88,7 +89,7 @@ public class Shop : SingleTon<Shop>
         int id = selectItem.id;
         var item = bag.items.Find(i => i.id == id);
         if (!CanSold(item.mount, mount)) return;
-        InventoryManager.Instance.Gold += (int)(InventoryManager.Instance.FindItem(id).price * mount * GetDiscount(id));
+        InventoryManager.Instance.Gold += (int)(0.8f*InventoryManager.Instance.FindItem(id).price * mount * GetDiscount(id));
         bag.RemoveItem(id, mount);
         EventManager.UpdateSlotUi();
         EventManager.UpdateMapUi();

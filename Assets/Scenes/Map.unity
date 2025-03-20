@@ -1760,6 +1760,7 @@ MonoBehaviour:
   ShrineNodes: []
   InnNodes: []
   ShopNodes: []
+  SpecialNodes: []
   creater: {fileID: 1122436650}
   peoplePanel: {fileID: 386147926}
   enterNode: {fileID: 1309319560}
@@ -2636,7 +2637,7 @@ MonoBehaviour:
   minAdjNode: 1
   maxAdj: 6
   minAdj: -1
-  MapSeed: 22655
+  MapSeed: 24274
   NodeWidth: 4
   NodeHeight: 4
   NodesOffestX: -18.7
@@ -2981,6 +2982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventsData: {fileID: 11400000, guid: cca5d11b72c6a6045b34a918c237cd8a, type: 2}
   eventUi: {fileID: 766970954}
+  eventOver: 0
   npc: {fileID: 0}
 --- !u!1 &1439761396
 GameObject:

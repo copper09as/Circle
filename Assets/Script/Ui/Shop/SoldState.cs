@@ -16,7 +16,7 @@ public class SoldState : ShopState
         Addressables.InstantiateAsync("Sold").Completed += handle =>
         {
             handle.Result.transform.SetParent(shop.canvas.transform, false);
-            handle.Result.GetComponent<SoldUi>().priceText.text = ((int)(shop.selectItem.price * shop.GetDiscount(shop.selectItem.id))).ToString();
+            handle.Result.GetComponent<SoldUi>().priceText.text = ((int)(0.8f*shop.selectItem.price * shop.GetDiscount(shop.selectItem.id))).ToString();
             //handle.Result.GetComponent<SoldUi>().itemImage.sprite = shop.selectItem.sprite;
         };
     }
