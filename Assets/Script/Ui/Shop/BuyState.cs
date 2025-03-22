@@ -11,7 +11,7 @@ public class BuyState : ShopState
     {
         base.Enter();
         var shop = Shop.Instance;
-        int price = (int)(shop.selectItem.price * shop.GetDiscount(shop.selectItem.id));
+        int price = (int)(shop.selectItem.price * shop.GetDiscount(shop.selectItem.id,shop.discounts));
         Addressables.InstantiateAsync("Buy").Completed += handle =>
         {
             handle.Result.transform.SetParent(shop.canvas.transform, false);
