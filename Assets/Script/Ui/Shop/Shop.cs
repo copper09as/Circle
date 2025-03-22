@@ -35,20 +35,24 @@ public class Shop : SingleTon<Shop>
     }
     private void UpdateShopSlotUi()
     {
-
         for (int i = 0; i < slots.Count; i++)
         {
-            int itemId = UnityEngine.Random.Range(1, 6);
-            var item = InventoryManager.Instance.FindItem(itemId);
-            //slots[i].Mount = items[i].mount;
-            slots[i].itemData = item;
-            slots[i].GetComponent<Image>().sprite = item.image;
-            //slots[i].mountText.text = slots[i].Mount.ToString();
-        }
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].itemData != null && !discounts.ContainsKey(slots[i].itemData.id))
-                discounts.Add(slots[i].itemData.id, UnityEngine.Random.Range(0.4f, 2.0f));
+            int itemId = UnityEngine.Random.Range(1, 6); // 随机生成物品ID
+            var item = InventoryManager.Instance.FindItem(itemId); // 查找物品
+            if (item != null)
+            {
+                slots[i].itemData = item;
+                slots[i].GetComponent<Image>().sprite = item.image;
+                if (!discounts.ContainsKey(item.id))
+                {
+                    discounts.Add(item.id, UnityEngine.Random.Range(0.4f, 2.0f));
+                }
+            }
+            else
+            {
+                slots[i].itemData = null;
+                slots[i].GetComponent<Image>().sprite = null;
+            }
         }
         EventManager.UpdateMapUi();
     }
@@ -95,18 +99,25 @@ public class Shop : SingleTon<Shop>
     }
     public int GetPrice(int id, int itemMount, Func<int, Dictionary<int, float>, float> GetDiscount, float initDiscount)
     {
+        var item = InventoryManager.Instance.FindItem(id);
+        if (item == null)
+        {
+            throw new ArgumentNullException(nameof(id), "Item not found.");
+        }
         return (int)(initDiscount * InventoryManager.Instance.FindItem(id).price * GetDiscount(id, discounts)) * itemMount;
     }
-    private Func<int,int,int,bool> CanBuy
-        = (id, itemMount,price)
-        => itemMount != 0 && ((InventoryManager.Instance.Gold - price)*itemMount >= 0);
+    private readonly Func<int, int, int, bool> CanBuy
+        = (id, itemMount, price)
+        => itemMount != 0 && ((InventoryManager.Instance.Gold - price) * itemMount >= 0);
 
-    public Func<int, Dictionary<int, float>, float> GetDiscount 
-        = (id, dic) 
-        => dic.ContainsKey(id) ? 1f : dic[id];
+    public readonly Func<int, Dictionary<int, float>, float> GetDiscount
+        = (id, dic)
+        => dic.TryGetValue(id, out var discount) ? discount : 1f;
 
-    private Func<int, int,bool> CanSold
-        = (mount,soldMount) 
-        => soldMount != 0&&(mount - soldMount >= 0);
+    private readonly Func<int, int, bool> CanSold
+        = (mount, soldMount)
+        => soldMount != 0 && (mount - soldMount >= 0);
+
+
 }
 
